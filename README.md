@@ -1,0 +1,1 @@
+# Blockly contract edition for niagara-lang
