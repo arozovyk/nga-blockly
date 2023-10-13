@@ -22,10 +22,57 @@ const outputDiv = document.getElementById("output");
 const blocklyDiv = document.getElementById("blocklyDiv");
 
 const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-<block type="context">
-  <field name="context_domain">Territoire</field>
-</block>
-<block type="operation" editable="false">
+<category name="contexts">
+<block type="territoire_domain" ></block>
+<block type="support_domain" ></block>
+<block type="secteur_domain" ></block>
+<block type="support_cases" ></block>
+<block type="secteur_cases" ></block>
+<block type="territory_cases" ></block>
+  
+</category>
+<category name="operation">
+  <block type="operation">
+    <field name="sur_assiette">les_productions_du_chameau</field>
+    <value name="operation">
+      <block type="text">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+  </block>
+</category>
+<category name="corps">
+<block type="avant" ></block>
+<block type="apres" ></block>
+  <block type="text">
+    <field name="TEXT"></field>
+  </block>
+  <block type="math_arithmetic">
+    <field name="OP">ADD</field>
+    <value name="A">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="B">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+<category name="evenements">
+
+<block type="event">
+ </block>
+</category>
+
+</xml>`;
+const toolbox2 = `<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+ 
+
+
+<block type="operation" >
   <value name="operation">
     <block type="text" deletable="false" movable="false" >
       <field name="TEXT"></field>
