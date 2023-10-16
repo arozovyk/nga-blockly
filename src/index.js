@@ -100,6 +100,8 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
   <block type="dest_pool_context"></block>
   <block type="entree"></block>
   <block type="entree_value"></block>
+  <block type="constant"></block>
+  <block type="monetary"></block>
 </category>
 
 <category name="Logic">

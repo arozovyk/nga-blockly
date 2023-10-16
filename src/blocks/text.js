@@ -286,7 +286,28 @@ const event = {
 
 const individu = {
   type: "individu",
-  message0: "Individu %1 label(?) %2",
+  message0: "Individu %1 ",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        ["les_productions_du_chameau", "les_productions_du_chameau"],
+        ["distributeur_du_desert", "distributeur_du_desert"],
+        ["vendeur_scorpion", "vendeur_scorpion"],
+        ["dromadaire_film", "dromadaire_film"],
+        ["barbie", "barbie"],
+      ],
+    },
+  ],
+  output: null,
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
+const individu_label = {
+  type: "individu",
+  message0: "Individu %1 label %2",
   args0: [
     {
       type: "field_dropdown",
@@ -532,6 +553,45 @@ const dest_pool_context = {
   tooltip: "",
   helpUrl: "",
 };
+
+const constante = {
+  type: "constant",
+  message0: "Constante %1",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        [
+          "minimum_garanti_distributeur_du_desert",
+          "minimum_garanti_distributeur_du_desert",
+        ],
+        ["risque_prod", "risque_prod"],
+      ],
+    },
+  ],
+  output: null,
+  colour: 225,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const monant = {
+  type: "monetary",
+  message0: "Montant %1 €",
+  args0: [
+    {
+      type: "field_input",
+      name: "NAME",
+      text: "0",
+    },
+  ],
+  output: null,
+  colour: 225,
+  tooltip: "",
+  helpUrl: "",
+};
+
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   operation,
   context,
@@ -546,6 +606,7 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   event,
   quotepart,
   individu,
+  individu_label,
   dest_pool,
   label,
   quand,
@@ -554,5 +615,7 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   bonus,
   entree,
   entree_value,
-  dest_pool_context
+  dest_pool_context,
+  constante,
+  monant,
 ]);

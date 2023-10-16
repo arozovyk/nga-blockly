@@ -73,8 +73,8 @@
 
   <category name="Entrées ">
     <block type="individu"></block>
+    <block type="individu_label"></block>
     <block type="label"></block>
-
     <block type="dest_pool"></block>
     <block type="dest_pool_context"></block>
     <block type="entree"></block>
