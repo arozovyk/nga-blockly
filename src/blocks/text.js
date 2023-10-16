@@ -63,7 +63,7 @@ const context = {
     {
       type: "input_statement",
       name: "NAME",
-      check: ["territoire_cases", "support_cases", "secteur_cases"],
+      check: ["territory_cases", "support_cases", "secteur_cases"],
     },
   ],
   previousStatement: null,
@@ -75,11 +75,11 @@ const context = {
 
 const territory_cases = {
   type: "territory_cases",
-  message0: "territoire_cases %1",
+  message0: "territory_cases %1",
   args0: [
     {
       type: "field_dropdown",
-      name: "territoire_cases",
+      name: "territory_cases",
       options: [
         ["France", "France"],
         ["Etranger", "Etranger"],
@@ -89,7 +89,7 @@ const territory_cases = {
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 230,
+  colour: 260,
   tooltip: "",
   helpUrl: "",
 };
@@ -111,7 +111,7 @@ const support_cases = {
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 230,
+  colour: 300,
   tooltip: "",
   helpUrl: "",
 };
@@ -131,7 +131,7 @@ const secteur_cases = {
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 230,
+  colour: 65,
   tooltip: "",
   helpUrl: "",
 };
@@ -145,8 +145,8 @@ const territoire_domain = {
     },
     {
       type: "input_statement",
-      name: "NAME",
-      check: "territoire_cases",
+      name: "territory_cases",
+      check: "territory_cases",
     },
   ],
   previousStatement: null,
@@ -164,7 +164,7 @@ const support_domain = {
     },
     {
       type: "input_statement",
-      name: "NAME",
+      name: "support_cases",
       check: "support_cases",
     },
   ],
@@ -183,7 +183,7 @@ const secteur_domain = {
     },
     {
       type: "input_statement",
-      name: "NAME",
+      name: "secteur_cases",
       check: "secteur_cases",
     },
   ],
@@ -196,33 +196,69 @@ const secteur_domain = {
 
 const avant = {
   type: "avant",
-  message0: "avant évènement %1",
+  message0: "avant évènement %1 %2",
   args0: [
     {
       type: "input_value",
-      name: "avant event",
-      check: "event",
+      name: "event_name",
+    },
+    {
+      type: "input_statement",
+      name: "avant_body",
+      check: ["quotepart", "bonus"],
     },
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 230,
+  colour: 120,
   tooltip: "",
   helpUrl: "",
 };
+
+const quotepart  = {
+  "type": "quotepart",
+  "message0": "quotepart %1 %% vers %2",
+  "args0": [
+    {
+      "type": "field_number",
+      "name": "NAME",
+      "value": 0
+    },
+    {
+      "type": "input_value",
+      "name": "dest",
+      "check": [
+        "pool",
+        "actor",
+        "custom_dest"
+      ]
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 65,
+  "tooltip": "",
+  "helpUrl": ""
+}
+
+
 const apres = {
   type: "apres",
-  message0: "apres évènement %1",
+  message0: "apres évènement %1 %2",
   args0: [
     {
       type: "input_value",
-      name: "apres event",
-      check: "event",
+      name: "event_name",
+    },
+    {
+      type: "input_statement",
+      name: "apres_body",
+      check: ["quotepart", "bonus"],
     },
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 230,
+  colour: 330,
   tooltip: "",
   helpUrl: "",
 };
@@ -245,7 +281,7 @@ const event = {
     },
   ],
   output: null,
-  colour: 230,
+  colour: 210,
   tooltip: "",
   helpUrl: "",
 };
@@ -262,4 +298,5 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   avant,
   apres,
   event,
+  quotepart,
 ]);

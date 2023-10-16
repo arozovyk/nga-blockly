@@ -22,16 +22,35 @@ const outputDiv = document.getElementById("output");
 const blocklyDiv = document.getElementById("blocklyDiv");
 
 const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
-<category name="contexts">
-<block type="territoire_domain" ></block>
-<block type="support_domain" ></block>
-<block type="secteur_domain" ></block>
-<block type="support_cases" ></block>
-<block type="secteur_cases" ></block>
-<block type="territory_cases" ></block>
-  
+
+<category name="Contexts">
+  <block type="territoire_domain" deletable="false" editable="false">
+    <statement name="territory_cases">
+      <block type="territory_cases">
+        <field name="territory_cases">France</field>
+      </block>
+    </statement>
+  </block>
+  <block type="support_domain" deletable="false" editable="false">
+    <statement name="support_cases">
+      <block type="support_cases">
+      </block>
+    </statement>
+  </block>
+  <block type="secteur_domain" deletable="false" editable="false">
+    <statement name="secteur_cases">
+      <block type="secteur_cases">
+      </block>
+    </statement>
+  </block>
+  <block type="support_cases"></block>
+  <block type="secteur_cases"></block>
+  <block type="territory_cases">
+    <field name="territory_cases">France</field>
+  </block>
 </category>
-<category name="operation">
+
+<category name="Operation">
   <block type="operation">
     <field name="sur_assiette">les_productions_du_chameau</field>
     <value name="operation">
@@ -41,12 +60,37 @@ const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="tool
     </value>
   </block>
 </category>
-<category name="corps">
-<block type="avant" ></block>
-<block type="apres" ></block>
+
+<category name="Corps">
+
+  <block type="avant">
+    <value name="event_name">
+      <block type="event" movable="false">
+        <field name="TEXT">dssd</field>
+      </block>
+    </value>
+    <statement name="avant_body">
+      <block type="quotepart"></block>
+    </statement>
+  </block>
+
+  <block type="apres">
+    <value name="event_name">
+      <block type="event" movable="false">
+        <field name="TEXT">dssd</field>
+      </block>
+    </value>
+    <statement name="apres_body">
+      <block type="quotepart"></block>
+    </statement>
+  </block>
+
+  <block type="quotepart"></block>
+
   <block type="text">
     <field name="TEXT"></field>
   </block>
+
   <block type="math_arithmetic">
     <field name="OP">ADD</field>
     <value name="A">
@@ -60,11 +104,12 @@ const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="tool
       </shadow>
     </value>
   </block>
-</category>
-<category name="evenements">
 
-<block type="event">
- </block>
+</category>
+
+ 
+<category name="Destination">
+  <block type="event"></block>
 </category>
 
 </xml>`;

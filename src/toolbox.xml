@@ -1,8 +1,95 @@
-<xml id="toolbox" style="display: none">
-  <block type="controls_if"></block>
-  <block type="controls_whileUntil"></block>
+<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+
+  <category name="Contexts">
+    <block type="territoire_domain" deletable="false" editable="false">
+      <statement name="territory_cases">
+        <block type="territory_cases">
+          <field name="territory_cases">France</field>
+        </block>
+      </statement>
+    </block>
+    <block type="support_domain" deletable="false" editable="false">
+      <statement name="support_cases">
+        <block type="support_cases">
+        </block>
+      </statement>
+    </block>
+    <block type="secteur_domain" deletable="false" editable="false">
+      <statement name="secteur_cases">
+        <block type="secteur_cases">
+        </block>
+      </statement>
+    </block>
+    <block type="support_cases"></block>
+    <block type="secteur_cases"></block>
+    <block type="territory_cases">
+      <field name="territory_cases">France</field>
+    </block>
+  </category>
+
+  <category name="Operation">
+    <block type="operation">
+      <field name="sur_assiette">les_productions_du_chameau</field>
+      <value name="operation">
+        <block type="text">
+          <field name="TEXT"></field>
+        </block>
+      </value>
+    </block>
+  </category>
+
+  <category name="Corps">
+
+    <block type="avant">
+      <value name="event_name">
+        <block type="event" movable="false">
+          <field name="TEXT">dssd</field>
+        </block>
+      </value>
+      <statement name="avant_body">
+        <block type="quotepart"></block>
+      </statement>
+    </block>
+
+    <block type="apres">
+      <value name="event_name">
+        <block type="event" movable="false">
+          <field name="TEXT">dssd</field>
+        </block>
+      </value>
+      <statement name="apres_body">
+        <block type="quotepart"></block>
+      </statement>
+    </block>
+
+    <block type="quotepart"></block>
+
+    <block type="text">
+      <field name="TEXT"></field>
+    </block>
+
+    <block type="math_arithmetic">
+      <field name="OP">ADD</field>
+      <value name="A">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+    </block>
+
+  </category>
+
+  <category name="Évènements">
+    <block type="event"></block>
+  </category>
+
+  <category name="Destination">
+    <block type="event"></block>
+  </category>
+
 </xml>
-<script>
-  var workspace = Blockly.inject('blocklyDiv',
-      {toolbox: document.getElementById('src/toolbox')});
-</script>
