@@ -8,12 +8,15 @@ import * as Blockly from "blockly/core";
 
 const operation = {
   type: "operation",
-  message0: "operation %1 pour %2 sur_assiette %3 %4 corps %5",
+  message0: "operation %1 %2 pour %3 sur_assiette %4 %5 corps %6",
   args0: [
     {
-      type: "input_value",
-      name: "operation",
-      check: "String",
+      type: "field_input",
+      name: "nom_operation",
+      text: "nom_operation",
+    },
+    {
+      type: "input_dummy",
     },
     {
       type: "input_statement",
@@ -215,32 +218,27 @@ const avant = {
   helpUrl: "",
 };
 
-const quotepart  = {
-  "type": "quotepart",
-  "message0": "quotepart %1 %% vers %2",
-  "args0": [
+const quotepart = {
+  type: "quotepart",
+  message0: "quotepart %1 %% vers %2",
+  args0: [
     {
-      "type": "field_number",
-      "name": "NAME",
-      "value": 0
+      type: "field_number",
+      name: "NAME",
+      value: 0,
     },
     {
-      "type": "input_value",
-      "name": "dest",
-      "check": [
-        "pool",
-        "actor",
-        "custom_dest"
-      ]
-    }
+      type: "input_value",
+      name: "dest",
+      check: ["pool", "actor", "custom_dest"],
+    },
   ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 65,
-  "tooltip": "",
-  "helpUrl": ""
-}
-
+  previousStatement: null,
+  nextStatement: null,
+  colour: 65,
+  tooltip: "",
+  helpUrl: "",
+};
 
 const apres = {
   type: "apres",
@@ -286,6 +284,254 @@ const event = {
   helpUrl: "",
 };
 
+const individu = {
+  type: "individu",
+  message0: "Individu %1 label(?) %2",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        ["les_productions_du_chameau", "les_productions_du_chameau"],
+        ["distributeur_du_desert", "distributeur_du_desert"],
+        ["vendeur_scorpion", "vendeur_scorpion"],
+        ["dromadaire_film", "dromadaire_film"],
+        ["barbie", "barbie"],
+      ],
+    },
+    {
+      type: "input_value",
+      name: "NAME",
+    },
+  ],
+  output: null,
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const dest_pool = {
+  type: "dest_pool",
+  message0: "Assiette %1",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        ["recette_brute_distributeur", "recette_brute_distributeur"],
+        ["vente_tvsvod", "vente_tvsvod"],
+        ["recette_brute_vendeur", "recette_brute_vendeur"],
+      ],
+    },
+  ],
+  output: null,
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const label = {
+  type: "label",
+  message0: "%1",
+  args0: [
+    {
+      type: "field_input",
+      name: "label",
+      text: "label",
+    },
+  ],
+  output: null,
+  colour: 165,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const quand = {
+  type: "quand",
+  message0: "quand %1",
+  args0: [
+    {
+      type: "input_value",
+      name: "NAME",
+    },
+  ],
+  previousStatement: null,
+  nextStatement: null,
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const quand_statement = {
+  type: "quand_statement",
+  message0: "quand %1 corps %2",
+  args0: [
+    {
+      type: "input_value",
+      name: "quand",
+    },
+    {
+      type: "input_statement",
+      name: "then",
+    },
+  ],
+  previousStatement: null,
+  nextStatement: null,
+  colour: 60,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const operation_par = {
+  type: "operation_par",
+  message0: "operation %1 %2 par %3 %4 corps %5",
+  args0: [
+    {
+      type: "field_input",
+      name: "nom_operation",
+      text: "nom_operation",
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "field_dropdown",
+      name: "sur_assiette",
+      options: [
+        ["les_productions_du_chameau", "les_productions_du_chameau"],
+        ["distributeur_du_desert", "distributeur_du_desert"],
+        ["vendeur_scorpion", "vendeur_scorpion"],
+        ["recette_brute_vendeur", "recette_brute_vendeur"],
+      ],
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "input_statement",
+      name: "corps",
+      check: ["bonus", "quotepart", "avant", "apres"],
+    },
+  ],
+  colour: 210,
+  tooltip: "Define an operation",
+  helpUrl: "",
+};
+
+const bonus = {
+  type: "bonus",
+  message0: "bonus %1 € vers %2",
+  args0: [
+    {
+      type: "field_number",
+      name: "NAME",
+      value: 0,
+    },
+    {
+      type: "input_value",
+      name: "dest",
+      check: ["actor", "custom_dest"],
+    },
+  ],
+  previousStatement: null,
+  nextStatement: null,
+  colour: 195,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const entree = {
+  type: "entree",
+  message0: "Entrée %1 type %2",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        [
+          "frais_edition_distributeur_du_desert",
+          "frais_edition_distributeur_du_desert",
+        ],
+        ["frais_edition_vendeur_scorpion", "frais_edition_vendeur_scorpion"],
+        ["entree_salle_France", "entree_salle_France"],
+      ],
+    },
+    {
+      type: "field_dropdown",
+      name: "type",
+      options: [
+        ["argent", "argent"],
+        ["entier", "entier"],
+      ],
+    },
+  ],
+  output: null,
+  colour: 225,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const entree_value = {
+  type: "entree_value",
+  message0: "Entrée %1 type %2 value %3",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        [
+          "frais_edition_distributeur_du_desert",
+          "frais_edition_distributeur_du_desert",
+        ],
+        ["frais_edition_vendeur_scorpion", "frais_edition_vendeur_scorpion"],
+        ["entree_salle_France", "entree_salle_France"],
+      ],
+    },
+    {
+      type: "field_dropdown",
+      name: "type",
+      options: [
+        ["argent", "argent"],
+        ["entier", "entier"],
+      ],
+    },
+    {
+      type: "input_value",
+      name: "NAME",
+    },
+  ],
+  output: null,
+  colour: 225,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const dest_pool_context = {
+  type: "dest_pool_context",
+  message0: "Assiette %1 %2 Context %3",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        ["recette_brute_distributeur", "recette_brute_distributeur"],
+        ["vente_tvsvod", "vente_tvsvod"],
+        ["recette_brute_vendeur", "recette_brute_vendeur"],
+      ],
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "input_statement",
+      name: "NAME",
+    },
+  ],
+  output: null,
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   operation,
   context,
@@ -299,4 +545,14 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   apres,
   event,
   quotepart,
+  individu,
+  dest_pool,
+  label,
+  quand,
+  quand_statement,
+  operation_par,
+  bonus,
+  entree,
+  entree_value,
+  dest_pool_context
 ]);

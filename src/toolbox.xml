@@ -1,5 +1,20 @@
 <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
 
+
+  <category name="Operation">
+    <block type="operation">
+      <field name="sur_assiette">les_productions_du_chameau</field>
+      <value name="operation">
+        <block type="text">
+          <field name="TEXT"></field>
+        </block>
+      </value>
+    </block>
+    <block type="operation_par"> </block>
+
+    <block type="quand"> </block>
+
+  </category>
   <category name="Contexts">
     <block type="territoire_domain" deletable="false" editable="false">
       <statement name="territory_cases">
@@ -26,18 +41,6 @@
       <field name="territory_cases">France</field>
     </block>
   </category>
-
-  <category name="Operation">
-    <block type="operation">
-      <field name="sur_assiette">les_productions_du_chameau</field>
-      <value name="operation">
-        <block type="text">
-          <field name="TEXT"></field>
-        </block>
-      </value>
-    </block>
-  </category>
-
   <category name="Corps">
 
     <block type="avant">
@@ -63,10 +66,22 @@
     </block>
 
     <block type="quotepart"></block>
+    <block type="bonus"></block>
 
-    <block type="text">
-      <field name="TEXT"></field>
-    </block>
+
+  </category>
+
+  <category name="Entrées ">
+    <block type="individu"></block>
+    <block type="label"></block>
+
+    <block type="dest_pool"></block>
+    <block type="dest_pool_context"></block>
+    <block type="entree"></block>
+    <block type="entree_value"></block>
+  </category>
+
+  <category name="Misc">
 
     <block type="math_arithmetic">
       <field name="OP">ADD</field>
@@ -81,15 +96,24 @@
         </shadow>
       </value>
     </block>
-
+    <block type="text">
+      <field name="TEXT"></field>
+    </block>
   </category>
 
-  <category name="Évènements">
-    <block type="event"></block>
+
+  <category name="Logic">
+    <block type="quand"></block>
+    <block type="quand_statement"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
   </category>
 
-  <category name="Destination">
-    <block type="event"></block>
+
+  <category name="Math">
+    <block type="math_arithmetic"></block>
+
   </category>
 
 </xml>

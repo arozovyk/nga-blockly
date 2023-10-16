@@ -21,8 +21,21 @@ const codeDiv = document.getElementById("generatedCode").firstChild;
 const outputDiv = document.getElementById("output");
 const blocklyDiv = document.getElementById("blocklyDiv");
 
-const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
 
+
+<category name="Operation">
+  <block type="operation">
+    <field name="sur_assiette">les_productions_du_chameau</field>
+    <value name="operation">
+      <block type="text">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+  </block>
+  <block type="operation_par"> </block>
+
+</category>
 <category name="Contexts">
   <block type="territoire_domain" deletable="false" editable="false">
     <statement name="territory_cases">
@@ -49,18 +62,6 @@ const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="tool
     <field name="territory_cases">France</field>
   </block>
 </category>
-
-<category name="Operation">
-  <block type="operation">
-    <field name="sur_assiette">les_productions_du_chameau</field>
-    <value name="operation">
-      <block type="text">
-        <field name="TEXT"></field>
-      </block>
-    </value>
-  </block>
-</category>
-
 <category name="Corps">
 
   <block type="avant">
@@ -86,10 +87,30 @@ const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="tool
   </block>
 
   <block type="quotepart"></block>
+  <block type="bonus"></block>
 
-  <block type="text">
-    <field name="TEXT"></field>
-  </block>
+
+</category>
+
+<category name="Entrées ">
+  <block type="individu"></block>
+  <block type="label"></block>
+
+  <block type="dest_pool"></block>
+  <block type="dest_pool_context"></block>
+  <block type="entree"></block>
+  <block type="entree_value"></block>
+</category>
+
+<category name="Logic">
+  <block type="quand"></block>
+  <block type="quand_statement"></block>
+  <block type="logic_compare"></block>
+  <block type="logic_operation"></block>
+  <block type="logic_negate"></block>
+</category>
+
+<category name="Misc">
 
   <block type="math_arithmetic">
     <field name="OP">ADD</field>
@@ -104,34 +125,20 @@ const toolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id="tool
       </shadow>
     </value>
   </block>
+  <block type="text">
+    <field name="TEXT"></field>
+  </block>
+</category>
+
+
+
+
+
+<category name="Math">
+  <block type="math_arithmetic"></block>
 
 </category>
 
- 
-<category name="Destination">
-  <block type="event"></block>
-</category>
-
-</xml>`;
-const toolbox2 = `<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
- 
-
-
-<block type="operation" >
-  <value name="operation">
-    <block type="text" deletable="false" movable="false" >
-      <field name="TEXT"></field>
-    </block>
-  </value>
-</block>
 </xml>`;
 
 const ws = Blockly.inject(blocklyDiv, { toolbox });
-
-// This function resets the code and output divs, shows the
-// generated code from the workspace, and evals the code.
-// In a real application, you probably shouldn't use `eval`.
-
-// Load the initial state from storage and run the code.
-
-// Every time the workspace changes state, save the changes to storage.

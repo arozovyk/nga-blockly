@@ -1,0 +1,748 @@
+# LES CONTEXTES
+
+contexte Support :
+- Salle
+- TV
+- VOD
+- Video
+- SVOD
+
+contexte Territoire :
+- France
+- Benelux
+- Etranger
+
+contexte Secteur :
+- Commercial
+- Non_commercial
+
+
+# LES ENTREES
+
+entree entree_salle_France type entier
+
+entree assiette prix_public_France_salle_HT
+entree assiette recette_brute_distributeur
+entree assiette contribution_cnc_canal
+entree assiette vente_tvsvod
+
+entree assiette vente_tv_benelux
+
+
+entree assiette recette_brute_vendeur
+
+entree assiette fond_de_soutien
+
+entree frais_edition_pyramide_etranger type argent #plafond30000$
+entree frais_edition_pyramide_france type argent #plafond350000$
+entree frais_edition_obrother type argent #plafond???
+
+# LES ACTEURS
+
+## PRODUCTION DELEGUEE
+acteur pelleas
+
+
+## PARTENAIRES FINANCIERS
+acteur pyramide_etranger
+acteur pyramide_france
+acteur aurac
+acteur lbpi12
+acteur cinecap2
+acteur cinecap3
+acteur cnc
+acteur versus
+acteur obrother
+acteur eurimages
+acteur proximus
+
+## TALENTS
+acteur sergei_polunin
+acteur laetitia_dosch
+acteur agent_laetitia_dosch
+acteur gallimard
+acteur danielle_arbid
+acteur agent_danielle_arbid
+
+
+# LES VALEURS
+constante minimum_garanti_pyramide_etranger : 75000$
+constante minimum_garanti_pyramide_france : 150000$
+constante minimum_garanti_obrother : 30000$
+
+constante cout_du_film : 2063798$
+constante credit_dimpot_et_subventions : 421751$
+
+#? a definir proprement
+evenement amortissement_cout_de_film
+atteint quand assiette recette_nette_part_producteur(Salle, Video, France)
+              + assiette recette_nette_part_producteur(Benelux, Etranger)
+              + assiette vente_tvsvod(France) + credit_dimpot_et_subventions = cout_du_film
+
+evenement franchise_fond_de_soutien
+atteint quand assiette fond_de_soutien total = 150000$
+
+# LES DATES
+
+constante debut_exploitation_france : 2021/01/13
+
+
+# PYRAMIDE ETRANGER
+
+evenement recuperation_lbpi12
+atteint quand lbpi12 = 84000$
+
+evenement recuperation_frais_edition_pyramide_etranger
+atteint quand pyramide_etranger[frais_edition] = frais_edition_pyramide_etranger + 0.55% * assiette recette_brute_vendeur
+
+evenement recuperation_MG_pyramide_etranger
+atteint quand pyramide_etranger[mg] = minimum_garanti_pyramide_etranger
+
+operation 'commission étranger vers Pyramide'
+pour Territoire(Etranger)
+pour Secteur(Commercial)
+sur assiette recette_brute_vendeur
+avant evenement recuperation_lbpi12
+  quotepart 22% vers pyramide_etranger[commission]
+  quotepart 3% vers lbpi12[commission]
+  quotepart 75% vers assiette recette_nette_commission_vendeur
+apres evenement recuperation_lbpi12
+  quotepart 25% vers pyramide_etranger[commission]
+  quotepart 3% vers lbpi12[commission]
+  quotepart 72% vers assiette recette_nette_commission_vendeur
+
+operation 'commission étranger secteur non commercial vers Pyramide'
+pour Territoire(Etranger)
+pour Secteur(Non_commercial)
+sur assiette recette_brute_vendeur
+quotepart 50% vers pyramide_etranger[commission]
+quotepart 50% vers assiette recette_nette_commission_vendeur
+
+operation 'recuperation frais d édition Pyramide étranger'
+pour Territoire(Etranger)
+pour tout Secteur
+sur assiette recette_nette_commission_vendeur
+avant evenement recuperation_frais_edition_pyramide_etranger
+  quotepart 100% vers pyramide_etranger[frais_edition]
+apres evenement recuperation_frais_edition_pyramide_etranger
+  quotepart 100% vers assiette recette_nette_part_producteur
+
+operation 'retrocession taxe cnc'
+par pyramide_etranger
+retrocession 0.55% sur assiette recette_brute_vendeur(Commercial) vers cnc[taxe]
+
+operation 'recuperation MG Pyramide étranger'
+pour Territoire(Etranger)
+pour tout Secteur
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_MG_pyramide_etranger
+  quotepart 50% vers pyramide_etranger[mg]
+apres evenement recuperation_MG_pyramide_etranger
+  quotepart 0% vers pyramide_etranger[mg]
+
+# PYRAMIDE FRANCE
+
+evenement recuperation_frais_edition_pyramide_france
+atteint quand pyramide_france[frais_edition] = frais_edition_pyramide_france + 0.58% * assiette recette_brute_distributeur
+
+evenement recuperation_MG_pyramide_france
+atteint quand pyramide_france[recuperation_MG] = minimum_garanti_pyramide_france
+
+operation 'commission salle commercial vers pyramide France'
+pour Support(Salle)
+pour Territoire(France)
+pour Secteur(Commercial)
+sur assiette recette_brute_distributeur
+avant evenement recuperation_MG_pyramide_france
+  quotepart 25% vers pyramide_france[commission]
+  quotepart 75% vers assiette recette_nette_commission_distributeur
+apres evenement recuperation_MG_pyramide_france
+  quotepart 30% vers pyramide_france[commission]
+  quotepart 70% vers assiette recette_nette_commission_distributeur
+
+operation 'commission pour contribution cnc vers pyramide France'
+sur assiette contribution_cnc_canal
+quotepart 25% vers pyramide_france[commission]
+quotepart 75% vers assiette recette_nette_commission_distributeur
+
+operation 'commission salle non commercial vers pyramide France'
+pour Support(Salle)
+pour Territoire(France)
+pour Secteur(Non_commercial)
+sur assiette recette_brute_distributeur
+  quotepart 40% vers pyramide_france[commission]
+  quotepart 60% vers assiette recette_nette_commission_distributeur
+
+operation 'commission video vers pyramide France'
+pour Support(Video,VOD)
+pour Territoire(France)
+sur assiette recette_brute_distributeur
+quotepart 10% vers pyramide_france[commission]
+quotepart 90% vers assiette recette_nette_commission_distributeur
+
+operation 'recuperation frais d édition vers pyramide france'
+pour Support(Salle,VOD,Video)
+pour Territoire(France)
+sur assiette recette_nette_commission_distributeur
+avant evenement recuperation_frais_edition_pyramide_france
+  quotepart 100% vers pyramide_france[frais_edition]
+apres evenement recuperation_frais_edition_pyramide_france
+  quotepart 100% vers assiette recette_nette_part_producteur
+
+operation 'recuperation MG pour pyramide France'
+pour Support(Salle,VOD,Video)
+pour Territoire(France)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_MG_pyramide_france
+quotepart 100% vers pyramide_france[recuperation_MG]
+
+operation 'retrocession taxe cnc france'
+par pyramide_france
+retrocession 0.58% sur assiette recette_brute_distributeur vers cnc[taxe]
+
+# O'BROTHER
+
+evenement recuperation_frais_edition_obrother
+atteint quand obrother[frais_edition] = frais_edition_obrother
+
+evenement recuperation_MG_obrother
+atteint quand obrother[recuperation_MG] = minimum_garanti_obrother
+
+operation 'commission salle vers obrother'
+pour Territoire(Benelux)
+pour Support(Salle)
+pour tout Secteur
+sur assiette recette_brute_distributeur
+avant evenement recuperation_frais_edition_obrother
+  quotepart 20% vers obrother[commission]
+  quotepart 80% vers assiette recette_nette_commission_distributeur
+apres evenement recuperation_frais_edition_obrother
+  quotepart 50% vers obrother[commission]
+  quotepart 50% vers assiette recette_nette_commission_distributeur
+
+operation 'commission video vers obrother'
+pour Territoire(Benelux)
+pour Support(Video, VOD)
+sur assiette recette_brute_distributeur
+quotepart 50% vers obrother[commission]
+quotepart 50% vers assiette recette_nette_commission_distributeur
+
+operation 'commission vente tv vers obrother'
+pour Territoire(Benelux)
+pour Support(TV)
+sur assiette vente_tv_benelux
+avant evenement recuperation_frais_edition_obrother
+    quotepart 100% vers assiette recette_nette_commission_distributeur
+apres evenement recuperation_frais_edition_obrother
+    quotepart 30% vers obrother[commission]
+    quotepart 70% vers assiette recette_nette_commission_distributeur
+
+operation 'recuperation frais edition vers obrother'
+pour Territoire(Benelux)
+pour Support(Salle, Video, VOD, TV)
+sur assiette recette_nette_commission_distributeur
+avant evenement recuperation_frais_edition_obrother
+quotepart 100% vers obrother[frais_edition]
+apres evenement recuperation_frais_edition_obrother
+quotepart 100% vers assiette recette_nette_part_producteur
+
+operation 'recuperation MG vers obrother'
+pour Territoire(Benelux)
+pour Support(Salle, Video, VOD, TV)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_MG_obrother
+quotepart 100% vers obrother[recuperation_MG]
+
+
+# COMMISSION TV ET SVOD
+
+operation 'commission sur vente SVOD vers pelleas'
+pour Support(SVOD)
+sur assiette vente_tvsvod
+quotepart 20% vers pelleas[commission_svod]
+quotepart 80% vers assiette recette_nette_part_producteur
+
+operation 'commission sur vente TV vers pelleas'
+pour Territoire(France)
+pour Support(TV)
+sur assiette vente_tvsvod
+#? besoin feature
+# quand vente_tvsvod courant > 50000$
+# quotepart 10% vers pelleas[commission_svod]
+# quotepart 90% vers assiette recette_nette_part_producteur
+# quand vente_tvsvod courant <= 50000$
+quotepart 15% vers pelleas[commission_svod]
+quotepart 85% vers assiette recette_nette_part_producteur
+
+# RESIDUEL ET DEFAUT
+
+defaut sur assiette recette_nette_part_producteur(France,Etranger) vers assiette recette_nette_part_producteur_residuelle
+deficit sur assiette recette_nette_part_producteur(France,Etranger) par pelleas
+
+defaut sur assiette recette_nette_part_producteur(Benelux) vers assiette recette_nette_part_producteur_residuelle
+deficit sur assiette recette_nette_part_producteur(Benelux) par versus
+
+
+deficit sur assiette recette_brute_distributeur par pelleas
+# deficit sur assiette recette_brute_vendeur par pelleas #? unnecessary
+
+defaut sur assiette fond_de_soutien vers pelleas[fond_de_soutien_residuel]
+
+deficit sur assiette vente_tvsvod(France) par pelleas
+
+# LBPI 12
+
+operation 'couloir étranger vers lbpi12'
+pour Territoire(Etranger)
+pour tout Support
+pour tout Secteur
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_lbpi12
+quotepart 33.33% vers lbpi12[couloir_etranger]
+
+# CINECAP 2
+
+evenement recuperation_cinecap2
+atteint quand cinecap2 = 42000$
+
+operation 'couloir salle vers cinecap2'
+pour Support(Salle,Video,VOD)
+pour Territoire(France)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_cinecap2(
+  apres evenement recuperation_MG_pyramide_france
+  quotepart 9.33% vers cinecap2[couloir_cinema]
+)
+apres evenement recuperation_cinecap2(
+  apres evenement recuperation_MG_pyramide_france
+  quotepart 3.73% vers cinecap2[couloir_cinema]
+)
+
+operation 'couloir etranger vers cinecap2'
+pour tout Support
+pour Territoire(Etranger)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_cinecap2
+  quotepart 7.78% vers cinecap2[couloir_etranger]
+apres evenement recuperation_cinecap2
+  quotepart 3.73% vers cinecap2[couloir_etranger]
+
+operation 'couloir TV, SVOD vers cinecap2'
+pour Support(TV,SVOD)
+pour Territoire (France)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_cinecap2
+quotepart 32.67% vers cinecap2[couloir_tv]
+apres evenement recuperation_cinecap2
+quotepart 3.73% vers cinecap2[couloir_tv]
+
+
+# CINECAP 3
+
+evenement recuperation_cinecap3
+atteint quand cinecap3 = 48000$
+
+operation 'couloir salle vers cinecap3'
+pour Support(Salle,Video,VOD)
+pour Territoire(France)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_cinecap3(
+  apres evenement recuperation_MG_pyramide_france
+  quotepart 10.67% vers cinecap3[couloir_cinema]
+)
+apres evenement recuperation_cinecap3(
+  apres evenement recuperation_MG_pyramide_france
+  quotepart 4.27% vers cinecap3[couloir_cinema]
+)
+
+operation 'couloir etranger vers cinecap3'
+pour tout Support
+pour Territoire(Etranger)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_cinecap3
+  quotepart 8.89% vers cinecap3[couloir_etranger]
+apres evenement recuperation_cinecap3
+  quotepart 4.27% vers cinecap3[couloir_etranger]
+
+operation 'couloir TV, SVOD vers cinecap3'
+pour Support(TV,SVOD)
+pour Territoire (France)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_cinecap3
+quotepart 37.33% vers cinecap3[couloir_tv]
+apres evenement recuperation_cinecap3
+quotepart 4.27% vers cinecap3[couloir_tv]
+
+# AURAC
+
+evenement recuperation_aurac
+atteint quand aurac = 150000$
+
+evenement recuperation_cinecap
+atteint quand cinecap2 + cinecap3 = 90000$
+
+operation 'couloir de recette cinema vers aurac'
+pour Support(Salle, Video, VOD)
+pour Territoire(France)
+sur assiette recette_nette_part_producteur
+apres evenement recuperation_MG_pyramide_france(
+  avant evenement recuperation_aurac
+    quotepart 15% vers aurac[couloir_cinema]
+  apres evenement recuperation_aurac
+    quotepart 10% vers aurac[couloir_cinema]
+)
+
+operation 'couloir de recette tvsvod vers aurac'
+pour Support(TV,SVOD)
+pour Territoire (France)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_cinecap
+quotepart 10% vers aurac[couloir_tv_svod]
+apres evenement recuperation_cinecap(
+  avant evenement recuperation_aurac
+  quotepart 15% vers aurac[couloir_tv_svod]
+  apres evenement recuperation_aurac
+  quotepart 10% vers aurac[couloir_tv_svod]
+)
+
+operation 'couloir etranger vers aurac'
+pour Territoire(Etranger)
+sur assiette recette_nette_part_producteur
+apres evenement recuperation_MG_pyramide_etranger
+quotepart 10% vers aurac[couloir_etranger]
+
+
+operation 'couloir sur le fond de soutien vers aurac'
+sur assiette fond_de_soutien
+apres evenement franchise_fond_de_soutien(
+  avant evenement recuperation_aurac
+  quotepart 15% vers aurac[fond_de_soutien]
+  apres evenement recuperation_aurac
+  quotepart 10% vers aurac[fond_de_soutien]
+)
+
+
+# EURIMAGES
+
+evenement recuperation_eurimages_france
+atteint quand eurimages[couloir_france] = 158220$
+
+evenement recuperation_eurimages_benelux
+atteint quand eurimages[couloir_benelux] = 41780$
+
+evenement recuperation_eurimages_etranger
+atteint quand eurimages = 200000$
+
+evenement recuperation_eurimages_intermediaire
+atteint quand eurimages[couloir_etranger_special] = minimum_garanti_pyramide_etranger * 9.77%
+
+
+operation 'couloir de recette france vers Eurimages'
+pour Territoire(France)
+pour Support(Salle, Video, VOD, TV, SVOD)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_eurimages_france(
+  avant evenement recuperation_lbpi12
+  quotepart 10.16% vers eurimages[couloir_france]
+  apres evenement recuperation_lbpi12
+  quotepart 10.58% vers eurimages[couloir_france]
+)
+
+
+operation 'couloir de recette Benelux vers Eurimages'
+pour Territoire(Benelux)
+pour tout Support
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_eurimages_benelux (
+  apres evenement recuperation_MG_obrother
+  quotepart 9.77% vers eurimages[couloir_benelux]
+)
+
+operation 'couloir de recette Etranger vers Eurimages'
+pour Territoire(Etranger)
+pour tout Support
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_eurimages_etranger (
+  apres evenement recuperation_MG_pyramide_etranger
+  quotepart 9.77% vers eurimages[couloir_etranger]
+)
+
+operation 'couloir de recette spécial vers Eurimages'
+pour Territoire(Etranger)
+pour tout Support
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_eurimages_etranger (
+  apres evenement recuperation_MG_pyramide_etranger (
+    avant evenement recuperation_eurimages_intermediaire (
+        avant evenement recuperation_lbpi12
+        quotepart 41.84% vers eurimages[couloir_etranger_special]
+        apres evenement recuperation_lbpi12
+        quotepart 43.58% vers eurimages[couloir_etranger_special]
+    )
+  )
+)
+
+
+# CNC
+
+evenement recuperation_cnc
+atteint quand cnc[fond_de_soutien] = 80000$
+
+operation 'remboursement de l avance vers cnc'
+sur assiette fond_de_soutien
+apres evenement franchise_fond_de_soutien (
+  avant evenement recuperation_cnc
+  quotepart 25% vers cnc[fond_de_soutien]
+)
+
+
+# VERSUS
+
+evenement recuperation_pelleas
+atteint quand pelleas[rnpp_residuelle] = 176349$ + 120000$
+
+operation 'partage du residuel vers Versus et Pelleas'
+pour tout Territoire
+sur assiette recette_nette_part_producteur_residuelle
+avant evenement recuperation_pelleas
+quotepart 100% vers pelleas[rnpp_residuelle]
+apres evenement recuperation_pelleas
+quotepart 14.52% vers versus[rnpp_residuelle]
+quotepart 85.48% vers pelleas[rnpp_residuelle]
+
+
+# PROXIMUS
+
+evenement recuperation_proximus
+atteint quand proximus = 37500$
+
+operation 'retrocession vers proximus par versus'
+pour tout Territoire
+par versus
+avant evenement recuperation_proximus
+  retrocession 1.22% sur assiette recette_nette_part_producteur vers proximus
+apres evenement recuperation_proximus
+  retrocession 0.61% sur assiette recette_nette_part_producteur vers proximus
+
+# GALLIMARD
+
+evenement recuperation_gallimard
+atteint quand gallimard[remuneration_complementaire]
+              + gallimard[remuneration_proportionnelle] = 25000$
+
+# #? need default
+# operation 'couloir de recette salle vers gallimard'
+# pour Support(Salle)
+# pour Territoire(France)
+# pour Secteur(Commercial)
+# sur assiette prix_public_France_salle_HT
+# quotepart 0.75% vers gallimard[remuneration_proportionnelle]
+
+# alternative d'au dessus
+operation 'couloir de recette salle commercial vers gallimard'
+pour Support(Salle)
+pour Territoire(France)
+pour Secteur(Commercial)
+sur assiette recette_brute_distributeur
+quotepart 1.5% vers gallimard[remuneration_proportionnelle]
+
+operation 'couloir de recette salle non commercial vers gallimard'
+pour Support(Salle)
+pour Territoire(France)
+pour Secteur(Non_commercial)
+sur assiette recette_brute_distributeur
+quotepart 1.5% vers gallimard[remuneration_proportionnelle]
+
+operation 'couloir de recette video, VOD vers gallimard'
+pour Support(Video, VOD)
+pour Territoire(France)
+pour Secteur(Commercial)
+sur assiette recette_brute_distributeur
+quotepart 1.5% vers gallimard[remuneration_proportionnelle]
+
+operation 'couloir de recette tv, svod vers gallimard'
+pour Support(TV, SVOD)
+pour Territoire(France)
+sur assiette vente_tvsvod
+quotepart 1.5% vers gallimard[remuneration_proportionnelle]
+
+operation 'couloir de recette etranger'
+pour tout Support
+pour Territoire(Etranger)
+sur assiette recette_nette_part_producteur
+quotepart 2% vers gallimard[remuneration_proportionnelle]
+
+operation 'interessement au nombre d entrées vers Gallimard'
+par pelleas
+quand entree_salle_France = 100000
+bonus 5000$ vers gallimard[remuneration_complementaire]
+quand entree_salle_France = 150000
+bonus 5000$ vers gallimard[remuneration_complementaire]
+quand entree_salle_France = 200000
+bonus 5000$ vers gallimard[remuneration_complementaire]
+quand entree_salle_France = 250000
+bonus 5000$ vers gallimard[remuneration_complementaire]
+quand entree_salle_France = 300000
+bonus 5000$ vers gallimard[remuneration_complementaire]
+
+avance 'avance vers Gallimard' sur gallimard[remuneration_proportionnelle]
+par pelleas montant 40000$
+
+operation 'couloir après amortissement vers gallimard'
+pour tout Support
+pour tout Territoire
+sur assiette recette_nette_part_producteur
+apres evenement amortissement_cout_de_film(
+  avant evenement recuperation_gallimard
+  quotepart 5% vers gallimard[remuneration_apres_amortissement]
+  apres evenement recuperation_gallimard
+  quotepart 2.5% vers gallimard[remuneration_apres_amortissement]
+)
+
+# ARBID
+
+# #? need default
+# operation 'couloir salle commercial vers danielle_arbid'
+# pour Support(Salle)
+# pour Territoire(France)
+# pour Secteur(Commercial)
+# sur assiette prix_public_France_salle_HT
+# quotepart 0.25% vers danielle_arbid[remuneration_proportionnelle_realisatrice]
+# quotepart 0.025% vers agent_danielle_arbid[remuneration_proportionnelle_realisatrice]
+# quotepart 0.25% vers danielle_arbid[remuneration_proportionnelle_scenariste]
+# quotepart 0.00625% vers agent_danielle_arbid[remuneration_proportionnelle_scenariste]
+
+# alternative d'au dessus
+operation 'couloir salle commercial vers danielle_arbid'
+pour Support(Salle)
+pour Territoire(France)
+pour Secteur(Commercial)
+sur assiette recette_nette_part_producteur
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.05% vers agent_danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_scenariste]
+quotepart 0.0125% vers agent_danielle_arbid[remuneration_proportionnelle_scenariste]
+
+operation 'couloir salle non commercial vers danielle_arbid'
+pour Support(Salle)
+pour Territoire(France)
+pour Secteur(Non_commercial)
+sur assiette recette_nette_part_producteur
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.05% vers agent_danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_scenariste]
+quotepart 0.0125% vers agent_danielle_arbid[remuneration_proportionnelle_scenariste]
+
+operation 'couloir video, vod vers danielle_arbid'
+pour Support(Video, VOD)
+pour Territoire(France)
+sur assiette recette_nette_part_producteur
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.05% vers agent_danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_scenariste]
+quotepart 0.0125% vers agent_danielle_arbid[remuneration_proportionnelle_scenariste]
+
+operation 'couloir TV vers danielle_arbid'
+pour Support(TV, SVOD)
+pour Territoire(France)
+sur assiette recette_nette_part_producteur
+quotepart 0.25% vers danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.025% vers agent_danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_scenariste]
+quotepart 0.0125% vers agent_danielle_arbid[remuneration_proportionnelle_scenariste]
+
+operation 'couloir étranger vers danielle_arbid'
+pour tout Support
+pour Territoire(Etranger, Benelux)
+sur assiette recette_nette_part_producteur
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.05% vers agent_danielle_arbid[remuneration_proportionnelle_realisatrice]
+quotepart 0.5% vers danielle_arbid[remuneration_proportionnelle_scenariste]
+quotepart 0.0125% vers agent_danielle_arbid[remuneration_proportionnelle_scenariste]
+
+avance 'avance vers danielle_arbid realisatrice'
+sur danielle_arbid[remuneration_proportionnelle_realisatrice]
+par pelleas montant 25000$
+
+avance 'avance vers agent_danielle_arbid realisatrice'
+sur agent_danielle_arbid[remuneration_proportionnelle_realisatrice]
+par pelleas montant 2500$
+
+avance 'avance vers danielle_arbid scenariste'
+sur danielle_arbid[remuneration_proportionnelle_scenariste]
+par pelleas montant 40000$
+
+avance 'avance vers agent_danielle_arbid scenariste'
+sur agent_danielle_arbid[remuneration_proportionnelle_scenariste]
+par pelleas montant 1000$
+
+operation 'couloir après amortissement vers danielle_arbid'
+pour tout Territoire
+pour tout Support
+sur assiette recette_nette_part_producteur
+apres evenement amortissement_cout_de_film
+quotepart 4.5% vers danielle_arbid[remuneration_apres_amortissement_realisatrice]
+quotepart 0.5% vers agent_danielle_arbid[remuneration_apres_amortissement_realisatrice]
+quotepart 4.5% vers danielle_arbid[remuneration_apres_amortissement_scenariste]
+quotepart 0.5% vers agent_danielle_arbid[remuneration_apres_amortissement_scenariste]
+
+
+# SERGEI POLUNIN
+
+operation 'intéressement aux entrées vers sergei_polunin'
+par pelleas
+quand entree_salle_France = 300000
+bonus 5000$ vers sergei_polunin[interessement]
+quand entree_salle_France = 400000
+bonus 10000$ vers sergei_polunin[interessement]
+quand entree_salle_France = 500000
+bonus 5000$ vers sergei_polunin[interessement]
+
+
+operation 'couloir après amortissement vers sergei_polunin'
+pour tout Territoire
+pour tout Support
+sur assiette recette_nette_part_producteur
+apres evenement amortissement_cout_de_film
+quotepart 5% vers sergei_polunin[remuneration_apres_amortissement]
+
+# LAETITIA DOSCH
+
+evenement recuperation_laetitia_dosch
+atteint quand laetitia_dosch[remuneration_proportionnelle] = 20000$
+
+operation 'couloir recette vers laetitia_dosch'
+pour tout Support
+pour Territoire(France,Etranger)
+sur assiette recette_nette_part_producteur
+avant evenement recuperation_laetitia_dosch
+quotepart 2% vers laetitia_dosch[remuneration_proportionnelle]
+quotepart 0.2% vers agent_laetitia_dosch[remuneration_proportionnelle]
+apres evenement recuperation_laetitia_dosch
+quotepart 0.03% vers laetitia_dosch[remuneration_proportionnelle]
+quotepart 0.003% vers agent_laetitia_dosch[remuneration_proportionnelle]
+
+avance 'avance laetitia_dosch' sur laetitia_dosch[remuneration_proportionnelle]
+par pelleas montant 20000$
+avance 'avance agent_laetitia_dosch' sur agent_laetitia_dosch[remuneration_proportionnelle]
+par pelleas montant 2000$
+
+operation 'bonus aux entrées vers laetitia_dosch'
+par pelleas
+quand entree_salle_France = 300000
+  bonus 5000$ vers laetitia_dosch[interessement]
+  bonus 500$ vers agent_laetitia_dosch[interessement]
+
+operation 'interessement aux entrées vers laetitia_dosch'
+par pelleas
+apres entree_salle_France = 300000
+  bonus 0.09$ * entree_salle_France courant vers laetitia_dosch[interessement]
+  bonus 0.01$ * entree_salle_France courant vers agent_laetitia_dosch[interessement]
+
+operation 'couloir après amortissement vers laetitia_dosch'
+pour tout Support
+pour Territoire(Etranger)
+sur assiette recette_nette_part_producteur
+apres evenement amortissement_cout_de_film
+ quotepart 5% vers laetitia_dosch[remuneration_apres_amortissement]
+ quotepart 0.5% vers agent_laetitia_dosch[remuneration_apres_amortissement]
