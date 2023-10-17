@@ -43,7 +43,6 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
   <block type="operation_par"> </block>
   <block type="defaut_sur"> </block>
   <block type="deficit"> </block>
-  <block type="retrocession"> </block>
 </category>
 
 <category name="Contexts">
@@ -96,13 +95,14 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
   </block>
   <block type="quotepart"></block>
   <block type="bonus"></block>
-  <block type="event" >
- </block>
+  <block type="event" > </block>
+ <block type="retrocession"> </block>
+
 </category>
 
 <category name="Entrées ">
-  <block type="individu"></block>
-  <block type="individu_label">
+  <block type="partenaire"></block>
+  <block type="partenaire_label">
     <value name="label">
       <block type="label" movable= false></block>
     </value>

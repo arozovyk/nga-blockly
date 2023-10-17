@@ -8,7 +8,7 @@ import * as Blockly from "blockly/core";
 
 const operation = {
   type: "operation",
-  message0: "operation %1 %2 pour %3 sur_assiette %4 %5 corps %6",
+  message0: "operation %1 %2 pour %3 sur assiette %4 %5 corps %6",
   args0: [
     {
       type: "field_input",
@@ -284,9 +284,9 @@ const event = {
   helpUrl: "",
 };
 
-const individu = {
-  type: "individu",
-  message0: "Individu %1 ",
+const partenaire = {
+  type: "partenaire",
+  message0: "Partenaire %1 ",
   args0: [
     {
       type: "field_dropdown",
@@ -305,9 +305,9 @@ const individu = {
   tooltip: "",
   helpUrl: "",
 };
-const individu_label = {
-  type: "individu_label",
-  message0: "Individu %1 %2 label %3",
+const partenaire_label = {
+  type: "partenaire_label",
+  message0: "Partenaire %1 %2 label %3",
   args0: [
     {
       type: "field_dropdown",
@@ -622,7 +622,7 @@ const evenement_atteint = {
 
 const defaut_sur = {
   type: "defaut_sur",
-  message0: "Défaut sur assiette %1 vers %2",
+  message0: "Défaut sur %1 vers %2",
   args0: [
     {
       type: "input_value",
@@ -654,12 +654,15 @@ const pool_local_decl = {
 };
 const operation_local_pool_decl = {
   type: "operation_local_pool_decl",
-  message0: "operation %1 pour %2 sur_assiette %3 %4 corps %5",
+  message0: "operation %1 %2 pour %3 sur assiette %4 %5 corps %6",
   args0: [
     {
-      type: "input_value",
-      name: "operation",
-      check: "String",
+      type: "field_input",
+      name: "nom_operation",
+      text: "nom_operation",
+    },
+    {
+      type: "input_dummy",
     },
     {
       type: "input_statement",
@@ -669,7 +672,7 @@ const operation_local_pool_decl = {
     {
       type: "field_input",
       name: "NAME",
-      text: "nom",
+      text: "nom_assiette",
     },
     {
       type: "input_dummy",
@@ -687,7 +690,7 @@ const operation_local_pool_decl = {
 
 const retrocession = {
   type: "retrocession",
-  message0: "retrocession %1 %% %2 sur assiette %3 vers %4",
+  message0: "retrocession %1 %% %2 sur %3 vers %4",
   args0: [
     {
       type: "field_input",
@@ -702,10 +705,18 @@ const retrocession = {
       name: "NAME",
     },
     {
-      type: "input_value",
-      name: "vers",
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        ["partenaire1", "partenaire1"],
+        ["partenaire2", "partenaire2"],
+        ["partenaire3", "partenaire3"],
+      ],
     },
   ],
+  inputsInline: false,
+  previousStatement: null,
+  nextStatement: null,
   colour: 230,
   tooltip: "",
   helpUrl: "",
@@ -729,6 +740,7 @@ const deficit = {
       ],
     },
   ],
+  inputsInline: false,
   colour: 230,
   tooltip: "",
   helpUrl: "",
@@ -747,8 +759,8 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   apres,
   event,
   quotepart,
-  individu,
-  individu_label,
+  partenaire,
+  partenaire_label,
   dest_pool,
   label,
   quand,
@@ -766,5 +778,5 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   operation_local_pool_decl,
   pool_local_decl,
   retrocession,
-  deficit
+  deficit,
 ]);
