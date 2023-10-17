@@ -12,8 +12,6 @@
     </block>
     <block type="operation_par"> </block>
 
-    <block type="quand"> </block>
-
   </category>
   <category name="Contexts">
     <block type="territoire_domain" deletable="false" editable="false">
@@ -73,12 +71,27 @@
 
   <category name="Entrées ">
     <block type="individu"></block>
-    <block type="individu_label"></block>
-    <block type="label"></block>
+    <block type="individu_label">
+      <value name="label">
+        <block type="label" movable= false></block>
+      </value>
+    </block>
+
+
     <block type="dest_pool"></block>
     <block type="dest_pool_context"></block>
     <block type="entree"></block>
     <block type="entree_value"></block>
+    <block type="constant"></block>
+    <block type="monetary"></block>
+  </category>
+
+  <category name="Logic">
+    <block type="quand"></block>
+    <block type="quand_statement"></block>
+    <block type="logic_compare"></block>
+    <block type="logic_operation"></block>
+    <block type="logic_negate"></block>
   </category>
 
   <category name="Misc">
@@ -99,15 +112,6 @@
     <block type="text">
       <field name="TEXT"></field>
     </block>
-  </category>
-
-
-  <category name="Logic">
-    <block type="quand"></block>
-    <block type="quand_statement"></block>
-    <block type="logic_compare"></block>
-    <block type="logic_operation"></block>
-    <block type="logic_negate"></block>
   </category>
 
 

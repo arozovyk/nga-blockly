@@ -33,6 +33,15 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
       </block>
     </value>
   </block>
+  <block type="evenement_atteint">
+    
+    <value name="evenement_atteint">
+      <block type="quand">
+        
+      </block>
+    </value>
+  </block>
+
   <block type="operation_par"> </block>
 
 </category>
@@ -94,7 +103,12 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
 
 <category name="Entrées ">
   <block type="individu"></block>
-  <block type="label"></block>
+  <block type="individu_label">
+    <value name="label">
+      <block type="label" movable= false></block>
+    </value>
+  </block>
+
 
   <block type="dest_pool"></block>
   <block type="dest_pool_context"></block>
@@ -102,6 +116,7 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
   <block type="entree_value"></block>
   <block type="constant"></block>
   <block type="monetary"></block>
+  <block type="number"></block>
 </category>
 
 <category name="Logic">
@@ -131,9 +146,6 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
     <field name="TEXT"></field>
   </block>
 </category>
-
-
-
 
 
 <category name="Math">

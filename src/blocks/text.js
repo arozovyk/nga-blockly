@@ -306,7 +306,7 @@ const individu = {
   helpUrl: "",
 };
 const individu_label = {
-  type: "individu",
+  type: "individu_label",
   message0: "Individu %1 label %2",
   args0: [
     {
@@ -322,7 +322,7 @@ const individu_label = {
     },
     {
       type: "input_value",
-      name: "NAME",
+      name: "label",
     },
   ],
   output: null,
@@ -376,8 +376,7 @@ const quand = {
       name: "NAME",
     },
   ],
-  previousStatement: null,
-  nextStatement: null,
+  output: null,
   colour: 230,
   tooltip: "",
   helpUrl: "",
@@ -419,9 +418,8 @@ const operation_par = {
       type: "field_dropdown",
       name: "sur_assiette",
       options: [
-        ["les_productions_du_chameau", "les_productions_du_chameau"],
-        ["distributeur_du_desert", "distributeur_du_desert"],
-        ["vendeur_scorpion", "vendeur_scorpion"],
+        ["vente_tvsvod", "vente_tvsvod"],
+        ["recette_brute_distributeur", "recette_brute_distributeur"],
         ["recette_brute_vendeur", "recette_brute_vendeur"],
       ],
     },
@@ -463,7 +461,7 @@ const bonus = {
 
 const entree = {
   type: "entree",
-  message0: "Entrée %1 type %2",
+  message0: "Entrée %1  ",
   args0: [
     {
       type: "field_dropdown",
@@ -475,14 +473,6 @@ const entree = {
         ],
         ["frais_edition_vendeur_scorpion", "frais_edition_vendeur_scorpion"],
         ["entree_salle_France", "entree_salle_France"],
-      ],
-    },
-    {
-      type: "field_dropdown",
-      name: "type",
-      options: [
-        ["argent", "argent"],
-        ["entier", "entier"],
       ],
     },
   ],
@@ -494,7 +484,7 @@ const entree = {
 
 const entree_value = {
   type: "entree_value",
-  message0: "Entrée %1 type %2 value %3",
+  message0: "Entrée %1 value %2",
   args0: [
     {
       type: "field_dropdown",
@@ -508,14 +498,7 @@ const entree_value = {
         ["entree_salle_France", "entree_salle_France"],
       ],
     },
-    {
-      type: "field_dropdown",
-      name: "type",
-      options: [
-        ["argent", "argent"],
-        ["entier", "entier"],
-      ],
-    },
+     
     {
       type: "input_value",
       name: "NAME",
@@ -576,6 +559,22 @@ const constante = {
   helpUrl: "",
 };
 
+const number = {
+  type: "number",
+  message0: "%1",
+  args0: [
+    {
+      type: "field_input",
+      name: "NAME",
+      text: "0",
+    },
+  ],
+  output: null,
+  colour: 225,
+  tooltip: "",
+  helpUrl: "",
+};
+
 const monant = {
   type: "monetary",
   message0: "Montant %1 €",
@@ -588,6 +587,29 @@ const monant = {
   ],
   output: null,
   colour: 225,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const evenement_atteint = {
+  type: "evenement_atteint",
+  message0: "evenement %1 %2 atteint quand %3",
+  args0: [
+    {
+      type: "field_input",
+      name: "NAME",
+      text: "nom",
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "input_value",
+      name: "cond",
+    },
+  ],
+  inputsInline: false,
+  colour: 230,
   tooltip: "",
   helpUrl: "",
 };
@@ -618,4 +640,6 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   dest_pool_context,
   constante,
   monant,
+  evenement_atteint,
+  number,
 ]);
