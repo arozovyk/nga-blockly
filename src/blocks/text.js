@@ -42,7 +42,7 @@ const operation = {
       check: ["bonus", "quotepart", "avant", "apres"],
     },
   ],
-  colour: 284,
+  colour: 123,
   tooltip: "Define an operation",
   helpUrl: "",
 };
