@@ -23,7 +23,6 @@ const blocklyDiv = document.getElementById("blocklyDiv");
 
 const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
 
-
 <category name="Operation">
   <block type="operation">
     <field name="sur_assiette">les_productions_du_chameau</field>
@@ -33,21 +32,20 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
       </block>
     </value>
   </block>
+  <block type="operation_local_pool_decl">  </block>
   <block type="evenement_atteint">
-    
     <value name="evenement_atteint">
       <block type="quand">
         
       </block>
     </value>
   </block>
-
   <block type="operation_par"> </block>
   <block type="defaut_sur"> </block>
-
-
-
+  <block type="deficit"> </block>
+  <block type="retrocession"> </block>
 </category>
+
 <category name="Contexts">
   <block type="territoire_domain" deletable="false" editable="false">
     <statement name="territory_cases">
@@ -74,8 +72,8 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
     <field name="territory_cases">France</field>
   </block>
 </category>
-<category name="Corps">
 
+<category name="Corps">
   <block type="avant">
     <value name="event_name">
       <block type="event" movable="false">
@@ -86,7 +84,6 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
       <block type="quotepart"></block>
     </statement>
   </block>
-
   <block type="apres">
     <value name="event_name">
       <block type="event" movable="false">
@@ -97,11 +94,10 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
       <block type="quotepart"></block>
     </statement>
   </block>
-
   <block type="quotepart"></block>
   <block type="bonus"></block>
-
-
+  <block type="event" >
+ </block>
 </category>
 
 <category name="Entrées ">
@@ -111,10 +107,9 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
       <block type="label" movable= false></block>
     </value>
   </block>
-
-
   <block type="dest_pool"></block>
   <block type="dest_pool_context"></block>
+  <block type="pool_local_decl"></block>
   <block type="entree"></block>
   <block type="entree_value"></block>
   <block type="constant"></block>

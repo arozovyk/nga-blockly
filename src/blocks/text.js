@@ -42,7 +42,7 @@ const operation = {
       check: ["bonus", "quotepart", "avant", "apres"],
     },
   ],
-  colour: 210,
+  colour: 284,
   tooltip: "Define an operation",
   helpUrl: "",
 };
@@ -306,49 +306,34 @@ const individu = {
   helpUrl: "",
 };
 const individu_label = {
-  "type": "individu_label",
-  "message0": "Individu %1 %2 label %3",
-  "args0": [
+  type: "individu_label",
+  message0: "Individu %1 %2 label %3",
+  args0: [
     {
-      "type": "field_dropdown",
-      "name": "NAME",
-      "options": [
-        [
-          "les_productions_du_chameau",
-          "les_productions_du_chameau"
-        ],
-        [
-          "distributeur_du_desert",
-          "distributeur_du_desert"
-        ],
-        [
-          "vendeur_scorpion",
-          "vendeur_scorpion"
-        ],
-        [
-          "dromadaire_film",
-          "dromadaire_film"
-        ],
-        [
-          "barbie",
-          "barbie"
-        ]
-      ]
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        ["les_productions_du_chameau", "les_productions_du_chameau"],
+        ["distributeur_du_desert", "distributeur_du_desert"],
+        ["vendeur_scorpion", "vendeur_scorpion"],
+        ["dromadaire_film", "dromadaire_film"],
+        ["barbie", "barbie"],
+      ],
     },
     {
-      "type": "input_dummy"
+      type: "input_dummy",
     },
     {
-      "type": "field_input",
-      "name": "label",
-      "text": "label"
-    }
+      type: "field_input",
+      name: "label",
+      text: "label",
+    },
   ],
-  "output": null,
-  "colour": 230,
-  "tooltip": "",
-  "helpUrl": ""
-}
+  output: null,
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
 
 const dest_pool = {
   type: "dest_pool",
@@ -365,7 +350,7 @@ const dest_pool = {
     },
   ],
   output: null,
-  colour: 230,
+  colour: 345,
   tooltip: "",
   helpUrl: "",
 };
@@ -437,9 +422,11 @@ const operation_par = {
       type: "field_dropdown",
       name: "sur_assiette",
       options: [
-        ["vente_tvsvod", "vente_tvsvod"],
-        ["recette_brute_distributeur", "recette_brute_distributeur"],
-        ["recette_brute_vendeur", "recette_brute_vendeur"],
+        ["les_productions_du_chameau", "les_productions_du_chameau"],
+        ["distributeur_du_desert", "distributeur_du_desert"],
+        ["vendeur_scorpion", "vendeur_scorpion"],
+        ["dromadaire_film", "dromadaire_film"],
+        ["barbie", "barbie"],
       ],
     },
     {
@@ -496,7 +483,7 @@ const entree = {
     },
   ],
   output: null,
-  colour: 225,
+  colour: 60,
   tooltip: "",
   helpUrl: "",
 };
@@ -524,7 +511,7 @@ const entree_value = {
     },
   ],
   output: null,
-  colour: 225,
+  colour: 60,
   tooltip: "",
   helpUrl: "",
 };
@@ -551,7 +538,7 @@ const dest_pool_context = {
     },
   ],
   output: null,
-  colour: 230,
+  colour: 345,
   tooltip: "",
   helpUrl: "",
 };
@@ -573,7 +560,7 @@ const constante = {
     },
   ],
   output: null,
-  colour: 225,
+  colour: 60,
   tooltip: "",
   helpUrl: "",
 };
@@ -650,6 +637,102 @@ const defaut_sur = {
   tooltip: "",
   helpUrl: "",
 };
+const pool_local_decl = {
+  type: "pool_local_decl",
+  message0: "Assiette %1",
+  args0: [
+    {
+      type: "field_input",
+      name: "NAME",
+      text: "nom assiette",
+    },
+  ],
+  output: null,
+  colour: 345,
+  tooltip: "",
+  helpUrl: "",
+};
+const operation_local_pool_decl = {
+  type: "operation_local_pool_decl",
+  message0: "operation %1 pour %2 sur_assiette %3 %4 corps %5",
+  args0: [
+    {
+      type: "input_value",
+      name: "operation",
+      check: "String",
+    },
+    {
+      type: "input_statement",
+      name: "pour",
+      check: "context",
+    },
+    {
+      type: "field_input",
+      name: "NAME",
+      text: "nom",
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "input_statement",
+      name: "corps",
+      check: ["bonus", "quotepart", "avant", "apres"],
+    },
+  ],
+  colour: 210,
+  tooltip: "Define an operation",
+  helpUrl: "",
+};
+
+const retrocession = {
+  type: "retrocession",
+  message0: "retrocession %1 %% %2 sur assiette %3 vers %4",
+  args0: [
+    {
+      type: "field_input",
+      name: "retrocession_value",
+      text: "0",
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "input_value",
+      name: "NAME",
+    },
+    {
+      type: "input_value",
+      name: "vers",
+    },
+  ],
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const deficit = {
+  type: "deficit",
+  message0: "Deficit sur %1 par %2",
+  args0: [
+    {
+      type: "input_value",
+      name: "deficit",
+    },
+    {
+      type: "field_dropdown",
+      name: "deficit_par",
+      options: [
+        ["versus", "versus"],
+        ["obrother", "obrother"],
+        ["eurimages", "eurimages"],
+      ],
+    },
+  ],
+  colour: 230,
+  tooltip: "",
+  helpUrl: "",
+};
 
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   operation,
@@ -680,4 +763,8 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   evenement_atteint,
   number,
   defaut_sur,
+  operation_local_pool_decl,
+  pool_local_decl,
+  retrocession,
+  deficit
 ]);
