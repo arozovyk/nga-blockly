@@ -306,30 +306,49 @@ const individu = {
   helpUrl: "",
 };
 const individu_label = {
-  type: "individu_label",
-  message0: "Individu %1 label %2",
-  args0: [
+  "type": "individu_label",
+  "message0": "Individu %1 %2 label %3",
+  "args0": [
     {
-      type: "field_dropdown",
-      name: "NAME",
-      options: [
-        ["les_productions_du_chameau", "les_productions_du_chameau"],
-        ["distributeur_du_desert", "distributeur_du_desert"],
-        ["vendeur_scorpion", "vendeur_scorpion"],
-        ["dromadaire_film", "dromadaire_film"],
-        ["barbie", "barbie"],
-      ],
+      "type": "field_dropdown",
+      "name": "NAME",
+      "options": [
+        [
+          "les_productions_du_chameau",
+          "les_productions_du_chameau"
+        ],
+        [
+          "distributeur_du_desert",
+          "distributeur_du_desert"
+        ],
+        [
+          "vendeur_scorpion",
+          "vendeur_scorpion"
+        ],
+        [
+          "dromadaire_film",
+          "dromadaire_film"
+        ],
+        [
+          "barbie",
+          "barbie"
+        ]
+      ]
     },
     {
-      type: "input_value",
-      name: "label",
+      "type": "input_dummy"
     },
+    {
+      "type": "field_input",
+      "name": "label",
+      "text": "label"
+    }
   ],
-  output: null,
-  colour: 230,
-  tooltip: "",
-  helpUrl: "",
-};
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
 
 const dest_pool = {
   type: "dest_pool",
@@ -498,7 +517,7 @@ const entree_value = {
         ["entree_salle_France", "entree_salle_France"],
       ],
     },
-     
+
     {
       type: "input_value",
       name: "NAME",
@@ -614,6 +633,24 @@ const evenement_atteint = {
   helpUrl: "",
 };
 
+const defaut_sur = {
+  type: "defaut_sur",
+  message0: "Défaut sur assiette %1 vers %2",
+  args0: [
+    {
+      type: "input_value",
+      name: "assiette",
+    },
+    {
+      type: "input_value",
+      name: "vers",
+    },
+  ],
+  colour: 45,
+  tooltip: "",
+  helpUrl: "",
+};
+
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   operation,
   context,
@@ -642,4 +679,5 @@ export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray([
   monant,
   evenement_atteint,
   number,
+  defaut_sur,
 ]);

@@ -43,6 +43,9 @@ const toolbox = ` <xml xmlns="https://developers.google.com/blockly/xml" id="too
   </block>
 
   <block type="operation_par"> </block>
+  <block type="defaut_sur"> </block>
+
+
 
 </category>
 <category name="Contexts">
