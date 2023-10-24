@@ -1,815 +1,331 @@
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-
-/*
-This toolbox contains nearly every single built-in block that Blockly offers,
-in addition to the custom block 'add_text' this sample app adds.
-You probably don't need every single block, and should consider either rewriting
-your toolbox from scratch, or carefully choosing whether you need each block
-listed here.
-*/
-
 export const toolbox = {
-  'kind': 'categoryToolbox',
-  'contents': [
+  kind: "categoryToolbox",
+  contents: [
+    // Operation
     {
-      "kind": "category",
-      "name": "Category Names",
-      "contents": [
+      kind: "category",
+      categorystyle: "loop_category",
+      name: "Operation",
+      contents: [
         {
-          "kind": "block",
-          "type": "operation",
-          "deletable": "false",
-          "movable": "false",
-          "editable": "false",
-          "values": [
-            {
-              "name": "op_name",
-              "block": {
-                "type": "text",
-                "fields": {
-                  "TEXT": "comission salle vers distributeur"
-                }
-              }
+          kind: "block",
+          type: "operation",
+          inputs: {
+            POUR: {
+              shadow: {
+                type: "territoire_domain",
+              },
             },
-            {
-              "name": "pour",
-              "block": {
-                "type": "lists_create_with",
-                "mutations": "3",
-                "values": [
-                  {
-                    "name": "ADD0",
-                    "block": {
-                      "type": "context_group",
-                      "deletable": "false",
-                      "movable": "false",
-                      "editable": "false",
-                      "fields": {
-                        "domaine": "Domain"
-                      }
-                    }
-                  }
-                ]
-              }
+          },
+          fields: {
+            sur_assiette: "les_productions_du_chameau",
+          },
+          values: {
+            operation: {
+              block: {
+                type: "text",
+                fields: {
+                  TEXT: "",
+                },
+              },
             },
-            {
-              "name": "sur",
-              "block": {
-                "type": "lists_create_with",
-                "mutations": "3"
-              }
-            }
-          ]
-        }
-      ]
-    }
- ,    
-    {
-      'kind': 'category',
-      'name': 'Logic',
-      'categorystyle': 'logic_category',
-      'contents': [
-        {
-          'kind': 'block',
-          'type': 'controls_if',
+          },
         },
         {
-          'kind': 'block',
-          'type': 'logic_compare',
+          kind: "block",
+          type: "operation_local_pool_decl",
         },
         {
-          'kind': 'block',
-          'type': 'logic_operation',
+          kind: "block",
+          type: "evenement_atteint",
+          values: {
+            evenement_atteint: {
+              block: {
+                type: "quand",
+              },
+            },
+          },
         },
         {
-          'kind': 'block',
-          'type': 'logic_negate',
+          kind: "block",
+          type: "operation_par",
         },
         {
-          'kind': 'block',
-          'type': 'logic_boolean',
+          kind: "block",
+          type: "defaut_sur",
         },
         {
-          'kind': 'block',
-          'type': 'logic_null',
-        },
-        {
-          'kind': 'block',
-          'type': 'logic_ternary',
+          kind: "block",
+          type: "deficit",
         },
       ],
     },
+    // Contexts
     {
-      'kind': 'category',
-      'name': 'Loops',
-      'categorystyle': 'loop_category',
-      'contents': [
+      kind: "category",
+      name: "Contexts",
+      categorystyle: "colour_category",
+      contents: [
         {
-          'kind': 'block',
-          'type': 'controls_repeat_ext',
-          'inputs': {
-            'TIMES': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 10,
+          kind: "block",
+          type: "territoire_domain",
+          deletable: true,
+          editable: true,
+          statements: {
+            territory_cases: {
+              block: {
+                type: "territory_cases",
+                fields: {
+                  territory_cases: "France",
                 },
               },
             },
           },
         },
         {
-          'kind': 'block',
-          'type': 'controls_whileUntil',
-        },
-        {
-          'kind': 'block',
-          'type': 'controls_for',
-          'inputs': {
-            'FROM': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
-              },
-            },
-            'TO': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 10,
-                },
-              },
-            },
-            'BY': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
+          kind: "block",
+          type: "support_domain",
+          deletable: true,
+          editable: true,
+          statements: {
+            support_cases: {
+              block: {
+                type: "support_cases",
               },
             },
           },
         },
         {
-          'kind': 'block',
-          'type': 'controls_forEach',
-        },
-        {
-          'kind': 'block',
-          'type': 'controls_flow_statements',
-        },
-      ],
-    },
-    {
-      'kind': 'category',
-      'name': 'Math',
-      'categorystyle': 'math_category',
-      'contents': [
-        {
-          'kind': 'block',
-          'type': 'math_number',
-          'fields': {
-            'NUM': 123,
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'math_arithmetic',
-          'inputs': {
-            'A': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
-              },
-            },
-            'B': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
+          kind: "block",
+          type: "secteur_domain",
+          deletable: true,
+          editable: true,
+          statements: {
+            secteur_cases: {
+              block: {
+                type: "secteur_cases",
               },
             },
           },
         },
         {
-          'kind': 'block',
-          'type': 'math_single',
-          'inputs': {
-            'NUM': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 9,
-                },
-              },
-            },
-          },
+          kind: "block",
+          type: "support_cases",
         },
         {
-          'kind': 'block',
-          'type': 'math_trig',
-          'inputs': {
-            'NUM': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 45,
-                },
-              },
-            },
-          },
+          kind: "block",
+          type: "secteur_cases",
         },
         {
-          'kind': 'block',
-          'type': 'math_constant',
-        },
-        {
-          'kind': 'block',
-          'type': 'math_number_property',
-          'inputs': {
-            'NUMBER_TO_CHECK': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 0,
-                },
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'math_round',
-          'fields': {
-            'OP': 'ROUND',
-          },
-          'inputs': {
-            'NUM': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 3.1,
-                },
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'math_on_list',
-          'fields': {
-            'OP': 'SUM',
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'math_modulo',
-          'inputs': {
-            'DIVIDEND': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 64,
-                },
-              },
-            },
-            'DIVISOR': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 10,
-                },
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'math_constrain',
-          'inputs': {
-            'VALUE': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 50,
-                },
-              },
-            },
-            'LOW': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
-              },
-            },
-            'HIGH': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 100,
-                },
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'math_random_int',
-          'inputs': {
-            'FROM': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
-              },
-            },
-            'TO': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 100,
-                },
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'math_random_float',
-        },
-        {
-          'kind': 'block',
-          'type': 'math_atan2',
-          'inputs': {
-            'X': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
-              },
-            },
-            'Y': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 1,
-                },
-              },
-            },
+          kind: "block",
+          type: "territory_cases",
+          fields: {
+            territory_cases: "France",
           },
         },
       ],
     },
     {
-      'kind': 'category',
-      'name': 'Text',
-      'categorystyle': 'text_category',
-      'contents': [
+      kind: "sep",
+    },
+    // Corps
+    {
+      kind: "category",
+      categorystyle: "variable_category",
+
+      name: "Corps",
+      contents: [
         {
-          'kind': 'block',
-          'type': 'text',
-        },
-        {
-          'kind': 'block',
-          'type': 'text_multiline',
-        },
-        {
-          'kind': 'block',
-          'type': 'text_join',
-        },
-        {
-          'kind': 'block',
-          'type': 'text_append',
-          'inputs': {
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': '',
+          kind: "block",
+          type: "avant",
+          values: {
+            event_name: {
+              block: {
+                type: "event",
+                movable: true,
+                fields: {
+                  TEXT: "dssd",
                 },
               },
             },
           },
+          statements: {
+            avant_body: {
+              block: {
+                type: "quotepart",
+              },
+            },
+          },
         },
         {
-          'kind': 'block',
-          'type': 'text_length',
-          'inputs': {
-            'VALUE': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': 'abc',
+          kind: "block",
+          type: "apres",
+          values: {
+            event_name: {
+              block: {
+                type: "event",
+                movable: true,
+                fields: {
+                  TEXT: "dssd",
                 },
               },
             },
           },
-        },
-        {
-          'kind': 'block',
-          'type': 'text_isEmpty',
-          'inputs': {
-            'VALUE': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': '',
-                },
+          statements: {
+            apres_body: {
+              block: {
+                type: "quotepart",
               },
             },
           },
         },
         {
-          'kind': 'block',
-          'type': 'text_indexOf',
-          'inputs': {
-            'VALUE': {
-              'block': {
-                'type': 'variables_get',
-              },
-            },
-            'FIND': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': 'abc',
-                },
-              },
-            },
-          },
+          kind: "block",
+          type: "quotepart",
         },
         {
-          'kind': 'block',
-          'type': 'text_charAt',
-          'inputs': {
-            'VALUE': {
-              'block': {
-                'type': 'variables_get',
-              },
-            },
-          },
+          kind: "block",
+          type: "bonus",
         },
         {
-          'kind': 'block',
-          'type': 'text_getSubstring',
-          'inputs': {
-            'STRING': {
-              'block': {
-                'type': 'variables_get',
-              },
-            },
-          },
+          kind: "block",
+          type: "event",
         },
         {
-          'kind': 'block',
-          'type': 'text_changeCase',
-          'inputs': {
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': 'abc',
-                },
-              },
-            },
-          },
+          kind: "block",
+          type: "retrocession",
         },
-        {
-          'kind': 'block',
-          'type': 'text_trim',
-          'inputs': {
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': 'abc',
-                },
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'text_count',
-          'inputs': {
-            'SUB': {
-              'shadow': {
-                'type': 'text',
-              },
-            },
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'text_replace',
-          'inputs': {
-            'FROM': {
-              'shadow': {
-                'type': 'text',
-              },
-            },
-            'TO': {
-              'shadow': {
-                'type': 'text',
-              },
-            },
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'text_reverse',
-          'inputs': {
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-              },
-            },
-          },
-        },
-        {
-          'kind': 'block',
-          'type': 'add_text',
-          'inputs': {
-            'TEXT': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': 'abc',
-                },
-              },
-            },
-            'COLOR': {
-              'shadow': {
-                'type': 'colour_picker',
-                'fields': {
-                  'COLOUR': '#aa00cc',
-                },
-              },
-            },
-          },
-        },
-        {
-          "kind": "block",
-          "type": "operation",
-          "deletable": "false",
-          "movable": "false",
-          "editable": "false",
-          "values": [
-            {
-              "name": "op_name",
-              "block": {
-                "type": "text",
-                "fields": {
-                  "TEXT": "comission salle vers distributeur"
-                }
-              }
-            },
-            {
-              "name": "pour",
-              "block": {
-                "type": "lists_create_with",
-                "mutations": "3",
-                "values": [
-                  {
-                    "name": "ADD0",
-                    "block": {
-                      "type": "context_group",
-                      "deletable": "false",
-                      "movable": "false",
-                      "editable": "false",
-                      "fields": {
-                        "domaine": "Domain"
-                      }
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "name": "sur",
-              "block": {
-                "type": "lists_create_with",
-                "mutations": "3"
-              }
-            }
-          ]
-        }
       ],
     },
+    // Entrées
     {
-      'kind': 'category',
-      'name': 'Lists',
-      'categorystyle': 'list_category',
-      'contents': [
+      kind: "category",
+      name: "Entrées",
+      categorystyle: "text_category",
+
+      contents: [
         {
-          'kind': 'block',
-          'type': 'lists_create_with',
+          kind: "block",
+          type: "partenaire",
         },
         {
-          'kind': 'block',
-          'type': 'lists_create_with',
-        },
-        {
-          'kind': 'block',
-          'type': 'lists_repeat',
-          'inputs': {
-            'NUM': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 5,
-                },
+          kind: "block",
+          type: "partenaire_label",
+          values: {
+            label: {
+              block: {
+                type: "label",
+                movable: false,
               },
             },
           },
         },
         {
-          'kind': 'block',
-          'type': 'lists_length',
+          kind: "block",
+          type: "dest_pool",
         },
         {
-          'kind': 'block',
-          'type': 'lists_isEmpty',
+          kind: "block",
+          type: "dest_pool_context",
         },
         {
-          'kind': 'block',
-          'type': 'lists_indexOf',
-          'inputs': {
-            'VALUE': {
-              'block': {
-                'type': 'variables_get',
-              },
-            },
-          },
+          kind: "block",
+          type: "pool_local_decl",
         },
         {
-          'kind': 'block',
-          'type': 'lists_getIndex',
-          'inputs': {
-            'VALUE': {
-              'block': {
-                'type': 'variables_get',
-              },
-            },
-          },
+          kind: "block",
+          type: "entree",
         },
         {
-          'kind': 'block',
-          'type': 'lists_setIndex',
-          'inputs': {
-            'LIST': {
-              'block': {
-                'type': 'variables_get',
-              },
-            },
-          },
+          kind: "block",
+          type: "entree_value",
         },
         {
-          'kind': 'block',
-          'type': 'lists_getSublist',
-          'inputs': {
-            'LIST': {
-              'block': {
-                'type': 'variables_get',
-              },
-            },
-          },
+          kind: "block",
+          type: "constant",
         },
         {
-          'kind': 'block',
-          'type': 'lists_split',
-          'inputs': {
-            'DELIM': {
-              'shadow': {
-                'type': 'text',
-                'fields': {
-                  'TEXT': ',',
-                },
-              },
-            },
-          },
+          kind: "block",
+          type: "monetary",
         },
         {
-          'kind': 'block',
-          'type': 'lists_sort',
-        },
-        {
-          'kind': 'block',
-          'type': 'lists_reverse',
+          kind: "block",
+          type: "number",
         },
       ],
     },
     {
-      'kind': 'category',
-      'name': 'Color',
-      'categorystyle': 'colour_category',
-      'contents': [
+      kind: "sep",
+    },
+    //Logic
+    {
+      kind: "category",
+      name: "Logic",
+      categorystyle: "logic_category",
+
+      contents: [
         {
-          'kind': 'block',
-          'type': 'colour_picker',
+          kind: "block",
+          type: "quand",
         },
         {
-          'kind': 'block',
-          'type': 'colour_random',
+          kind: "block",
+          type: "quand_statement",
         },
         {
-          'kind': 'block',
-          'type': 'colour_rgb',
-          'inputs': {
-            'RED': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 100,
-                },
-              },
-            },
-            'GREEN': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 50,
-                },
-              },
-            },
-            'BLUE': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 0,
-                },
-              },
-            },
-          },
+          kind: "block",
+          type: "logic_compare",
         },
         {
-          'kind': 'block',
-          'type': 'colour_blend',
-          'inputs': {
-            'COLOUR1': {
-              'shadow': {
-                'type': 'colour_picker',
-                'fields': {
-                  'COLOUR': '#ff0000',
-                },
-              },
-            },
-            'COLOUR2': {
-              'shadow': {
-                'type': 'colour_picker',
-                'fields': {
-                  'COLOUR': '#3333ff',
-                },
-              },
-            },
-            'RATIO': {
-              'shadow': {
-                'type': 'math_number',
-                'fields': {
-                  'NUM': 0.5,
-                },
-              },
-            },
-          },
+          kind: "block",
+          type: "logic_operation",
+        },
+        {
+          kind: "block",
+          type: "logic_negate",
         },
       ],
     },
+    //Misc
     {
-      'kind': 'sep',
-    },
-    {
-      'kind': 'category',
-      'name': 'Variables',
-      'categorystyle': 'variable_category',
-      'custom': 'VARIABLE',
-    },
-    {
-      'kind': 'category',
-      'name': 'Functions',
-      'categorystyle': 'procedure_category',
-      'custom': 'PROCEDURE',
+      kind: "category",
+      name: "Misc",
+      categorystyle: "logic_category",
+
+      contents: [
+        {
+          kind: "block",
+          type: "math_arithmetic",
+          fields: {
+            OP: "ADD",
+          },
+          values: {
+            A: {
+              block: {
+                type: "math_number",
+                fields: {
+                  NUM: 1,
+                },
+              },
+            },
+            B: {
+              block: {
+                type: "math_number",
+                fields: {
+                  NUM: 1,
+                },
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "text",
+          fields: {
+            TEXT: "",
+          },
+        },
+      ],
     },
   ],
 };
