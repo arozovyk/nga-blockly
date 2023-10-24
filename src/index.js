@@ -33,6 +33,4 @@ Object.assign(javascriptGenerator.forBlock, forBlock);
 // Set up UI elements and inject Blockly
 const blocklyDiv = document.getElementById("blocklyDiv");
 
-
-
 const ws = Blockly.inject(blocklyDiv, { toolbox });

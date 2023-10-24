@@ -30,7 +30,7 @@ const operation = {
     },
     {
       type: "input_statement",
-      name: "corps",
+      name: "CORPS",
       check: "corps",
     },
   ],
@@ -67,8 +67,8 @@ const operation_par = {
     },
     {
       type: "input_statement",
-      name: "corps",
-      check: ["bonus", "quotepart", "avant", "apres"],
+      name: "CORPS",
+      check: ["bonus", "quotepart", "avant", "apres", "corps"],
     },
   ],
   colour: 210,
@@ -90,7 +90,7 @@ const operation_local_pool_decl = {
     },
     {
       type: "input_statement",
-      name: "pour",
+      name: "POUR",
       check: "context",
     },
     {
@@ -103,8 +103,8 @@ const operation_local_pool_decl = {
     },
     {
       type: "input_statement",
-      name: "corps",
-      check: ["bonus", "quotepart", "avant", "apres"],
+      name: "CORPS",
+      check: ["bonus", "quotepart", "avant", "apres", "corps"],
     },
   ],
   colour: 210,
@@ -114,7 +114,7 @@ const operation_local_pool_decl = {
 
 const avance = {
   type: "avance",
-  message0: "avance %1 %2 sur %3 par %4 montant %5",
+  message0: "avance %1 %2 sur %3 par %4  %5",
   args0: [
     {
       type: "field_input",
@@ -126,13 +126,13 @@ const avance = {
     },
     {
       type: "input_value",
-      name: "sur",
+      name: "SUR",
       check: "partner",
       align: "RIGHT",
     },
     {
       type: "field_dropdown",
-      name: "NAME",
+      name: "PAR",
       options: [
         ["partner1", "partner1"],
         ["partner2", "partner2"],
@@ -141,7 +141,7 @@ const avance = {
     },
     {
       type: "input_value",
-      name: "NAME",
+      name: "MONTANT",
     },
   ],
   inputsInline: false,
@@ -157,14 +157,14 @@ const evenement_atteint = {
     {
       type: "field_input",
       name: "NAME",
-      text: "nom",
+      text: "nom_evenement",
     },
     {
       type: "input_dummy",
     },
     {
       type: "input_value",
-      name: "cond",
+      name: "COND",
       check: "Boolean",
     },
   ],
@@ -180,11 +180,11 @@ const defaut_sur = {
   args0: [
     {
       type: "input_value",
-      name: "assiette",
+      name: "SUR",
     },
     {
       type: "input_value",
-      name: "vers",
+      name: "VERS",
     },
   ],
   colour: 45,
@@ -198,7 +198,7 @@ const deficit = {
   args0: [
     {
       type: "input_value",
-      name: "deficit",
+      name: "SUR",
     },
     {
       type: "field_dropdown",

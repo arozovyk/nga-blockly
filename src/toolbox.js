@@ -16,6 +16,11 @@ export const toolbox = {
                 type: "territoire_domain",
               },
             },
+            CORPS: {
+              shadow: {
+                type: "avant",
+              },
+            },
           },
           fields: {
             sur_assiette: "les_productions_du_chameau",
@@ -34,15 +39,49 @@ export const toolbox = {
         {
           kind: "block",
           type: "operation_local_pool_decl",
+          inputs: {
+            POUR: {
+              shadow: {
+                type: "territoire_domain",
+              },
+            },
+            CORPS: {
+              shadow: {
+                type: "avant",
+              },
+            },
+          },
         },
 
         {
           kind: "block",
           type: "operation_par",
+          inputs: {
+            CORPS: {
+              shadow: {
+                type: "retrocession",
+              },
+            },
+          },
         },
+      ],
+    },
+    //Evenements
+    {
+      kind: "category",
+      name: "Evenements",
+      categorystyle: "math_category",
+      contents: [
         {
           kind: "block",
           type: "evenement_atteint",
+          inputs: {
+            COND: {
+              shadow: {
+                type: "logic_compare",
+              },
+            },
+          },
           values: {
             evenement_atteint: {
               block: {
@@ -54,14 +93,45 @@ export const toolbox = {
         {
           kind: "block",
           type: "defaut_sur",
+          inputs: {
+            SUR: {
+              shadow: {
+                type: "dest_pool_context",
+              },
+            },
+            VERS: {
+              shadow: {
+                type: "partenaire_label",
+              },
+            },
+          },
         },
         {
           kind: "block",
           type: "deficit",
+          inputs: {
+            SUR: {
+              shadow: {
+                type: "dest_pool_context",
+              },
+            },
+          },
         },
         {
           kind: "block",
           type: "avance",
+          inputs: {
+            SUR: {
+              shadow: {
+                type: "partenaire_label",
+              },
+            },
+            MONTANT: {
+              shadow: {
+                type: "monetary",
+              },
+            },
+          },
         },
       ],
     },
@@ -76,13 +146,12 @@ export const toolbox = {
           type: "territoire_domain",
           deletable: true,
           editable: true,
-          statements: {
-            territory_cases: {
-              block: {
-                type: "territory_cases",
-                fields: {
-                  territory_cases: "France",
-                },
+          statement: {
+            name: "territory_cases",
+            block: {
+              type: "territory_cases",
+              field: {
+                territory_cases: "France",
               },
             },
           },

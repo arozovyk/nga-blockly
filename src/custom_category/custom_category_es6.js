@@ -4,6 +4,7 @@ import context from "./icons/context.svg";
 import partners from "./icons/partners.svg";
 import logic from "./icons/logic.svg";
 import partition from "./icons/partition.svg";
+import event from "./icons/event.svg";
 import * as Blockly from "blockly";
 
 export class CustomCategory extends Blockly.ToolboxCategory {
@@ -78,12 +79,15 @@ export class CustomCategory extends Blockly.ToolboxCategory {
       case "Corps":
         iconImg.src = partition;
         break;
+      case "Evenements":
+        iconImg.src = event;
+        break;
       default:
         iconImg.src = logoOnly;
     }
     iconImg.alt = "Blockly Logo";
-    iconImg.width = "70";
-    iconImg.height = "70";
+    iconImg.width = "60";
+    iconImg.height = "60";
     return iconImg;
   }
 }
