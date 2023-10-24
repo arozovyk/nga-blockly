@@ -35,6 +35,11 @@ export const toolbox = {
           kind: "block",
           type: "operation_local_pool_decl",
         },
+
+        {
+          kind: "block",
+          type: "operation_par",
+        },
         {
           kind: "block",
           type: "evenement_atteint",
@@ -48,15 +53,15 @@ export const toolbox = {
         },
         {
           kind: "block",
-          type: "operation_par",
-        },
-        {
-          kind: "block",
           type: "defaut_sur",
         },
         {
           kind: "block",
           type: "deficit",
+        },
+        {
+          kind: "block",
+          type: "avance",
         },
       ],
     },
@@ -122,6 +127,22 @@ export const toolbox = {
           fields: {
             territory_cases: "France",
           },
+        },
+        {
+          kind: "block",
+          type: "tout_territoire",
+        },
+        {
+          kind: "block",
+          type: "tout_support",
+        },
+        {
+          kind: "block",
+          type: "tout_territoire",
+        },
+        {
+          kind: "block",
+          type: "tout_context",
         },
       ],
     },
@@ -236,10 +257,7 @@ export const toolbox = {
           kind: "block",
           type: "entree",
         },
-        {
-          kind: "block",
-          type: "entree_value",
-        },
+
         {
           kind: "block",
           type: "constant",

@@ -25,7 +25,6 @@ Blockly.registry.register(
   "toolboxlabel",
   ToolboxLabel
 );
-
 // Register the blocks and generator with Blockly
 Blockly.common.defineBlocks(blocks);
 
