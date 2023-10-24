@@ -5,7 +5,7 @@
  */
 
 import * as Blockly from "blockly";
-import { blocks } from "./blocks/text";
+import { blocks } from "./blocks/blocks";
 import { forBlock } from "./generators/javascript";
 import { javascriptGenerator } from "blockly/javascript";
 import { CustomCategory } from "./custom_category/custom_category_es6";
@@ -36,6 +36,7 @@ const blocklyDiv = document.getElementById("blocklyDiv");
 const toolbox = {
   kind: "categoryToolbox",
   contents: [
+    // Operation
     {
       kind: "category",
       categorystyle: "loop_category",
@@ -94,6 +95,7 @@ const toolbox = {
         },
       ],
     },
+    // Contexts
     {
       kind: "category",
       name: "Contexts",
@@ -158,6 +160,7 @@ const toolbox = {
         },
       ],
     },
+    // Corps
     {
       kind: "category",
       categorystyle : "variable_category",
@@ -226,6 +229,7 @@ const toolbox = {
         },
       ],
     },
+    // Entrées
     {
       kind: "category",
       name: "Entrées",
@@ -282,6 +286,7 @@ const toolbox = {
         },
       ],
     },
+    //Logic
     {
       kind: "category",
       name: "Logic",
@@ -310,6 +315,7 @@ const toolbox = {
         },
       ],
     },
+    //Misc
     {
       kind: "category",
       name: "Misc",
@@ -350,6 +356,7 @@ const toolbox = {
         },
       ],
     },
+
     {
       kind: "sep",
     },
