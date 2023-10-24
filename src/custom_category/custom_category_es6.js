@@ -62,7 +62,6 @@ export class CustomCategory extends Blockly.ToolboxCategory {
    */
   createIconDom_() {
     const iconImg = document.createElement("img");
-    console.log(this);
     switch (this.name_) {
       case "Operation":
         iconImg.src = money_flow;

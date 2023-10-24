@@ -14,11 +14,19 @@ export const toolbox = {
             POUR: {
               shadow: {
                 type: "territoire_domain",
+                inputs: {
+                  TERRITORY_CASES: {
+                    shadow: {
+                      type: "territory_cases",
+                    },
+                  },
+                },
               },
             },
             CORPS: {
               shadow: {
                 type: "avant",
+                next: { shadow: { type: "apres" } },
               },
             },
           },
@@ -43,11 +51,19 @@ export const toolbox = {
             POUR: {
               shadow: {
                 type: "territoire_domain",
+                inputs: {
+                  TERRITORY_CASES: {
+                    shadow: {
+                      type: "territory_cases",
+                    },
+                  },
+                },
               },
             },
             CORPS: {
               shadow: {
                 type: "avant",
+                next: { shadow: { type: "apres" } },
               },
             },
           },
@@ -60,6 +76,18 @@ export const toolbox = {
             CORPS: {
               shadow: {
                 type: "retrocession",
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "operation_par",
+          inputs: {
+            CORPS: {
+              shadow: {
+                type: "avant",
+                next: { shadow: { type: "apres" } },
               },
             },
           },
@@ -146,12 +174,10 @@ export const toolbox = {
           type: "territoire_domain",
           deletable: true,
           editable: true,
-          statement: {
-            name: "territory_cases",
-            block: {
-              type: "territory_cases",
-              field: {
-                territory_cases: "France",
+          inputs: {
+            TERRITORY_CASES: {
+              block: {
+                type: "territory_cases",
               },
             },
           },
@@ -161,8 +187,8 @@ export const toolbox = {
           type: "support_domain",
           deletable: true,
           editable: true,
-          statements: {
-            support_cases: {
+          inputs: {
+            SUPPORT_CASES: {
               block: {
                 type: "support_cases",
               },
@@ -174,8 +200,8 @@ export const toolbox = {
           type: "secteur_domain",
           deletable: true,
           editable: true,
-          statements: {
-            secteur_cases: {
+          inputs: {
+            SECTEUR_CASES: {
               block: {
                 type: "secteur_cases",
               },
@@ -239,10 +265,15 @@ export const toolbox = {
               },
             },
           },
-          statements: {
+          inputs: {
             avant_body: {
-              block: {
+              shadow: {
                 type: "quotepart",
+                next: {
+                  shadow: {
+                    type: "quotepart",
+                  },
+                },
               },
             },
           },
@@ -261,10 +292,15 @@ export const toolbox = {
               },
             },
           },
-          statements: {
+          inputs: {
             apres_body: {
-              block: {
+              shadow: {
                 type: "quotepart",
+                next: {
+                  shadow: {
+                    type: "quotepart",
+                  },
+                },
               },
             },
           },
@@ -272,10 +308,46 @@ export const toolbox = {
         {
           kind: "block",
           type: "quotepart",
+          inputs: {
+            DEST: {
+              block: {
+                type: "partenaire",
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "quotepart",
+          inputs: {
+            DEST: {
+              block: {
+                type: "partenaire_label",
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "quotepart",
+          inputs: {
+            DEST: {
+              block: {
+                type: "dest_pool",
+              },
+            },
+          },
         },
         {
           kind: "block",
           type: "bonus",
+          inputs: {
+            DEST: {
+              shadow: {
+                type: "partenaire_label",
+              },
+            },
+          },
         },
         {
           kind: "block",
@@ -284,6 +356,13 @@ export const toolbox = {
         {
           kind: "block",
           type: "retrocession",
+          inputs: {
+            SUR: {
+              shadow: {
+                type: "dest_pool",
+              },
+            },
+          },
         },
       ],
     },
@@ -317,6 +396,20 @@ export const toolbox = {
         {
           kind: "block",
           type: "dest_pool_context",
+          inputs: {
+            CONTEXT: {
+              shadow: {
+                type: "territoire_domain",
+                inputs: {
+                  TERRITORY_CASES: {
+                    shadow: {
+                      type: "territory_cases",
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
         {
           kind: "block",
@@ -354,10 +447,29 @@ export const toolbox = {
         {
           kind: "block",
           type: "quand",
+          inputs: {
+            COND: {
+              block: {
+                type: "event",
+              },
+            },
+          },
         },
         {
           kind: "block",
           type: "quand_statement",
+          inputs: {
+            COND: {
+              block: {
+                type: "event",
+              },
+            },
+            CORPS: {
+              shadow: {
+                type: "bonus",
+              },
+            },
+          },
         },
         {
           kind: "block",

@@ -27,7 +27,7 @@ const support_domain = {
     },
     {
       type: "input_statement",
-      name: "support_cases",
+      name: "SUPPORT_CASES",
       check: "support_cases",
     },
   ],
@@ -46,7 +46,7 @@ const secteur_domain = {
     },
     {
       type: "input_statement",
-      name: "secteur_cases",
+      name: "SECTEUR_CASES",
       check: "secteur_cases",
     },
   ],

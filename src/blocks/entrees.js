@@ -114,7 +114,7 @@ const number = {
     {
       type: "field_input",
       name: "NAME",
-      text: "0",
+      text: "1000",
     },
   ],
   output: null,
@@ -130,7 +130,7 @@ const monant = {
     {
       type: "field_input",
       name: "NAME",
-      text: "0",
+      text: "1000",
     },
   ],
   output: null,
@@ -182,11 +182,56 @@ const event = {
   tooltip: "",
   helpUrl: "",
 };
+
+const dest_pool_context = {
+  type: "dest_pool_context",
+  message0: "Assiette %1 %2 Context %3",
+  args0: [
+    {
+      type: "field_dropdown",
+      name: "NAME",
+      options: [
+        ["recette_brute_distributeur", "recette_brute_distributeur"],
+        ["vente_tvsvod", "vente_tvsvod"],
+        ["recette_brute_vendeur", "recette_brute_vendeur"],
+      ],
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "input_statement",
+      name: "CONTEXT",
+    },
+  ],
+  output: null,
+  colour: 345,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const pool_local_decl = {
+  type: "pool_local_decl",
+  message0: "Assiette %1",
+  args0: [
+    {
+      type: "field_input",
+      name: "NAME",
+      text: "nom assiette",
+    },
+  ],
+  output: null,
+  colour: 345,
+  tooltip: "",
+  helpUrl: "",
+};
 export const entrees = [
   entree,
   partenaire,
   partenaire_label,
   dest_pool,
+  dest_pool_context,
+  pool_local_decl,
   label,
   monant,
   number,

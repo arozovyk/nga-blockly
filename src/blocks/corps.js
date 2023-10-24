@@ -30,7 +30,7 @@ const quotepart = {
     },
     {
       type: "input_value",
-      name: "dest",
+      name: "DEST",
       check: ["pool", "actor", "custom_dest"],
     },
   ],
@@ -68,61 +68,18 @@ const bonus = {
   args0: [
     {
       type: "field_number",
-      name: "NAME",
+      name: "BONUS_VALUE",
       value: 0,
     },
     {
       type: "input_value",
-      name: "dest",
+      name: "DEST",
       check: ["actor", "custom_dest"],
     },
   ],
   previousStatement: null,
   nextStatement: null,
   colour: 195,
-  tooltip: "",
-  helpUrl: "",
-};
-
-const dest_pool_context = {
-  type: "dest_pool_context",
-  message0: "Assiette %1 %2 Context %3",
-  args0: [
-    {
-      type: "field_dropdown",
-      name: "NAME",
-      options: [
-        ["recette_brute_distributeur", "recette_brute_distributeur"],
-        ["vente_tvsvod", "vente_tvsvod"],
-        ["recette_brute_vendeur", "recette_brute_vendeur"],
-      ],
-    },
-    {
-      type: "input_dummy",
-    },
-    {
-      type: "input_statement",
-      name: "NAME",
-    },
-  ],
-  output: null,
-  colour: 345,
-  tooltip: "",
-  helpUrl: "",
-};
-
-const pool_local_decl = {
-  type: "pool_local_decl",
-  message0: "Assiette %1",
-  args0: [
-    {
-      type: "field_input",
-      name: "NAME",
-      text: "nom assiette",
-    },
-  ],
-  output: null,
-  colour: 345,
   tooltip: "",
   helpUrl: "",
 };
@@ -134,14 +91,14 @@ const retrocession = {
     {
       type: "field_input",
       name: "retrocession_value",
-      text: "0",
+      text: "1.75",
     },
     {
       type: "input_dummy",
     },
     {
       type: "input_value",
-      name: "NAME",
+      name: "SUR",
     },
     {
       type: "field_dropdown",
@@ -160,12 +117,4 @@ const retrocession = {
   tooltip: "",
   helpUrl: "",
 };
-export const corps = [
-  avant,
-  apres,
-  quotepart,
-  bonus,
-  dest_pool_context,
-  pool_local_decl,
-  retrocession,
-];
+export const corps = [avant, apres, quotepart, bonus, retrocession];

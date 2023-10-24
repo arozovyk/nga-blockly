@@ -4,10 +4,10 @@ const quand = {
   args0: [
     {
       type: "input_value",
-      name: "NAME",
+      name: "COND",
     },
   ],
-  output: null,
+  output: "null",
   colour: 230,
   tooltip: "",
   helpUrl: "",
@@ -19,11 +19,11 @@ const quand_statement = {
   args0: [
     {
       type: "input_value",
-      name: "quand",
+      name: "COND",
     },
     {
       type: "input_statement",
-      name: "then",
+      name: "CORPS",
     },
   ],
   previousStatement: "operation",
