@@ -8,8 +8,22 @@ import * as Blockly from "blockly";
 import { blocks } from "./blocks/text";
 import { forBlock } from "./generators/javascript";
 import { javascriptGenerator } from "blockly/javascript";
-import { save, load } from "./serialization";
+import { CustomCategory } from "./custom_category/custom_category_es6";
+import { ToolboxLabel } from "./custom_category/toolbox_label_es6";
 import "./index.css";
+
+Blockly.registry.register(
+  Blockly.registry.Type.TOOLBOX_ITEM,
+  Blockly.ToolboxCategory.registrationName,
+  CustomCategory,
+  true
+);
+
+Blockly.registry.register(
+  Blockly.registry.Type.TOOLBOX_ITEM,
+  "toolboxlabel",
+  ToolboxLabel
+);
 
 // Register the blocks and generator with Blockly
 Blockly.common.defineBlocks(blocks);
@@ -24,6 +38,7 @@ const toolbox = {
   contents: [
     {
       kind: "category",
+      categorystyle: "loop_category",
       name: "Operation",
       contents: [
         {
@@ -82,6 +97,7 @@ const toolbox = {
     {
       kind: "category",
       name: "Contexts",
+      categorystyle : "colour_category",
       contents: [
         {
           kind: "block",
@@ -144,6 +160,8 @@ const toolbox = {
     },
     {
       kind: "category",
+      categorystyle : "variable_category",
+
       name: "Corps",
       contents: [
         {
@@ -211,6 +229,8 @@ const toolbox = {
     {
       kind: "category",
       name: "Entrées",
+      categorystyle : "text_category",
+
       contents: [
         {
           kind: "block",
@@ -265,6 +285,8 @@ const toolbox = {
     {
       kind: "category",
       name: "Logic",
+      categorystyle : "logic_category",
+
       contents: [
         {
           kind: "block",
@@ -291,6 +313,8 @@ const toolbox = {
     {
       kind: "category",
       name: "Misc",
+      categorystyle : "logic_category",
+
       contents: [
         {
           kind: "block",

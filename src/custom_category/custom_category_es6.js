@@ -1,15 +1,8 @@
-/**
- * @license
- * Copyright 2020 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
+ 
+import logoOnly from './logo_only.svg';
+import * as Blockly from "blockly";
 
-/**
- * @fileoverview The toolbox category built during the custom toolbox codelab, in es6.
- * @author aschmiedt@google.com (Abby Schmiedt)
- */
-
-class CustomCategory extends Blockly.ToolboxCategory {
+export class CustomCategory extends Blockly.ToolboxCategory {
   /**
    * Constructor for a custom category.
    * @override
@@ -61,7 +54,7 @@ class CustomCategory extends Blockly.ToolboxCategory {
    */
   createIconDom_() {
     const iconImg = document.createElement('img');
-    iconImg.src = './logo_only.svg';
+    iconImg.src = logoOnly;
     iconImg.alt = 'Blockly Logo';
     iconImg.width = '25';
     iconImg.height = '25';
@@ -69,7 +62,3 @@ class CustomCategory extends Blockly.ToolboxCategory {
   }
 }
 
-Blockly.registry.register(
-    Blockly.registry.Type.TOOLBOX_ITEM,
-    Blockly.ToolboxCategory.registrationName,
-    CustomCategory, true);

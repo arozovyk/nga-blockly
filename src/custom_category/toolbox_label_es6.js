@@ -3,13 +3,14 @@
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+import * as Blockly from "blockly";
 
 /**
  * @fileoverview The toolbox label built during the custom toolbox codelab, in es6.
  * @author aschmiedt@google.com (Abby Schmiedt)
  */
 
-class ToolboxLabel extends Blockly.ToolboxItem {
+export class ToolboxLabel extends Blockly.ToolboxItem {
   /**
    * Constructor for a label in the toolbox.
    * @param {!Blockly.utils.toolbox.ToolboxItemInfo} toolboxItemDef The toolbox
@@ -56,7 +57,3 @@ class ToolboxLabel extends Blockly.ToolboxItem {
   }
 }
 
-Blockly.registry.register(
-    Blockly.registry.Type.TOOLBOX_ITEM,
-    'toolboxlabel',
-    ToolboxLabel);
