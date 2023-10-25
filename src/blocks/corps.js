@@ -125,13 +125,9 @@ const retrocession = {
       ],
     },
     {
-      type: "field_dropdown",
-      name: "NAME",
-      options: [
-        ["partenaire1", "partenaire1"],
-        ["partenaire2", "partenaire2"],
-        ["partenaire3", "partenaire3"],
-      ],
+      type: "input_value",
+      name: "par",
+      check: ["partenaire", "partenaire_label"],
     },
   ],
   inputsInline: false,
