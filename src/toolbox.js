@@ -31,7 +31,7 @@ export const toolbox = {
             },
           },
           fields: {
-            sur_assiette: "les_productions_du_chameau",
+            SUR: "les_productions_du_chameau",
           },
           values: {
             operation: {
@@ -155,7 +155,7 @@ export const toolbox = {
               },
             },
             MONTANT: {
-              shadow: {
+              block: {
                 type: "monetary",
               },
             },
@@ -266,7 +266,10 @@ export const toolbox = {
             },
           },
           inputs: {
-            avant_body: {
+            EVENT: {
+              block: { type: "event" },
+            },
+            CORPS: {
               shadow: {
                 type: "quotepart",
                 next: {
@@ -293,7 +296,10 @@ export const toolbox = {
             },
           },
           inputs: {
-            apres_body: {
+            EVENT: {
+              block: { type: "event" },
+            },
+            CORPS: {
               shadow: {
                 type: "quotepart",
                 next: {
@@ -301,6 +307,54 @@ export const toolbox = {
                     type: "quotepart",
                   },
                 },
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "quotepart",
+          next: {
+            block: {
+              kind: "block",
+              type: "quotepart",
+              inputs: {
+                DEST: {
+                  block: {
+                    type: "dest_pool",
+                  },
+                },
+              },
+            },
+          },
+          inputs: {
+            DEST: {
+              block: {
+                type: "partenaire",
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "quotepart",
+          next: {
+            block: {
+              kind: "block",
+              type: "quotepart",
+              inputs: {
+                DEST: {
+                  block: {
+                    type: "partenaire",
+                  },
+                },
+              },
+            },
+          },
+          inputs: {
+            DEST: {
+              block: {
+                type: "partenaire",
               },
             },
           },
@@ -413,7 +467,7 @@ export const toolbox = {
         },
         {
           kind: "block",
-          type: "pool_local_decl",
+          type: "dest_pool_local_decl",
         },
         {
           kind: "block",
@@ -461,7 +515,7 @@ export const toolbox = {
           inputs: {
             COND: {
               block: {
-                type: "event",
+                type: "logic_compare",
               },
             },
             CORPS: {

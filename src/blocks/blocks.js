@@ -10,7 +10,8 @@ import { operations } from "./operation";
 import { corps } from "./corps";
 import { entrees } from "./entrees";
 import { logic } from "./logic";
+import { evenements } from "./evenements";
 
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(
-  contexts.concat(operations, corps, entrees, logic)
+  contexts.concat(operations, corps, entrees, logic, evenements)
 );

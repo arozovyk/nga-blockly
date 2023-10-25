@@ -1,11 +1,11 @@
 const operation = {
   type: "operation",
-  message0: "operation %1 %2 pour %3 sur assiette %4 %5 corps %6",
+  message0: "opération %1 %2 pour %3 sur assiette %4 %5 corps %6",
   args0: [
     {
       type: "field_input",
-      name: "NOM_OPERATION",
-      text: "nom_operation",
+      name: "NOM",
+      text: "nom",
     },
     {
       type: "input_dummy",
@@ -17,7 +17,7 @@ const operation = {
     },
     {
       type: "field_dropdown",
-      name: "sur_assiette",
+      name: "SUR",
       options: [
         ["les_productions_du_chameau", "les_productions_du_chameau"],
         ["distributeur_du_desert", "distributeur_du_desert"],
@@ -31,7 +31,7 @@ const operation = {
     {
       type: "input_statement",
       name: "CORPS",
-      check: "corps",
+      check: ["corps"],
     },
   ],
   colour: 123,
@@ -41,19 +41,19 @@ const operation = {
 
 const operation_par = {
   type: "operation_par",
-  message0: "operation %1 %2 par %3 %4 corps %5",
+  message0: "opération %1 %2 par %3 %4 corps %5",
   args0: [
     {
       type: "field_input",
-      name: "nom_operation",
-      text: "nom_operation",
+      name: "NOM",
+      text: "nom",
     },
     {
       type: "input_dummy",
     },
     {
       type: "field_dropdown",
-      name: "sur_assiette",
+      name: "SUR",
       options: [
         ["les_productions_du_chameau", "les_productions_du_chameau"],
         ["distributeur_du_desert", "distributeur_du_desert"],
@@ -68,7 +68,7 @@ const operation_par = {
     {
       type: "input_statement",
       name: "CORPS",
-      check: ["bonus", "quotepart", "avant", "apres", "corps"],
+      check: "corps",
     },
   ],
   colour: 210,
@@ -78,11 +78,11 @@ const operation_par = {
 
 const operation_local_pool_decl = {
   type: "operation_local_pool_decl",
-  message0: "operation %1 %2 pour %3 sur assiette %4 %5 corps %6",
+  message0: "opération %1 %2 pour %3 sur assiette %4 %5 corps %6",
   args0: [
     {
       type: "field_input",
-      name: "nom_operation",
+      name: "NOM",
       text: "nom_operation",
     },
     {
@@ -95,8 +95,8 @@ const operation_local_pool_decl = {
     },
     {
       type: "field_input",
-      name: "NAME",
-      text: "nom_assiette",
+      name: "NOM_DECL",
+      text: "nom assiette",
     },
     {
       type: "input_dummy",
@@ -104,7 +104,7 @@ const operation_local_pool_decl = {
     {
       type: "input_statement",
       name: "CORPS",
-      check: ["bonus", "quotepart", "avant", "apres", "corps"],
+      check: "corps",
     },
   ],
   colour: 210,
@@ -112,116 +112,4 @@ const operation_local_pool_decl = {
   helpUrl: "",
 };
 
-const avance = {
-  type: "avance",
-  message0: "avance %1 %2 sur %3 par %4  %5",
-  args0: [
-    {
-      type: "field_input",
-      name: "nom_avance",
-      text: "nom_avance",
-    },
-    {
-      type: "input_dummy",
-    },
-    {
-      type: "input_value",
-      name: "SUR",
-      check: "partner",
-      align: "RIGHT",
-    },
-    {
-      type: "field_dropdown",
-      name: "PAR",
-      options: [
-        ["partner1", "partner1"],
-        ["partner2", "partner2"],
-        ["partner3", "partner3"],
-      ],
-    },
-    {
-      type: "input_value",
-      name: "MONTANT",
-    },
-  ],
-  inputsInline: false,
-  colour: 230,
-  tooltip: "",
-  helpUrl: "",
-};
-
-const evenement_atteint = {
-  type: "evenement_atteint",
-  message0: "evenement %1 %2 atteint quand %3",
-  args0: [
-    {
-      type: "field_input",
-      name: "NAME",
-      text: "nom_evenement",
-    },
-    {
-      type: "input_dummy",
-    },
-    {
-      type: "input_value",
-      name: "COND",
-      check: "Boolean",
-    },
-  ],
-  inputsInline: false,
-  colour: 230,
-  tooltip: "",
-  helpUrl: "",
-};
-
-const defaut_sur = {
-  type: "defaut_sur",
-  message0: "Défaut sur %1 vers %2",
-  args0: [
-    {
-      type: "input_value",
-      name: "SUR",
-    },
-    {
-      type: "input_value",
-      name: "VERS",
-    },
-  ],
-  colour: 45,
-  tooltip: "",
-  helpUrl: "",
-};
-
-const deficit = {
-  type: "deficit",
-  message0: "Deficit sur %1 par %2",
-  args0: [
-    {
-      type: "input_value",
-      name: "SUR",
-    },
-    {
-      type: "field_dropdown",
-      name: "deficit_par",
-      options: [
-        ["versus", "versus"],
-        ["obrother", "obrother"],
-        ["eurimages", "eurimages"],
-      ],
-    },
-  ],
-  inputsInline: false,
-  colour: 230,
-  tooltip: "",
-  helpUrl: "",
-};
-
-export const operations = [
-  operation,
-  operation_par,
-  operation_local_pool_decl,
-  avance,
-  defaut_sur,
-  evenement_atteint,
-  deficit,
-];
+export const operations = [operation, operation_par, operation_local_pool_decl];

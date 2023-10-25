@@ -4,17 +4,40 @@ const avant = {
   args0: [
     {
       type: "input_value",
-      name: "event_name",
+      name: "EVENT",
+      check: "event",
     },
     {
       type: "input_statement",
-      name: "avant_body",
+      name: "CORPS",
       check: ["quotepart", "bonus", "corps"],
     },
   ],
   previousStatement: "corps",
   nextStatement: "corps",
   colour: 120,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const apres = {
+  type: "apres",
+  message0: "apres évènement %1 %2",
+  args0: [
+    {
+      type: "input_value",
+      name: "EVENT",
+      check: "event",
+    },
+    {
+      type: "input_statement",
+      name: "CORPS",
+      check: ["quotepart", "bonus", "corps"],
+    },
+  ],
+  previousStatement: "corps",
+  nextStatement: "corps",
+  colour: 330,
   tooltip: "",
   helpUrl: "",
 };
@@ -26,38 +49,23 @@ const quotepart = {
     {
       type: "field_number",
       name: "NAME",
-      value: 0,
+      value: 50,
     },
     {
       type: "input_value",
       name: "DEST",
-      check: ["pool", "actor", "custom_dest"],
+      check: [
+        "partenaire",
+        "partenaire_label",
+        "dest_pool_local_decl",
+        "dest_pool_context",
+        "dest_pool",
+      ],
     },
   ],
   previousStatement: "corps",
   nextStatement: "corps",
   colour: 65,
-  tooltip: "",
-  helpUrl: "",
-};
-
-const apres = {
-  type: "apres",
-  message0: "apres évènement %1 %2",
-  args0: [
-    {
-      type: "input_value",
-      name: "event_name",
-    },
-    {
-      type: "input_statement",
-      name: "apres_body",
-      check: ["quotepart", "bonus", "corps"],
-    },
-  ],
-  previousStatement: "corps",
-  nextStatement: "corps",
-  colour: 330,
   tooltip: "",
   helpUrl: "",
 };
@@ -69,12 +77,12 @@ const bonus = {
     {
       type: "field_number",
       name: "BONUS_VALUE",
-      value: 0,
+      value: 1000,
     },
     {
       type: "input_value",
       name: "DEST",
-      check: ["actor", "custom_dest"],
+      check: ["partenaire", "partenaire_label"],
     },
   ],
   previousStatement: null,
@@ -99,6 +107,7 @@ const retrocession = {
     {
       type: "input_value",
       name: "SUR",
+      check: ["dest_pool_local_decl", "dest_pool_context", "dest_pool"],
     },
     {
       type: "field_dropdown",
