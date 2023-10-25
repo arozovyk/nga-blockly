@@ -1,6 +1,6 @@
 const operation = {
   type: "operation",
-  message0: "opération %1 %2 pour %3 sur assiette %4 %5 corps %6",
+  message0: "opération %1 %2 pour %3 sur assiette %4 %5 %6",
   args0: [
     {
       type: "field_input",
@@ -41,7 +41,7 @@ const operation = {
 
 const operation_par = {
   type: "operation_par",
-  message0: "opération %1 %2 par %3 %4 corps %5",
+  message0: "opération %1 %2 par %3 %4 %5",
   args0: [
     {
       type: "field_input",
@@ -52,15 +52,9 @@ const operation_par = {
       type: "input_dummy",
     },
     {
-      type: "field_dropdown",
-      name: "SUR",
-      options: [
-        ["les_productions_du_chameau", "les_productions_du_chameau"],
-        ["distributeur_du_desert", "distributeur_du_desert"],
-        ["vendeur_scorpion", "vendeur_scorpion"],
-        ["dromadaire_film", "dromadaire_film"],
-        ["barbie", "barbie"],
-      ],
+      type: "input_value",
+      name: "par",
+      check: ["partenaire", "partenaire_label"],
     },
     {
       type: "input_dummy",
@@ -72,13 +66,14 @@ const operation_par = {
     },
   ],
   colour: 210,
+  inputsInline: false,
   tooltip: "Define an operation",
   helpUrl: "",
 };
 
 const operation_local_pool_decl = {
   type: "operation_local_pool_decl",
-  message0: "opération %1 %2 pour %3 sur assiette %4 %5 corps %6",
+  message0: "opération %1 %2 pour %3 sur assiette %4 %5 %6",
   args0: [
     {
       type: "field_input",

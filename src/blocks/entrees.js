@@ -14,7 +14,7 @@ const partenaire = {
       ],
     },
   ],
-  output: ["partenaire", "monetary", "constant"],
+  output: ["partenaire", "compare"],
   colour: 230,
   tooltip: "",
   helpUrl: "",
@@ -43,7 +43,7 @@ const partenaire_label = {
       text: "label",
     },
   ],
-  output: ["partenaire_label", "monetary", "constant"],
+  output: ["partenaire_label", "compare"],
   colour: 230,
   tooltip: "",
   helpUrl: "",
@@ -63,7 +63,7 @@ const dest_pool = {
       ],
     },
   ],
-  output: "dest_pool",
+  output: ["dest_pool", "compare"],
   colour: 345,
   tooltip: "",
   helpUrl: "",
@@ -102,7 +102,7 @@ const entree = {
       ],
     },
   ],
-  output: ["entree", "monetary", "number", "constant"],
+  output: ["entree", "compare"],
   colour: 60,
   tooltip: "",
   helpUrl: "",
@@ -117,7 +117,7 @@ const number = {
       text: "1000",
     },
   ],
-  output: "number",
+  output: ["number", "compare"],
   colour: 225,
   tooltip: "",
   helpUrl: "",
@@ -125,7 +125,7 @@ const number = {
 
 const monant = {
   type: "monetary",
-  message0: "Montant %1 €",
+  message0: "%1 €",
   args0: [
     {
       type: "field_input",
@@ -133,11 +133,12 @@ const monant = {
       text: "1000",
     },
   ],
-  output: ["monetary"],
+  output: ["monetary", "compare"],
   colour: 225,
   tooltip: "",
   helpUrl: "",
 };
+
 const constante = {
   type: "constant",
   message0: "Constante %1",
@@ -154,7 +155,7 @@ const constante = {
       ],
     },
   ],
-  output: "constant",
+  output: ["constant", "compare"],
   colour: 60,
   tooltip: "",
   helpUrl: "",
@@ -162,7 +163,7 @@ const constante = {
 
 const event = {
   type: "event",
-  message0: "%1",
+  message0: " évènement %1",
   args0: [
     {
       type: "field_dropdown",
@@ -205,7 +206,7 @@ const dest_pool_context = {
       check: "context",
     },
   ],
-  output: "dest_pool_context",
+  output: ["dest_pool_context", "compare"],
   colour: 345,
   tooltip: "",
   helpUrl: "",
@@ -221,7 +222,31 @@ const dest_pool_local_decl = {
       text: "nom assiette",
     },
   ],
-  output: "dest_pool_local_decl",
+  output: ["dest_pool_local_decl", "compare"],
+  colour: 345,
+  tooltip: "",
+  helpUrl: "",
+};
+
+const dest_pool_local_decl_context = {
+  type: "dest_pool_local_decl_context",
+  message0: "Assiette %1 %2 Context %3",
+  args0: [
+    {
+      type: "field_input",
+      name: "NAME",
+      text: "nom assiette",
+    },
+    {
+      type: "input_dummy",
+    },
+    {
+      type: "input_statement",
+      name: "CONTEXT",
+      check: "context",
+    },
+  ],
+  output: ["dest_pool_local_decl_context", "compare"],
   colour: 345,
   tooltip: "",
   helpUrl: "",
@@ -238,4 +263,5 @@ export const entrees = [
   number,
   constante,
   event,
+  dest_pool_local_decl_context
 ];

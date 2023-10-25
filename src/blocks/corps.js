@@ -1,6 +1,6 @@
 const avant = {
   type: "avant",
-  message0: "avant évènement %1 %2",
+  message0: "avant %1 %2",
   args0: [
     {
       type: "input_value",
@@ -22,7 +22,7 @@ const avant = {
 
 const apres = {
   type: "apres",
-  message0: "apres évènement %1 %2",
+  message0: "apres %1 %2",
   args0: [
     {
       type: "input_value",
@@ -60,6 +60,7 @@ const quotepart = {
         "dest_pool_local_decl",
         "dest_pool_context",
         "dest_pool",
+        "dest_pool_local_decl_context",
       ],
     },
   ],
@@ -82,7 +83,14 @@ const bonus = {
     {
       type: "input_value",
       name: "DEST",
-      check: ["partenaire", "partenaire_label"],
+      check: [
+        "partenaire",
+        "partenaire_label",
+        "dest_pool_local_decl",
+        "dest_pool_context",
+        "dest_pool",
+        "dest_pool_local_decl_context",
+      ],
     },
   ],
   previousStatement: null,
@@ -107,7 +115,14 @@ const retrocession = {
     {
       type: "input_value",
       name: "SUR",
-      check: ["dest_pool_local_decl", "dest_pool_context", "dest_pool"],
+      check: [
+        "partenaire",
+        "partenaire_label",
+        "dest_pool_local_decl",
+        "dest_pool_context",
+        "dest_pool",
+        "dest_pool_local_decl_context",
+      ],
     },
     {
       type: "field_dropdown",

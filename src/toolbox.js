@@ -10,26 +10,7 @@ export const toolbox = {
         {
           kind: "block",
           type: "operation",
-          inputs: {
-            POUR: {
-              shadow: {
-                type: "territoire_domain",
-                inputs: {
-                  TERRITORY_CASES: {
-                    shadow: {
-                      type: "territory_cases",
-                    },
-                  },
-                },
-              },
-            },
-            CORPS: {
-              shadow: {
-                type: "avant",
-                next: { shadow: { type: "apres" } },
-              },
-            },
-          },
+
           fields: {
             SUR: "les_productions_du_chameau",
           },
@@ -47,51 +28,13 @@ export const toolbox = {
         {
           kind: "block",
           type: "operation_local_pool_decl",
-          inputs: {
-            POUR: {
-              shadow: {
-                type: "territoire_domain",
-                inputs: {
-                  TERRITORY_CASES: {
-                    shadow: {
-                      type: "territory_cases",
-                    },
-                  },
-                },
-              },
-            },
-            CORPS: {
-              shadow: {
-                type: "avant",
-                next: { shadow: { type: "apres" } },
-              },
-            },
-          },
         },
 
         {
           kind: "block",
           type: "operation_par",
-          inputs: {
-            CORPS: {
-              shadow: {
-                type: "retrocession",
-              },
-            },
-          },
         },
-        {
-          kind: "block",
-          type: "operation_par",
-          inputs: {
-            CORPS: {
-              shadow: {
-                type: "avant",
-                next: { shadow: { type: "apres" } },
-              },
-            },
-          },
-        },
+        
       ],
     },
     //Evenements
@@ -105,7 +48,7 @@ export const toolbox = {
           type: "evenement_atteint",
           inputs: {
             COND: {
-              shadow: {
+              block: {
                 type: "logic_compare",
               },
             },
@@ -121,45 +64,17 @@ export const toolbox = {
         {
           kind: "block",
           type: "defaut_sur",
-          inputs: {
-            SUR: {
-              shadow: {
-                type: "dest_pool_context",
-              },
-            },
-            VERS: {
-              shadow: {
-                type: "partenaire_label",
-              },
-            },
-          },
+         
         },
         {
           kind: "block",
           type: "deficit",
-          inputs: {
-            SUR: {
-              shadow: {
-                type: "dest_pool_context",
-              },
-            },
-          },
+         
         },
         {
           kind: "block",
           type: "avance",
-          inputs: {
-            SUR: {
-              shadow: {
-                type: "partenaire_label",
-              },
-            },
-            MONTANT: {
-              block: {
-                type: "monetary",
-              },
-            },
-          },
+          
         },
       ],
     },
@@ -169,45 +84,6 @@ export const toolbox = {
       name: "Contexts",
       categorystyle: "colour_category",
       contents: [
-        {
-          kind: "block",
-          type: "territoire_domain",
-          deletable: true,
-          editable: true,
-          inputs: {
-            TERRITORY_CASES: {
-              block: {
-                type: "territory_cases",
-              },
-            },
-          },
-        },
-        {
-          kind: "block",
-          type: "support_domain",
-          deletable: true,
-          editable: true,
-          inputs: {
-            SUPPORT_CASES: {
-              block: {
-                type: "support_cases",
-              },
-            },
-          },
-        },
-        {
-          kind: "block",
-          type: "secteur_domain",
-          deletable: true,
-          editable: true,
-          inputs: {
-            SECTEUR_CASES: {
-              block: {
-                type: "secteur_cases",
-              },
-            },
-          },
-        },
         {
           kind: "block",
           type: "support_cases",
@@ -254,111 +130,12 @@ export const toolbox = {
         {
           kind: "block",
           type: "avant",
-          values: {
-            event_name: {
-              block: {
-                type: "event",
-                movable: true,
-                fields: {
-                  TEXT: "dssd",
-                },
-              },
-            },
-          },
-          inputs: {
-            EVENT: {
-              block: { type: "event" },
-            },
-            CORPS: {
-              shadow: {
-                type: "quotepart",
-                next: {
-                  shadow: {
-                    type: "quotepart",
-                  },
-                },
-              },
-            },
-          },
         },
         {
           kind: "block",
           type: "apres",
-          values: {
-            event_name: {
-              block: {
-                type: "event",
-                movable: true,
-                fields: {
-                  TEXT: "dssd",
-                },
-              },
-            },
-          },
-          inputs: {
-            EVENT: {
-              block: { type: "event" },
-            },
-            CORPS: {
-              shadow: {
-                type: "quotepart",
-                next: {
-                  shadow: {
-                    type: "quotepart",
-                  },
-                },
-              },
-            },
-          },
         },
-        {
-          kind: "block",
-          type: "quotepart",
-          next: {
-            block: {
-              kind: "block",
-              type: "quotepart",
-              inputs: {
-                DEST: {
-                  block: {
-                    type: "dest_pool",
-                  },
-                },
-              },
-            },
-          },
-          inputs: {
-            DEST: {
-              block: {
-                type: "partenaire",
-              },
-            },
-          },
-        },
-        {
-          kind: "block",
-          type: "quotepart",
-          next: {
-            block: {
-              kind: "block",
-              type: "quotepart",
-              inputs: {
-                DEST: {
-                  block: {
-                    type: "partenaire",
-                  },
-                },
-              },
-            },
-          },
-          inputs: {
-            DEST: {
-              block: {
-                type: "partenaire",
-              },
-            },
-          },
-        },
+
         {
           kind: "block",
           type: "quotepart",
@@ -394,14 +171,25 @@ export const toolbox = {
         },
         {
           kind: "block",
-          type: "bonus",
+          type: "quand_statement",
           inputs: {
+            COND: {
+              block: {
+                type: "event",
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "bonus",
+          /*   inputs: {
             DEST: {
               shadow: {
                 type: "partenaire_label",
               },
             },
-          },
+          }, */
         },
         {
           kind: "block",
@@ -410,13 +198,6 @@ export const toolbox = {
         {
           kind: "block",
           type: "retrocession",
-          inputs: {
-            SUR: {
-              shadow: {
-                type: "dest_pool",
-              },
-            },
-          },
         },
       ],
     },
@@ -450,24 +231,14 @@ export const toolbox = {
         {
           kind: "block",
           type: "dest_pool_context",
-          inputs: {
-            CONTEXT: {
-              shadow: {
-                type: "territoire_domain",
-                inputs: {
-                  TERRITORY_CASES: {
-                    shadow: {
-                      type: "territory_cases",
-                    },
-                  },
-                },
-              },
-            },
-          },
         },
         {
           kind: "block",
           type: "dest_pool_local_decl",
+        },
+        {
+          kind: "block",
+          type: "dest_pool_local_decl_context",
         },
         {
           kind: "block",
@@ -500,17 +271,6 @@ export const toolbox = {
       contents: [
         {
           kind: "block",
-          type: "quand",
-          inputs: {
-            COND: {
-              block: {
-                type: "event",
-              },
-            },
-          },
-        },
-        {
-          kind: "block",
           type: "quand_statement",
           inputs: {
             COND: {
@@ -518,11 +278,7 @@ export const toolbox = {
                 type: "logic_compare",
               },
             },
-            CORPS: {
-              shadow: {
-                type: "bonus",
-              },
-            },
+           
           },
         },
         {

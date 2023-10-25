@@ -17,13 +17,9 @@ const avance = {
       align: "RIGHT",
     },
     {
-      type: "field_dropdown",
-      name: "PAR",
-      options: [
-        ["partner1", "partner1"],
-        ["partner2", "partner2"],
-        ["partner3", "partner3"],
-      ],
+      type: "input_value",
+      name: "par",
+      check: ["partenaire", "partenaire_label"],
     },
     {
       type: "input_value",
@@ -68,12 +64,24 @@ const defaut_sur = {
     {
       type: "input_value",
       name: "SUR",
-      check: ["dest_pool_local_decl", "dest_pool_context", "dest_pool"],
+      check: [
+        "dest_pool_local_decl",
+        "dest_pool_local_decl_context",
+        "dest_pool_context",
+        "dest_pool",
+      ],
     },
     {
       type: "input_value",
       name: "VERS",
-      check: ["partenaire", "partenaire_label"],
+      check: [
+        "partenaire",
+        "partenaire_label",
+        "dest_pool_local_decl",
+        "dest_pool_context",
+        "dest_pool",
+        "dest_pool_local_decl_context",
+      ],
     },
   ],
   colour: 45,
@@ -88,16 +96,17 @@ const deficit = {
     {
       type: "input_value",
       name: "SUR",
-      check: ["dest_pool_local_decl", "dest_pool_context", "dest_pool"],
+      check: [
+        "dest_pool_local_decl",
+        "dest_pool_local_decl_context",
+        "dest_pool_context",
+        "dest_pool",
+      ],
     },
     {
-      type: "field_dropdown",
-      name: "deficit_par",
-      options: [
-        ["versus", "versus"],
-        ["obrother", "obrother"],
-        ["eurimages", "eurimages"],
-      ],
+      type: "input_value",
+      name: "par",
+      check: ["partenaire", "partenaire_label"],
     },
   ],
   inputsInline: false,

@@ -1,65 +1,6 @@
-const territoire_domain = {
-  type: "territoire_domain",
-  message0: "Territoire_domain %1 cases %2",
-  args0: [
-    {
-      type: "input_dummy",
-    },
-    {
-      type: "input_statement",
-      name: "TERRITORY_CASES",
-      check: "territory_cases",
-    },
-  ],
-  previousStatement: "context",
-  nextStatement: "context",
-  colour: 20,
-  tooltip: "explain context domains",
-  helpUrl: "",
-};
-
-const support_domain = {
-  type: "support_domain",
-  message0: "Support_domain %1 cases %2",
-  args0: [
-    {
-      type: "input_dummy",
-    },
-    {
-      type: "input_statement",
-      name: "SUPPORT_CASES",
-      check: "support_cases",
-    },
-  ],
-  previousStatement: "context",
-  nextStatement: "context",
-  colour: 20,
-  tooltip: "explain context domains",
-  helpUrl: "",
-};
-const secteur_domain = {
-  type: "secteur_domain",
-  message0: "secteur_domain %1 cases %2",
-  args0: [
-    {
-      type: "input_dummy",
-    },
-    {
-      type: "input_statement",
-      name: "SECTEUR_CASES",
-      check: "secteur_cases",
-    },
-  ],
-  previousStatement: "context",
-  nextStatement: "context",
-  colour: 20,
-  tooltip: "explain context domains",
-  helpUrl: "",
-};
-
 const territory_cases = {
   type: "territory_cases",
-  message0: "territory_cases %1",
+  message0: "Territoire %1",
   args0: [
     {
       type: "field_dropdown",
@@ -71,8 +12,8 @@ const territory_cases = {
       ],
     },
   ],
-  previousStatement: "territory_cases",
-  nextStatement: "territory_cases",
+  previousStatement: "context",
+  nextStatement: "context",
   colour: 260,
   tooltip: "",
   helpUrl: "",
@@ -80,7 +21,7 @@ const territory_cases = {
 
 const support_cases = {
   type: "support_cases",
-  message0: "support_cases %1",
+  message0: "Support %1",
   args0: [
     {
       type: "field_dropdown",
@@ -93,8 +34,8 @@ const support_cases = {
       ],
     },
   ],
-  previousStatement: "support_cases",
-  nextStatement: "support_cases",
+  previousStatement: "context",
+  nextStatement: "context",
   colour: 300,
   tooltip: "",
   helpUrl: "",
@@ -102,7 +43,7 @@ const support_cases = {
 
 const secteur_cases = {
   type: "secteur_cases",
-  message0: "secter_cases %1",
+  message0: "Secteur %1",
   args0: [
     {
       type: "field_dropdown",
@@ -113,8 +54,8 @@ const secteur_cases = {
       ],
     },
   ],
-  previousStatement: "secteur_cases",
-  nextStatement: "secteur_cases",
+  previousStatement: "context",
+  nextStatement: "context",
   colour: 65,
   tooltip: "",
   helpUrl: "",
@@ -176,10 +117,8 @@ const tout_context = {
   tooltip: "explain context domains",
   helpUrl: "",
 };
+
 export const contexts = [
-  territoire_domain,
-  secteur_domain,
-  support_domain,
   territory_cases,
   secteur_cases,
   support_cases,

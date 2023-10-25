@@ -20,6 +20,7 @@ const quand_statement = {
     {
       type: "input_value",
       name: "COND",
+      check : ["Boolean", "event"]
     },
     {
       type: "input_statement",
