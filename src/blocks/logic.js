@@ -15,21 +15,21 @@ const quand = {
 
 const quand_statement = {
   type: "quand_statement",
-  message0: "quand %1 corps %2",
+  message0: "quand %1 %2",
   args0: [
     {
       type: "input_value",
       name: "COND",
-      check : ["Boolean", "event"]
+      check: ["Boolean", "event"],
     },
     {
       type: "input_statement",
       name: "CORPS",
-      check: "corps",
+      check: ["corps", "operation_par"],
     },
   ],
-  previousStatement: "corps",
-  nextStatement: "corps",
+  previousStatement: ["corps", "operation_par"],
+  nextStatement: ["corps", "operation_par"],
   colour: 60,
   tooltip: "",
   helpUrl: "",

@@ -62,7 +62,7 @@ const operation_par = {
     {
       type: "input_statement",
       name: "CORPS",
-      check: "corps",
+      check: ["corps", "operation_par"],
     },
   ],
   colour: 210,

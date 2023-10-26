@@ -34,15 +34,6 @@ export const toolbox = {
           kind: "block",
           type: "operation_par",
         },
-        
-      ],
-    },
-    //Evenements
-    {
-      kind: "category",
-      name: "Evenements",
-      categorystyle: "math_category",
-      contents: [
         {
           kind: "block",
           type: "evenement_atteint",
@@ -64,20 +55,18 @@ export const toolbox = {
         {
           kind: "block",
           type: "defaut_sur",
-         
         },
         {
           kind: "block",
           type: "deficit",
-         
         },
         {
           kind: "block",
           type: "avance",
-          
         },
       ],
     },
+
     // Contexts
     {
       kind: "category",
@@ -278,7 +267,6 @@ export const toolbox = {
                 type: "logic_compare",
               },
             },
-           
           },
         },
         {
