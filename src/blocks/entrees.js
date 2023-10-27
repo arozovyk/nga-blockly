@@ -263,5 +263,5 @@ export const entrees = [
   number,
   constante,
   event,
-  dest_pool_local_decl_context
+  dest_pool_local_decl_context,
 ];
