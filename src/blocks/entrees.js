@@ -233,7 +233,7 @@ const dest_pool_local_decl_context = {
   message0: "Assiette %1 %2 Context %3",
   args0: [
     {
-      type: "field_input",
+      type: "local_pool_decl_input",
       name: "NAME",
       text: "nom assiette",
     },
