@@ -251,7 +251,22 @@ const dest_pool_local_decl_context = {
   tooltip: "",
   helpUrl: "",
 };
+
+const variable = {
+  type: "example_variable_typed",
+  message0: "variable: %1",
+  args0: [
+    {
+      type: "field_variable",
+      name: "FIELDNAME",
+      variable: "x",
+      variableTypes: ["Number", "String"],
+      defaultType: "Number",
+    },
+  ],
+};
 export const entrees = [
+  variable,
   entree,
   partenaire,
   partenaire_label,

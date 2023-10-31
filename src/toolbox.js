@@ -25,6 +25,7 @@ export const toolbox = {
             },
           },
         },
+
         {
           kind: "block",
           type: "operation_local_pool_decl",
@@ -71,35 +72,8 @@ export const toolbox = {
     {
       kind: "category",
       name: "Contexts",
-      categorystyle: "colour_category",
+      custom: "CONTEXTS",
       contents: [
-        {
-          kind: "block",
-          type: "support_cases",
-        },
-        {
-          kind: "block",
-          type: "secteur_cases",
-        },
-        {
-          kind: "block",
-          type: "territory_cases",
-          fields: {
-            territory_cases: "France",
-          },
-        },
-        {
-          kind: "block",
-          type: "tout_territoire",
-        },
-        {
-          kind: "block",
-          type: "tout_support",
-        },
-        {
-          kind: "block",
-          type: "tout_territoire",
-        },
         {
           kind: "block",
           type: "tout_context",
@@ -109,11 +83,11 @@ export const toolbox = {
     {
       kind: "sep",
     },
-    {
+    /*  {
       kind: "category",
       name: "Colours",
       custom: "COLOUR_PALETTE",
-    },
+    }, */
     // Corps
     {
       kind: "category",
