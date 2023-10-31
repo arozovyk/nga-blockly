@@ -73,12 +73,6 @@ export const toolbox = {
       kind: "category",
       name: "Contexts",
       custom: "CONTEXTS",
-      contents: [
-        {
-          kind: "block",
-          type: "tout_context",
-        },
-      ],
     },
     {
       kind: "sep",

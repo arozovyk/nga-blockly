@@ -51,7 +51,7 @@ function createContext(button) {
   const ws = button.getTargetWorkspace();
   let domain;
   let cases = [];
-  Blockly.dialog.prompt("Donnez un nom de domaine", "x", function (text) {
+  Blockly.dialog.prompt("Donnez un nom de domaine", "Nom", function (text) {
     domain = text;
   });
   Blockly.dialog.prompt(
@@ -70,8 +70,10 @@ function createContext(button) {
   createDomainCasesBlock(blockTypeCases, domain, cases);
   button["kind"] = "button";
   let cat = ws.toolbox_.contents_[1];
-  cat.updateFlyoutContents([
-    button,
+  const items = cat.toolboxItemDef_.contents
+    ? cat.toolboxItemDef_.contents
+    : [button];
+  items.push(
     {
       kind: "block",
       type: blockTypeDomain,
@@ -79,8 +81,9 @@ function createContext(button) {
     {
       kind: "block",
       type: blockTypeCases,
-    },
-  ]);
+    }
+  );
+  cat.updateFlyoutContents(items);
   console.log(ws);
 
   ws.refreshToolboxSelection();

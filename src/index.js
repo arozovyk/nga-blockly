@@ -11,6 +11,7 @@ import { javascriptGenerator } from "blockly/javascript";
 import { CustomCategory } from "./custom_category/custom_category_es6";
 import { ToolboxLabel } from "./custom_category/toolbox_label_es6";
 import { toolbox } from "./toolbox";
+import { create_context_callback } from "./dynamic_flyout";
 import "./index.css";
 
 Blockly.registry.register(
@@ -36,52 +37,6 @@ function createCustomBlock(blockType, domain, cases) {
         nextStatement: "context",
         colour: 20,
         tooltip: "explain context domains",
-        helpUrl: "",
-      });
-    },
-  };
-}
-function createAllDomainBlock(blockType, domain) {
-  Blockly.Blocks[blockType] = {
-    init: function () {
-      this.jsonInit({
-        type: blockType,
-        message0: `Tout ${domain}  %1`,
-        args0: [
-          {
-            type: "input_dummy",
-          },
-        ],
-        previousStatement: "context",
-        nextStatement: "context",
-        colour: 20,
-        tooltip: "explain context domains",
-        helpUrl: "",
-      });
-    },
-  };
-}
-function createDomainCasesBlock(type, domain, cases) {
-  const options = cases.map((case_, i) => {
-    return [case_, `case${i}`];
-  });
-  console.log(options);
-  Blockly.Blocks[type] = {
-    init: function () {
-      this.jsonInit({
-        type,
-        message0: `${domain} %1`,
-        args0: [
-          {
-            type: "field_dropdown",
-            name: "CASES",
-            options,
-          },
-        ],
-        previousStatement: "context",
-        nextStatement: "context",
-        colour: 260,
-        tooltip: "",
         helpUrl: "",
       });
     },
@@ -180,55 +135,6 @@ Blockly.fieldRegistry.register("local_pool_decl_input", LocalPoolDeclInput);
 
 createCustomBlock("dest_pool_local_decl", "or_message");
 
-function createContext(button) {
-  const ws = button.getTargetWorkspace();
-  let domain;
-  let cases = [];
-  Blockly.dialog.prompt("Donnez un nom de domaine", "x", function (text) {
-    domain = text;
-  });
-  Blockly.dialog.prompt(
-    "Listez les cas (séparés par une virgule)",
-    "cas1,cas2",
-    function (text) {
-      cases = text.split(",");
-    }
-  );
-  console.log(domain, cases);
-  console.log(button);
-  const blockTypeDomain = "tout_" + domain.toLowerCase();
-  const blockTypeCases = `${domain.toLowerCase()}_cases`;
-
-  createAllDomainBlock(blockTypeDomain, domain);
-  createDomainCasesBlock(blockTypeCases, domain, cases);
-  button["kind"] = "button";
-  let cat = ws.toolbox_.contents_[1];
-  cat.updateFlyoutContents([
-    button,
-    {
-      kind: "block",
-      type: blockTypeDomain,
-    },
-    {
-      kind: "block",
-      type: blockTypeCases,
-    },
-  ]);
-  console.log(ws);
-
-  ws.refreshToolboxSelection();
-}
-
-function create_context_callback() {
-  const button = document.createElement("button");
-  button.setAttribute("text", "Créer un contexte...");
-  button.setAttribute("kind", "button");
-
-  button.setAttribute("callbackKey", "CREATE_CONTEXT");
-  ws.registerButtonCallback("CREATE_CONTEXT", createContext);
-  var blockList = [button];
-
- 
-  return blockList;
-}
-ws.registerToolboxCategoryCallback("CONTEXTS", create_context_callback);
+ws.registerToolboxCategoryCallback("CONTEXTS", function () {
+  return create_context_callback(ws);
+});
