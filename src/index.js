@@ -27,7 +27,7 @@ function createCustomBlock(blockType, domain, cases) {
     init: function () {
       this.jsonInit({
         type: blockType,
-        message0: `Tout ${domain}  %1`,
+        message0: `Custom test ${domain}  %1`,
         args0: [
           {
             type: "input_dummy",
@@ -92,15 +92,14 @@ function redefineBlocks() {
   // Redefine the blocks with new parameters
 
   //TODO modify blocks in the workspace
-  const dog = ws.getAllBlocks()[0];
-  dog.appendDummyInput().appendField("koko");
-  console.log();
-  createCustomBlock("dest_pool_local_decl", "New Message");
-  createCustomBlock("another_block", "Different Message");
-  // Rebuild the workspace with the updated block definitions
-
-  ws.updateToolbox(toolbox);
-  ws.resize();
+  const dog = ws.getAllBlocks();
+  const assiette_block = ws.getAllBlocks()[1];
+  const generator = assiette_block.inputList[0].fieldRow[1].menuGenerator_;
+  generator.push(["ja","ja"])
+  console.log(dog);
+  console.log(generator);
+  /*   dog.appendDummyInput().appendField("koko");
+   */
 }
 
 export class LocalPoolDeclInput extends Blockly.FieldTextInput {
