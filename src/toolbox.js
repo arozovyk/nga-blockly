@@ -153,7 +153,7 @@ export const toolbox = {
           inputs: {
             DEST: {
               block: {
-                type: "dest_pool",
+                type: "dest_pool_local_decl_context",
               },
             },
           },
