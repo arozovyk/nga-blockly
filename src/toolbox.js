@@ -71,8 +71,50 @@ export const toolbox = {
     // Contexts
     {
       kind: "category",
+      name: "Evenements",
+      categorystyle: "procedure_category",
+      contents: [
+        {
+          kind: "block",
+          type: "avant",
+        },
+        {
+          kind: "block",
+          type: "apres",
+        },
+        {
+          kind: "block",
+          type: "quand_statement",
+          inputs: {
+            COND: {
+              block: {
+                type: "event",
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "quand_statement",
+          inputs: {
+            COND: {
+              block: {
+                type: "logic_compare",
+              },
+            },
+          },
+        },
+        {
+          kind: "block",
+          type: "event",
+        },
+      ],
+    },
+    {
+      kind: "category",
       name: "Contexts",
       custom: "CONTEXTS",
+      categorystyle: "colour_category",
     },
     {
       kind: "sep",
@@ -89,15 +131,6 @@ export const toolbox = {
 
       name: "Corps",
       contents: [
-        {
-          kind: "block",
-          type: "avant",
-        },
-        {
-          kind: "block",
-          type: "apres",
-        },
-
         {
           kind: "block",
           type: "quotepart",
@@ -131,17 +164,7 @@ export const toolbox = {
             },
           },
         },
-        {
-          kind: "block",
-          type: "quand_statement",
-          inputs: {
-            COND: {
-              block: {
-                type: "event",
-              },
-            },
-          },
-        },
+
         {
           kind: "block",
           type: "bonus",
@@ -153,10 +176,7 @@ export const toolbox = {
             },
           }, */
         },
-        {
-          kind: "block",
-          type: "event",
-        },
+
         {
           kind: "block",
           type: "retrocession",
@@ -231,17 +251,6 @@ export const toolbox = {
       categorystyle: "logic_category",
 
       contents: [
-        {
-          kind: "block",
-          type: "quand_statement",
-          inputs: {
-            COND: {
-              block: {
-                type: "logic_compare",
-              },
-            },
-          },
-        },
         {
           kind: "block",
           type: "logic_compare",

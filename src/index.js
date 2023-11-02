@@ -85,13 +85,15 @@ const ws = Blockly.inject(blocklyDiv, {
   },
   grid: { spacing: 20, length: 3, colour: "#ccc", snap: true },
 });
+
+
 function redefineBlocks() {
   // Clear the existing workspace
   /*   ws.clear();
    */
   // Redefine the blocks with new parameters
 
-  //TODO modify blocks in the workspace
+  //TODO modify blocks in the workspace DONE : dev
   const dog = ws.getAllBlocks();
   const assiette_block = ws.getAllBlocks()[1];
   const generator = assiette_block.inputList[0].fieldRow[1].menuGenerator_;
