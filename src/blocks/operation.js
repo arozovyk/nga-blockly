@@ -85,7 +85,7 @@ const operation_local_pool_decl = {
       check: "context",
     },
     {
-      type: "field_input",
+      type: "local_pool_decl_input",
       name: "NOM_DECL",
       text: "nom assiette",
     },

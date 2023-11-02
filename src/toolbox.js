@@ -7,7 +7,7 @@ export const toolbox = {
       categorystyle: "loop_category",
       name: "Operation",
       contents: [
-       /*  {
+        /*  {
           kind: "block",
           type: "operation",
 
@@ -114,11 +114,11 @@ export const toolbox = {
       kind: "category",
       name: "Contexts",
       custom: "CONTEXTS",
-     },
+    },
     {
       kind: "sep",
     },
- 
+
     {
       kind: "category",
       categorystyle: "variable_category",
@@ -183,57 +183,7 @@ export const toolbox = {
       name: "Entrées",
       categorystyle: "text_category",
 
-      contents: [
-        {
-          kind: "block",
-          type: "partenaire",
-        },
-        {
-          kind: "block",
-          type: "partenaire_label",
-          values: {
-            label: {
-              block: {
-                type: "label",
-                movable: false,
-              },
-            },
-          },
-        },
-     /*    {
-          kind: "block",
-          type: "dest_pool",
-        },
-        {
-          kind: "block",
-          type: "dest_pool_context",
-        }, */
-        {
-          kind: "block",
-          type: "dest_pool_local_decl",
-        },
-        {
-          kind: "block",
-          type: "dest_pool_local_decl_context",
-        },
-        {
-          kind: "block",
-          type: "entree",
-        },
-
-        {
-          kind: "block",
-          type: "constant",
-        },
-        {
-          kind: "block",
-          type: "monetary",
-        },
-        {
-          kind: "block",
-          type: "number",
-        },
-      ],
+      custom: "ENTREES",
     },
     {
       kind: "sep",

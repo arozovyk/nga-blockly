@@ -12,9 +12,10 @@ import { CustomCategory } from "./custom_category/custom_category_es6";
 import { ToolboxLabel } from "./custom_category/toolbox_label_es6";
 import { LocalPoolDeclInput, pools } from "./custom_blocs/local_pool_decl";
 import { toolbox } from "./toolbox";
-import { create_context_callback } from "./dynamic_flyout";
+import { create_context_callback } from "./custom_category/custom_context";
 import { createCustomBlock } from "./custom_blocs/utils";
 import "./index.css";
+import { init } from "./custom_category/custom_entrees";
 
 Blockly.registry.register(
   Blockly.registry.Type.TOOLBOX_ITEM,
@@ -55,4 +56,7 @@ createCustomBlock("dest_pool_local_decl", "or_message");
 
 ws.registerToolboxCategoryCallback("CONTEXTS", function () {
   return create_context_callback(ws);
+});
+ws.registerToolboxCategoryCallback("ENTREES", function () {
+  return init(ws);
 });
