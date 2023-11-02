@@ -191,11 +191,7 @@ const dest_pool_context = {
     {
       type: "field_dropdown",
       name: "NAME",
-      options: [
-        ["recette_brute_distributeur", "recette_brute_distributeur"],
-        ["vente_tvsvod", "vente_tvsvod"],
-        ["recette_brute_vendeur", "recette_brute_vendeur"],
-      ],
+      options: [["defaut", "defaut"]],
     },
     {
       type: "input_dummy",

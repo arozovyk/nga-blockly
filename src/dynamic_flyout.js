@@ -69,6 +69,7 @@ function createContext(button) {
   createAllDomainBlock(blockTypeDomain, domain);
   createDomainCasesBlock(blockTypeCases, domain, cases);
   button["kind"] = "button";
+  // FIXME breaks when category is added
   let cat = ws.toolbox_.contents_[2];
   const items = cat.toolboxItemDef_.contents
     ? cat.toolboxItemDef_.contents

@@ -7,7 +7,7 @@ export const toolbox = {
       categorystyle: "loop_category",
       name: "Operation",
       contents: [
-        {
+       /*  {
           kind: "block",
           type: "operation",
 
@@ -24,7 +24,7 @@ export const toolbox = {
               },
             },
           },
-        },
+        }, */
 
         {
           kind: "block",
@@ -200,14 +200,14 @@ export const toolbox = {
             },
           },
         },
-        {
+     /*    {
           kind: "block",
           type: "dest_pool",
         },
         {
           kind: "block",
           type: "dest_pool_context",
-        },
+        }, */
         {
           kind: "block",
           type: "dest_pool_local_decl",
