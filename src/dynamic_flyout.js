@@ -69,7 +69,7 @@ function createContext(button) {
   createAllDomainBlock(blockTypeDomain, domain);
   createDomainCasesBlock(blockTypeCases, domain, cases);
   button["kind"] = "button";
-  let cat = ws.toolbox_.contents_[1];
+  let cat = ws.toolbox_.contents_[2];
   const items = cat.toolboxItemDef_.contents
     ? cat.toolboxItemDef_.contents
     : [button];
@@ -84,8 +84,7 @@ function createContext(button) {
     }
   );
   cat.updateFlyoutContents(items);
-  console.log(ws);
-
+ 
   ws.refreshToolboxSelection();
 }
 
