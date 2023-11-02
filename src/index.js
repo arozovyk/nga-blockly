@@ -10,7 +10,7 @@ import { forBlock } from "./generators/javascript";
 import { javascriptGenerator } from "blockly/javascript";
 import { CustomCategory } from "./custom_category/custom_category_es6";
 import { ToolboxLabel } from "./custom_category/toolbox_label_es6";
-import { LocalPoolDeclInput } from "./custom_blocs/local_pool_decl";
+import { LocalPoolDeclInput, pools } from "./custom_blocs/local_pool_decl";
 import { toolbox } from "./toolbox";
 import { create_context_callback } from "./dynamic_flyout";
 import { createCustomBlock } from "./custom_blocs/utils";
@@ -35,7 +35,6 @@ Object.assign(javascriptGenerator.forBlock, forBlock);
 
 // Set up UI elements and inject Blockly
 const blocklyDiv = document.getElementById("blocklyDiv");
-let pools = [];
 
 const ws = Blockly.inject(blocklyDiv, {
   toolbox,

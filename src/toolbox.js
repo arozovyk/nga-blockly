@@ -114,8 +114,7 @@ export const toolbox = {
       kind: "category",
       name: "Contexts",
       custom: "CONTEXTS",
-      categorystyle: "colour_category",
-    },
+     },
     {
       kind: "sep",
     },

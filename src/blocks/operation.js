@@ -18,15 +18,11 @@ const operation = {
     {
       type: "field_dropdown",
       name: "SUR",
-      options: [
-        ["les_productions_du_chameau", "les_productions_du_chameau"],
-        ["distributeur_du_desert", "distributeur_du_desert"],
-        ["vendeur_scorpion", "vendeur_scorpion"],
-        ["recette_brute_vendeur", "recette_brute_vendeur"],
-      ],
+      options: [["defaut", "defaut"]],
     },
     {
       type: "input_dummy",
+      name: "SUR",
     },
     {
       type: "input_statement",
