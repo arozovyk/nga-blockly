@@ -119,12 +119,7 @@ export const toolbox = {
     {
       kind: "sep",
     },
-    /*  {
-      kind: "category",
-      name: "Colours",
-      custom: "COLOUR_PALETTE",
-    }, */
-    // Corps
+ 
     {
       kind: "category",
       categorystyle: "variable_category",
