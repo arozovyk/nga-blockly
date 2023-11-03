@@ -1,20 +1,53 @@
 import * as Blockly from "blockly";
+import { updatePools } from "../custom_blocs/local_pool_decl";
 
-function createAllDomainBlock(blockType, domain) {
-  Blockly.Blocks[blockType] = {
+export const partenaires = [];
+
+function updatePartenaireBlock() {
+  Blockly.Blocks["partenaire"] = {
     init: function () {
       this.jsonInit({
-        type: blockType,
-        message0: `Tout ${domain}  %1`,
+        type: "partenaire",
+        message0: "Partenaire %1 ",
         args0: [
+          {
+            type: "field_dropdown",
+            name: "NAME",
+            options: partenaires,
+          },
+        ],
+        output: ["partenaire", "compare"],
+        colour: 230,
+        tooltip: "",
+        helpUrl: "",
+      });
+    },
+  };
+}
+function updatePartenaireLabelBlock() {
+  Blockly.Blocks["partenaire_label"] = {
+    init: function () {
+      this.jsonInit({
+        type: "partenaire_label",
+        message0: "Partenaire %1 %2 label %3",
+        args0: [
+          {
+            type: "field_dropdown",
+            name: "NAME",
+            options: partenaires,
+          },
           {
             type: "input_dummy",
           },
+          {
+            type: "field_input",
+            name: "label",
+            text: "label",
+          },
         ],
-        previousStatement: "context",
-        nextStatement: "context",
-        colour: 20,
-        tooltip: "explain context domains",
+        output: ["partenaire_label", "compare"],
+        colour: 230,
+        tooltip: "",
         helpUrl: "",
       });
     },
@@ -48,63 +81,88 @@ function createDomainCasesBlock(type, domain, cases) {
   };
 }
 
+function updateWorkspacePartners(ws, new_partenaire_value) {
+  ws.getAllBlocks().forEach(function (block) {
+    console.log(block);
+    switch (block.type) {
+      case "partenaire":
+        var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
+        if (sur_field[0][0] == "- à définir -") {
+          sur_field[0] = new_partenaire_value;
+          block.inputList[0].fieldRow[1].selectedOption = new_partenaire_value;
+          block.inputList[0].fieldRow[1].value_ = new_partenaire_value[0];
+        } else {
+          sur_field.push(new_partenaire_value);
+        }
+        break;
+      case "partenaire_label":
+        var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
+        console.log("surfiled", sur_field[0][0]);
+        if (sur_field[0][0] == "- à définir -") {
+          sur_field[0] = new_partenaire_value;
+          block.inputList[0].fieldRow[1].selectedOption = new_partenaire_value;
+          block.inputList[0].fieldRow[1].value_ = new_partenaire_value[0];
+        } else {
+          sur_field.push(new_partenaire_value);
+        }
+        break;
+    }
+    ws.refreshTheme()
+  });
+}
+
 function createPartner(button, blockList) {
   const ws = button.getTargetWorkspace();
-
-  ws.registerButtonCallback("CREATE_ENTREES", f);
-  button["kind"] = "button";
-
+  let partenaire_name;
+  Blockly.dialog.prompt("Donnez le nom du partenaire", "Nom", function (text) {
+    partenaire_name = text;
+  });
+  partenaires.push([partenaire_name, partenaire_name]);
+  updatePartenaireBlock();
+  updatePartenaireLabelBlock();
   // FIXME breaks when category is added
   let cat = ws.toolbox_.contents_[5];
   const items = cat.toolboxItemDef_.contents
     ? blockList.concat(cat.toolboxItemDef_.contents)
     : blockList;
 
-  items.push(
-    {
-      kind: "block",
-      type: "partenaire",
-    },
-    {
-      kind: "block",
-      type: "partenaire_label",
-      values: {
-        label: {
-          block: {
-            type: "label",
-            movable: false,
+  // Create partner
+  if (partenaires.length == 1) {
+    items.push(
+      {
+        kind: "block",
+        type: "partenaire",
+      },
+      {
+        kind: "block",
+        type: "partenaire_label",
+        values: {
+          label: {
+            block: {
+              type: "label",
+              movable: false,
+            },
           },
         },
-      },
-    }
-  );
-  cat.updateFlyoutContents(items);
+      }
+    );
+    updateWorkspacePartners(ws, [partenaire_name, partenaire_name]);
+    cat.updateFlyoutContents(items);
 
-  ws.refreshToolboxSelection();
+    ws.refreshToolboxSelection();
+  } else {
+    // Update partners
+    updateWorkspacePartners(ws, [partenaire_name, partenaire_name]);
+  }
 }
 
 function createPool(button, blockList) {
   const ws = button.getTargetWorkspace();
-
-  // FIXME breaks when category is added
-  let cat = ws.toolbox_.contents_[5];
-  const items = cat.toolboxItemDef_.contents
-    ? blockList.concat(cat.toolboxItemDef_.contents)
-    : blockList;
-
-  items.push(
-    {
-      kind: "block",
-      type: "dest_pool",
-    },
-    {
-      kind: "block",
-      type: "dest_pool_context",
-    }
-  );
-  cat.updateFlyoutContents(items);
-
-  ws.refreshToolboxSelection();
+  let pool_name;
+  Blockly.dialog.prompt("Donnez le nom de l'assiette", "Nom", function (text) {
+    pool_name = text;
+  });
+  updatePools(ws, pool_name);
 }
 
 function createEntree(button, blockList) {

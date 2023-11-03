@@ -5,13 +5,7 @@ const partenaire = {
     {
       type: "field_dropdown",
       name: "NAME",
-      options: [
-        ["les_productions_du_chameau", "les_productions_du_chameau"],
-        ["distributeur_du_desert", "distributeur_du_desert"],
-        ["vendeur_scorpion", "vendeur_scorpion"],
-        ["dromadaire_film", "dromadaire_film"],
-        ["barbie", "barbie"],
-      ],
+      options: [["- à définir -", "- à définir -"]],
     },
   ],
   output: ["partenaire", "compare"],
@@ -26,13 +20,7 @@ const partenaire_label = {
     {
       type: "field_dropdown",
       name: "NAME",
-      options: [
-        ["les_productions_du_chameau", "les_productions_du_chameau"],
-        ["distributeur_du_desert", "distributeur_du_desert"],
-        ["vendeur_scorpion", "vendeur_scorpion"],
-        ["dromadaire_film", "dromadaire_film"],
-        ["barbie", "barbie"],
-      ],
+      options: [["- à définir -", "- à définir -"]],
     },
     {
       type: "input_dummy",
@@ -191,7 +179,7 @@ const dest_pool_context = {
     {
       type: "field_dropdown",
       name: "NAME",
-      options: [["defaut", "defaut"]],
+      options: [["- à définir -", "- à définir -"]],
     },
     {
       type: "input_dummy",
