@@ -20,6 +20,7 @@ function createAllDomainBlock(blockType, domain) {
     },
   };
 }
+
 function createDomainCasesBlock(type, domain, cases) {
   const options = cases.map((case_, i) => {
     return [case_, `case${i}`];
@@ -46,10 +47,8 @@ function createDomainCasesBlock(type, domain, cases) {
     },
   };
 }
-function f() {
-  console.log("entrees");
-}
-function createContext(button) {
+
+function createPartner(button, blockList) {
   const ws = button.getTargetWorkspace();
 
   ws.registerButtonCallback("CREATE_ENTREES", f);
@@ -58,20 +57,14 @@ function createContext(button) {
   // FIXME breaks when category is added
   let cat = ws.toolbox_.contents_[5];
   const items = cat.toolboxItemDef_.contents
-    ? cat.toolboxItemDef_.contents
-    : [];
+    ? blockList.concat(cat.toolboxItemDef_.contents)
+    : blockList;
 
-  const partenaire_button = document.createElement("button");
-  partenaire_button.setAttribute("text", "Déclarer un partenaire");
-  partenaire_button.setAttribute("callbackKey", "CREATE_ENTREES");
-
-  partenaire_button["kind"] = "button";
   items.push(
     {
       kind: "block",
       type: "partenaire",
     },
-    partenaire_button,
     {
       kind: "block",
       type: "partenaire_label",
@@ -83,31 +76,82 @@ function createContext(button) {
           },
         },
       },
-    },
-    {
-      kind: "block",
-      type: "dest_pool_local_decl",
-    },
-    {
-      kind: "block",
-      type: "dest_pool_local_decl_context",
-    },
-    {
-      kind: "block",
-      type: "entree",
-    },
+    }
+  );
+  cat.updateFlyoutContents(items);
 
+  ws.refreshToolboxSelection();
+}
+
+function createPool(button, blockList) {
+  const ws = button.getTargetWorkspace();
+
+  // FIXME breaks when category is added
+  let cat = ws.toolbox_.contents_[5];
+  const items = cat.toolboxItemDef_.contents
+    ? blockList.concat(cat.toolboxItemDef_.contents)
+    : blockList;
+
+  items.push(
     {
       kind: "block",
-      type: "constant",
+      type: "dest_pool",
     },
     {
       kind: "block",
-      type: "monetary",
+      type: "dest_pool_context",
+    }
+  );
+  cat.updateFlyoutContents(items);
+
+  ws.refreshToolboxSelection();
+}
+
+function createEntree(button, blockList) {
+  const ws = button.getTargetWorkspace();
+
+  // FIXME breaks when category is added
+  let cat = ws.toolbox_.contents_[5];
+  const items = cat.toolboxItemDef_.contents
+    ? blockList.concat(cat.toolboxItemDef_.contents)
+    : blockList;
+
+  items.push(
+    {
+      kind: "block",
+      type: "dest_pool",
     },
     {
       kind: "block",
-      type: "number",
+      type: "dest_pool_context",
+    }
+  );
+  cat.updateFlyoutContents(items);
+
+  ws.refreshToolboxSelection();
+}
+
+function createConstant(button, blockList) {
+  const ws = button.getTargetWorkspace();
+
+  button["kind"] = "button";
+  // FIXME breaks when category is added
+  let cat = ws.toolbox_.contents_[5];
+  console.log("cotenents ", cat.toolboxItemDef_.contents);
+
+  const items = cat.toolboxItemDef_.contents
+    ? blockList.concat(cat.toolboxItemDef_.contents)
+    : blockList;
+  console.log("after items ", items);
+
+  items.push(
+    {
+      kind: "block",
+      type: "dest_pool",
+    },
+    {
+      kind: "block",
+      type: "dest_pool_context",
     }
   );
   cat.updateFlyoutContents(items);
@@ -116,26 +160,67 @@ function createContext(button) {
 }
 
 export function create_entrees_callback(ws) {
-  const partenaire_button = document.createElement("button");
+  // Create a button element
+  const partenaire_button = {
+    kind: "button",
+    text: "Définir un partenaire",
+    callbackKey: "CREATE_PARTNER",
+  };
+  const assiette_button = {
+    kind: "button",
+    text: "Définir une assiette",
+    callbackKey: "CREATE_POOL",
+  };
+  const entree_button = {
+    kind: "button",
+    text: "Définir une entrée",
+    callbackKey: "CREATE_ENTREE",
+  };
+  const constant_button = {
+    kind: "button",
+    text: "Définir une constante",
+    callbackKey: "CREATE_CONSTANT",
+  };
 
-  partenaire_button.setAttribute("text", "Déclarer un partenaire");
-  partenaire_button.setAttribute("kind", "button");
+  // Define the blocks as objects
+  const monetaryBlock = {
+    kind: "block",
+    type: "monetary",
+  };
 
-  partenaire_button.setAttribute("callbackKey", "CREATE_CONTEXT");
-  ws.registerButtonCallback("CREATE_CONTEXT", createContext);
-  const items = [partenaire_button];
+  const numberBlock = {
+    kind: "block",
+    type: "number",
+  };
 
-  return items;
-}
+  const dest_pool_local_decl_contextBlock = {
+    kind: "block",
+    type: "dest_pool_local_decl_context",
+  };
 
-export function init(ws) {
-  const button = document.createElement("button");
-  button.setAttribute("text", "init");
-  button.setAttribute("kind", "button");
+  // Create the blockList array with the button and blocks
+  var blockList = [
+    partenaire_button,
+    assiette_button,
+    entree_button,
+    constant_button,
+    monetaryBlock,
+    numberBlock,
+    dest_pool_local_decl_contextBlock,
+  ];
 
-  button.setAttribute("callbackKey", "CREATE_CONTEXT");
-  ws.registerButtonCallback("CREATE_CONTEXT", createContext);
-  var blockList = [button];
-
+  // Register the button callback
+  ws.registerButtonCallback("CREATE_PARTNER", function (button) {
+    return createPartner(button, blockList);
+  });
+  ws.registerButtonCallback("CREATE_POOL", function (button) {
+    return createPool(button, blockList);
+  });
+  ws.registerButtonCallback("CREATE_ENTREE", function (button) {
+    return createEntree(button, blockList);
+  });
+  ws.registerButtonCallback("CREATE_CONSTANT", function (button) {
+    return createConstant(button, blockList);
+  });
   return blockList;
 }

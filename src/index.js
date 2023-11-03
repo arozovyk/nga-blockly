@@ -15,7 +15,7 @@ import { toolbox } from "./toolbox";
 import { create_context_callback } from "./custom_category/custom_context";
 import { createCustomBlock } from "./custom_blocs/utils";
 import "./index.css";
-import { init } from "./custom_category/custom_entrees";
+import { create_entrees_callback, init } from "./custom_category/custom_entrees";
 
 Blockly.registry.register(
   Blockly.registry.Type.TOOLBOX_ITEM,
@@ -58,5 +58,5 @@ ws.registerToolboxCategoryCallback("CONTEXTS", function () {
   return create_context_callback(ws);
 });
 ws.registerToolboxCategoryCallback("ENTREES", function () {
-  return init(ws);
+  return create_entrees_callback(ws);
 });

@@ -1,5 +1,6 @@
 import * as Blockly from "blockly";
 
+import { create_entrees_callback } from "../custom_category/custom_entrees";
 export const pools = [];
 
 function updateOperationBlock() {
@@ -100,6 +101,7 @@ function updateOperationCategory(ws, new_option) {
   updateOperationBlock();
   let cat = ws.toolbox_.contents_[0];
   let items = cat.toolboxItemDef_.contents;
+
   if (pools.length > 0) {
     items = items.filter((item) => item.type != "operation");
   }
@@ -116,8 +118,9 @@ function updateEntreesCategory(ws, new_option) {
   updateDest_pool_contextBlock();
   updateDest_poolBlock();
   let cat = ws.toolbox_.contents_[5];
-  let items = cat.toolboxItemDef_.contents;
-  console.log(cat);
+  let items = cat.toolboxItemDef_.contents
+    ? cat.toolboxItemDef_.contents
+    : create_entrees_callback(ws);
 
   if (pools.length > 0) {
     items = items.filter(
@@ -159,17 +162,21 @@ function updateWorkspaceBlocks(ws, new_pool_value) {
     }
   });
 }
+export function updatePools(ws, e) {
+  const already_defined = pools.find((pool) => pool[0] == e);
+  if (!already_defined && e != "nom assiette") {
+    let cat = ws.toolbox_.contents_[5];
+    let items = cat.toolboxItemDef_.contents;
+    console.log("before updating", cat, items);
+    updateOperationCategory(ws); //toolbox
+    updateEntreesCategory(ws, [e, e]); //toolbox
+    updateWorkspaceBlocks(ws, [e, e]); //workspace
+  }
+}
+
 export class LocalPoolDeclInput extends Blockly.FieldTextInput {
   onFinishEditing_(e) {
-    const already_defined = pools.find((pool) => pool[0] == e);
-    if (!already_defined && e != "nom assiette") {
-      const newText = this.htmlInput_.value;
-      console.log(`User finished editing: ${newText} ${already_defined}`);
-      updateOperationCategory(this.workspace_); //toolbox
-      updateEntreesCategory(this.workspace_, [e, e]); //toolbox
-      updateWorkspaceBlocks(this.workspace_, [e, e]); //workspace
-    }
-
+    updatePools(this.workspace_, e);
     super.onFinishEditing_(e);
   }
   onHtmlInputKeyDown_(e) {

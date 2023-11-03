@@ -182,7 +182,6 @@ export const toolbox = {
       kind: "category",
       name: "Entrées",
       categorystyle: "text_category",
-
       custom: "ENTREES",
     },
     {
