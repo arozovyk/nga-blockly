@@ -142,6 +142,7 @@ const constante = {
         ["risque_prod", "risque_prod"],
       ],
     },
+   
   ],
   output: ["constant", "compare"],
   colour: 60,

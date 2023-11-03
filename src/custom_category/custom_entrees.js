@@ -31,15 +31,21 @@ function updateConstantBlock() {
     init: function () {
       this.jsonInit({
         type: "constant",
-        message0: "Constante %1",
+        message0: "Constante %1 %2",
         args0: [
           {
             type: "field_dropdown",
             name: "NAME",
             options: constants,
           },
+          {
+            type: "input_value",
+            name: "VALUE",
+            check: ["number", "monetary"],
+          },
         ],
         output: ["constant", "compare"],
+        inputsInline: false,
         colour: 30,
         tooltip: "",
         helpUrl: "",
