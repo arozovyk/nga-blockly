@@ -51,6 +51,14 @@ function createEvent(button, blockList) {
   Blockly.dialog.prompt("Donnez le nom de l'évènement", "Nom", function (text) {
     event_name = text;
   });
+  if (
+    events.find((e) => {
+      return e[0] == event_name;
+    })
+  ) {
+    Blockly.dialog.alert(` Événement ${event_name} existe déjà `);
+    return;
+  }
   events.push([event_name, event_name]);
   updateEventBlock();
   // FIXME breaks when category is added
@@ -63,24 +71,6 @@ function createEvent(button, blockList) {
 
   // Create partner
   if (events.length == 1) {
-    items.push(
-      {
-        kind: "block",
-        type: "partenaire",
-      },
-      {
-        kind: "block",
-        type: "partenaire_label",
-        values: {
-          label: {
-            block: {
-              type: "label",
-              movable: false,
-            },
-          },
-        },
-      }
-    );
     updateWsBlocs(ws, [event_name, event_name]);
     cat.updateFlyoutContents(items);
 

@@ -186,6 +186,14 @@ function createEntree(button, blockList) {
   Blockly.dialog.prompt("Donnez le nom l'entrée", "Nom", function (text) {
     entree_text = text;
   });
+  if (
+    entrees.find((e) => {
+      return e[0] == entree_text;
+    })
+  ) {
+    Blockly.dialog.alert(` Entrée ${entree_text} existe déjà `);
+    return;
+  }
   entrees.push([entree_text, entree_text]);
   updateEntreesBlock();
   // FIXME breaks when category is added
@@ -217,6 +225,14 @@ function createConstant(button, blockList) {
   Blockly.dialog.prompt("Donnez le nom la constante", "Nom", function (text) {
     const_name = text;
   });
+  if (
+    constants.find((e) => {
+      return e[0] == const_name;
+    })
+  ) {
+    Blockly.dialog.alert(` Entrée ${const_name} existe déjà `);
+    return;
+  }
   constants.push([const_name, const_name]);
   updateConstantBlock();
   // FIXME breaks when category is added

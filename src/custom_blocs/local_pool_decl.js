@@ -168,6 +168,8 @@ export function updatePools(ws, e) {
     updateOperationCategory(ws); //toolbox
     updateEntreesCategory(ws, [e, e]); //toolbox
     updateWorkspaceBlocks(ws, [e, e]); //workspace
+  } else {
+    Blockly.dialog.alert(` Assiette ${e} existe déjà `);
   }
 }
 
