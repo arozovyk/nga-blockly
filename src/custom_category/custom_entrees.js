@@ -265,7 +265,7 @@ function createPool(button) {
   Blockly.dialog.prompt("Donnez le nom de l'assiette", "Nom", function (text) {
     pool_name = text;
   });
-  updatePools(ws, pool_name);
+  updatePools(ws, pool_name, false);
 }
 
 export function create_entrees_callback(ws) {

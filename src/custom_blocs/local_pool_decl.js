@@ -162,20 +162,22 @@ function updateWorkspaceBlocks(ws, new_pool_value) {
     }
   });
 }
-export function updatePools(ws, e) {
+export function updatePools(ws, e, edit) {
   const already_defined = pools.find((pool) => pool[0] == e);
   if (!already_defined && e != "nom assiette") {
     updateOperationCategory(ws); //toolbox
     updateEntreesCategory(ws, [e, e]); //toolbox
     updateWorkspaceBlocks(ws, [e, e]); //workspace
   } else {
-    Blockly.dialog.alert(` Assiette ${e} existe déjà `);
+    if (!edit) {
+      Blockly.dialog.alert(` Assiette ${e} existe déjà `);
+    }
   }
 }
 
 export class LocalPoolDeclInput extends Blockly.FieldTextInput {
   onFinishEditing_(e) {
-    updatePools(this.workspace_, e);
+    updatePools(this.workspace_, e, true);
     super.onFinishEditing_(e);
   }
   onHtmlInputKeyDown_(e) {
