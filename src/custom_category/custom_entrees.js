@@ -2,7 +2,9 @@ import * as Blockly from "blockly";
 import { updatePools } from "../custom_blocs/local_pool_decl";
 
 export const partenaires = [];
-
+export const entrees = [];
+export const constants = [];
+var rendered = false;
 function updatePartenaireBlock() {
   Blockly.Blocks["partenaire"] = {
     init: function () {
@@ -18,6 +20,48 @@ function updatePartenaireBlock() {
         ],
         output: ["partenaire", "compare"],
         colour: 230,
+        tooltip: "",
+        helpUrl: "",
+      });
+    },
+  };
+}
+function updateConstantBlock() {
+  Blockly.Blocks["constant"] = {
+    init: function () {
+      this.jsonInit({
+        type: "constant",
+        message0: "Constante %1",
+        args0: [
+          {
+            type: "field_dropdown",
+            name: "NAME",
+            options: constants,
+          },
+        ],
+        output: ["constant", "compare"],
+        colour: 60,
+        tooltip: "",
+        helpUrl: "",
+      });
+    },
+  };
+}
+function updateEntreesBlock() {
+  Blockly.Blocks["entree"] = {
+    init: function () {
+      this.jsonInit({
+        type: "entree",
+        message0: "Entrée %1  ",
+        args0: [
+          {
+            type: "field_dropdown",
+            name: "NAME",
+            options: entrees,
+          },
+        ],
+        output: ["entree", "compare"],
+        colour: 60,
         tooltip: "",
         helpUrl: "",
       });
@@ -54,60 +98,41 @@ function updatePartenaireLabelBlock() {
   };
 }
 
-function createDomainCasesBlock(type, domain, cases) {
-  const options = cases.map((case_, i) => {
-    return [case_, `case${i}`];
-  });
-  console.log(options);
-  Blockly.Blocks[type] = {
-    init: function () {
-      this.jsonInit({
-        type,
-        message0: `${domain} %1`,
-        args0: [
-          {
-            type: "field_dropdown",
-            name: "CASES",
-            options,
-          },
-        ],
-        previousStatement: "context",
-        nextStatement: "context",
-        colour: 260,
-        tooltip: "",
-        helpUrl: "",
-      });
-    },
-  };
-}
-
-function updateWorkspacePartners(ws, new_partenaire_value) {
+function updateWsBlocs(ws, new_value) {
   ws.getAllBlocks().forEach(function (block) {
     console.log(block);
     switch (block.type) {
       case "partenaire":
         var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
         if (sur_field[0][0] == "- à définir -") {
-          sur_field[0] = new_partenaire_value;
-          block.inputList[0].fieldRow[1].selectedOption = new_partenaire_value;
-          block.inputList[0].fieldRow[1].value_ = new_partenaire_value[0];
+          sur_field[0] = new_value;
+          block.inputList[0].fieldRow[1].selectedOption = new_value;
+          block.inputList[0].fieldRow[1].value_ = new_value[0];
         } else {
-          sur_field.push(new_partenaire_value);
+          sur_field.push(new_value);
         }
         break;
       case "partenaire_label":
         var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
         console.log("surfiled", sur_field[0][0]);
         if (sur_field[0][0] == "- à définir -") {
-          sur_field[0] = new_partenaire_value;
-          block.inputList[0].fieldRow[1].selectedOption = new_partenaire_value;
-          block.inputList[0].fieldRow[1].value_ = new_partenaire_value[0];
+          sur_field[0] = new_value;
+          block.inputList[0].fieldRow[1].selectedOption = new_value;
+          block.inputList[0].fieldRow[1].value_ = new_value[0];
         } else {
-          sur_field.push(new_partenaire_value);
+          sur_field.push(new_value);
         }
         break;
+      case "entree":
+        var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
+        sur_field.push(new_value);
+        break;
+      case "constant":
+        var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
+        sur_field.push(new_value);
+        break;
     }
-    ws.refreshTheme()
+    ws.refreshTheme();
   });
 }
 
@@ -123,7 +148,9 @@ function createPartner(button, blockList) {
   // FIXME breaks when category is added
   let cat = ws.toolbox_.contents_[5];
   const items = cat.toolboxItemDef_.contents
-    ? blockList.concat(cat.toolboxItemDef_.contents)
+    ? rendered
+      ? cat.toolboxItemDef_.contents
+      : blockList.concat(cat.toolboxItemDef_.contents)
     : blockList;
 
   // Create partner
@@ -146,75 +173,85 @@ function createPartner(button, blockList) {
         },
       }
     );
-    updateWorkspacePartners(ws, [partenaire_name, partenaire_name]);
+    updateWsBlocs(ws, [partenaire_name, partenaire_name]);
     cat.updateFlyoutContents(items);
 
     ws.refreshToolboxSelection();
   } else {
     // Update partners
-    updateWorkspacePartners(ws, [partenaire_name, partenaire_name]);
+    updateWsBlocs(ws, [partenaire_name, partenaire_name]);
+  }
+}
+function createEntree(button, blockList) {
+  const ws = button.getTargetWorkspace();
+  let entree_text;
+  Blockly.dialog.prompt("Donnez le nom l'entrée", "Nom", function (text) {
+    entree_text = text;
+  });
+  entrees.push([entree_text, entree_text]);
+  updateEntreesBlock();
+  // FIXME breaks when category is added
+  let cat = ws.toolbox_.contents_[5];
+  const items = cat.toolboxItemDef_.contents
+    ? rendered
+      ? cat.toolboxItemDef_.contents
+      : blockList.concat(cat.toolboxItemDef_.contents)
+    : blockList;
+
+  // Create entree
+  if (entrees.length == 1) {
+    items.push({
+      kind: "block",
+      type: "entree",
+    });
+    updateWsBlocs(ws, [entree_text, entree_text]);
+    cat.updateFlyoutContents(items);
+
+    ws.refreshToolboxSelection();
+  } else {
+    // Update entree
+    updateWsBlocs(ws, [entree_text, entree_text]);
+  }
+}
+function createConstant(button, blockList) {
+  const ws = button.getTargetWorkspace();
+  let const_name;
+  Blockly.dialog.prompt("Donnez le nom la constante", "Nom", function (text) {
+    const_name = text;
+  });
+  constants.push([const_name, const_name]);
+  updateConstantBlock();
+  // FIXME breaks when category is added
+  let cat = ws.toolbox_.contents_[5];
+  const items = cat.toolboxItemDef_.contents
+    ? rendered
+      ? cat.toolboxItemDef_.contents
+      : blockList.concat(cat.toolboxItemDef_.contents)
+    : blockList;
+
+  // Create constant
+  if (constants.length == 1) {
+    items.push({
+      kind: "block",
+      type: "constant",
+    });
+    updateWsBlocs(ws, [const_name, const_name]);
+    cat.updateFlyoutContents(items);
+
+    ws.refreshToolboxSelection();
+  } else {
+    // Update constant
+    updateWsBlocs(ws, [const_name, const_name]);
   }
 }
 
-function createPool(button, blockList) {
+function createPool(button) {
   const ws = button.getTargetWorkspace();
   let pool_name;
   Blockly.dialog.prompt("Donnez le nom de l'assiette", "Nom", function (text) {
     pool_name = text;
   });
   updatePools(ws, pool_name);
-}
-
-function createEntree(button, blockList) {
-  const ws = button.getTargetWorkspace();
-
-  // FIXME breaks when category is added
-  let cat = ws.toolbox_.contents_[5];
-  const items = cat.toolboxItemDef_.contents
-    ? blockList.concat(cat.toolboxItemDef_.contents)
-    : blockList;
-
-  items.push(
-    {
-      kind: "block",
-      type: "dest_pool",
-    },
-    {
-      kind: "block",
-      type: "dest_pool_context",
-    }
-  );
-  cat.updateFlyoutContents(items);
-
-  ws.refreshToolboxSelection();
-}
-
-function createConstant(button, blockList) {
-  const ws = button.getTargetWorkspace();
-
-  button["kind"] = "button";
-  // FIXME breaks when category is added
-  let cat = ws.toolbox_.contents_[5];
-  console.log("cotenents ", cat.toolboxItemDef_.contents);
-
-  const items = cat.toolboxItemDef_.contents
-    ? blockList.concat(cat.toolboxItemDef_.contents)
-    : blockList;
-  console.log("after items ", items);
-
-  items.push(
-    {
-      kind: "block",
-      type: "dest_pool",
-    },
-    {
-      kind: "block",
-      type: "dest_pool_context",
-    }
-  );
-  cat.updateFlyoutContents(items);
-
-  ws.refreshToolboxSelection();
 }
 
 export function create_entrees_callback(ws) {
@@ -269,15 +306,19 @@ export function create_entrees_callback(ws) {
 
   // Register the button callback
   ws.registerButtonCallback("CREATE_PARTNER", function (button) {
+    rendered = true;
     return createPartner(button, blockList);
   });
   ws.registerButtonCallback("CREATE_POOL", function (button) {
-    return createPool(button, blockList);
+    rendered = true;
+    return createPool(button);
   });
   ws.registerButtonCallback("CREATE_ENTREE", function (button) {
+    rendered = true;
     return createEntree(button, blockList);
   });
   ws.registerButtonCallback("CREATE_CONSTANT", function (button) {
+    rendered = true;
     return createConstant(button, blockList);
   });
   return blockList;

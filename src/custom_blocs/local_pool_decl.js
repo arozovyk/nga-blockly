@@ -165,9 +165,6 @@ function updateWorkspaceBlocks(ws, new_pool_value) {
 export function updatePools(ws, e) {
   const already_defined = pools.find((pool) => pool[0] == e);
   if (!already_defined && e != "nom assiette") {
-    let cat = ws.toolbox_.contents_[5];
-    let items = cat.toolboxItemDef_.contents;
-    console.log("before updating", cat, items);
     updateOperationCategory(ws); //toolbox
     updateEntreesCategory(ws, [e, e]); //toolbox
     updateWorkspaceBlocks(ws, [e, e]); //workspace
