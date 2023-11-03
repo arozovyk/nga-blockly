@@ -40,7 +40,7 @@ function updateConstantBlock() {
           },
         ],
         output: ["constant", "compare"],
-        colour: 60,
+        colour: 30,
         tooltip: "",
         helpUrl: "",
       });
