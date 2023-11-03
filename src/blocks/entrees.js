@@ -156,14 +156,7 @@ const event = {
     {
       type: "field_dropdown",
       name: "EVENT_NAME",
-      options: [
-        ["seuil_100000_entrees", "seuil_100000_entrees"],
-        [
-          "recuperation_frais_edition_distributeur",
-          "recuperation_frais_edition_distributeur",
-        ],
-        ["recuperation_minimum_garanti", "recuperation_minimum_garanti"],
-      ],
+      options: [["- à définir -", "- à définir -"]],
     },
   ],
   output: "event",

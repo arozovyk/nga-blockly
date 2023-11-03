@@ -24,7 +24,6 @@ function createDomainCasesBlock(type, domain, cases) {
   const options = cases.map((case_, i) => {
     return [case_, `case${i}`];
   });
-  console.log(options);
   Blockly.Blocks[type] = {
     init: function () {
       this.jsonInit({
@@ -61,8 +60,7 @@ function createContext(button) {
       cases = text.split(",");
     }
   );
-  console.log(domain, cases);
-  console.log(button);
+
   const blockTypeDomain = "tout_" + domain.toLowerCase();
   const blockTypeCases = `${domain.toLowerCase()}_cases`;
 
@@ -85,7 +83,7 @@ function createContext(button) {
     }
   );
   cat.updateFlyoutContents(items);
- 
+
   ws.refreshToolboxSelection();
 }
 

@@ -100,7 +100,6 @@ function updatePartenaireLabelBlock() {
 
 function updateWsBlocs(ws, new_value) {
   ws.getAllBlocks().forEach(function (block) {
-    console.log(block);
     switch (block.type) {
       case "partenaire":
         var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
@@ -114,7 +113,6 @@ function updateWsBlocs(ws, new_value) {
         break;
       case "partenaire_label":
         var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
-        console.log("surfiled", sur_field[0][0]);
         if (sur_field[0][0] == "- à définir -") {
           sur_field[0] = new_value;
           block.inputList[0].fieldRow[1].selectedOption = new_value;

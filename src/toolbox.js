@@ -73,47 +73,13 @@ export const toolbox = {
       kind: "category",
       name: "Evenements",
       categorystyle: "procedure_category",
-      contents: [
-        {
-          kind: "block",
-          type: "avant",
-        },
-        {
-          kind: "block",
-          type: "apres",
-        },
-        {
-          kind: "block",
-          type: "quand_statement",
-          inputs: {
-            COND: {
-              block: {
-                type: "event",
-              },
-            },
-          },
-        },
-        {
-          kind: "block",
-          type: "quand_statement",
-          inputs: {
-            COND: {
-              block: {
-                type: "logic_compare",
-              },
-            },
-          },
-        },
-        {
-          kind: "block",
-          type: "event",
-        },
-      ],
+      custom: "EVENTS",
     },
     {
       kind: "category",
       name: "Contexts",
       custom: "CONTEXTS",
+      categorystyle: "colour_category",
     },
     {
       kind: "sep",
