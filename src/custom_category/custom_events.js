@@ -54,7 +54,7 @@ function createEvent(button, blockList) {
   events.push([event_name, event_name]);
   updateEventBlock();
   // FIXME breaks when category is added
-  let cat = ws.toolbox_.contents_[5];
+  let cat = ws.toolbox_.contents_[1];
   const items = cat.toolboxItemDef_.contents
     ? rendered
       ? cat.toolboxItemDef_.contents
