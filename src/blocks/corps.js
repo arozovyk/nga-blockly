@@ -127,7 +127,7 @@ const retrocession = {
     },
     {
       type: "input_value",
-      name: "par",
+      name: "PAR",
       check: ["partenaire", "partenaire_label"],
       align: "RIGHT",
     },

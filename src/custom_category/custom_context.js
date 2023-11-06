@@ -24,7 +24,13 @@ function createAllDomainBlock(type, domain) {
     //TODO Add all types where context connects
     const parent = block.getParent();
 
-    if (!parent || parent.type != "operation_local_pool_decl") {
+    if (
+      !parent ||
+      !(
+        parent.type == "operation_local_pool_decl" ||
+        parent.type == "dest_pool_local_decl_context"
+      )
+    ) {
       return "";
     }
     return `tout ${domain}`;
@@ -59,21 +65,26 @@ function createDomainCasesBlock(type, domain, cases) {
     //dont generate the code if there is no parent
     //TODO Add all types
     const parent = block.getParent();
-    if (!parent || parent.type != "operation_local_pool_decl") {
+    if (
+      !parent ||
+      !(
+        parent.type == "operation_local_pool_decl" ||
+        parent.type == "dest_pool_local_decl_context"
+      )
+    ) {
       return "";
     }
     var current_block = block;
     var selected_cases = "";
     while (current_block) {
       const cas = current_block.getFieldValue("CASES");
-      console.log("cas", cas);
       selected_cases = cas
-        ? (selected_cases += `${selected_cases ? "," : ""}${cas}`)
+        ? (selected_cases += `${selected_cases ? ", " : ""}${cas}`)
         : selected_cases;
       current_block = current_block.getNextBlock();
     }
 
-    return `${domain} (${selected_cases} )`;
+    return `${domain} (${selected_cases})`;
   };
 }
 

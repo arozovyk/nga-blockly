@@ -49,7 +49,7 @@ const operation_par = {
     },
     {
       type: "input_value",
-      name: "par",
+      name: "PAR",
       check: ["partenaire", "partenaire_label"],
       align: "RIGHT",
     },
@@ -87,7 +87,7 @@ const operation_local_pool_decl = {
     },
     {
       type: "local_pool_decl_input",
-      name: "NOM_DECL",
+      name: "SUR",
       text: "nom assiette",
     },
     {
