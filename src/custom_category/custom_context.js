@@ -1,10 +1,11 @@
 import * as Blockly from "blockly";
+import { Order, niagaraGenerator } from "../generators/niagara";
 
-function createAllDomainBlock(blockType, domain) {
-  Blockly.Blocks[blockType] = {
+function createAllDomainBlock(type, domain) {
+  Blockly.Blocks[type] = {
     init: function () {
       this.jsonInit({
-        type: blockType,
+        type: type,
         message0: `Tout ${domain}  %1`,
         args0: [
           {
@@ -19,10 +20,19 @@ function createAllDomainBlock(blockType, domain) {
       });
     },
   };
+  niagaraGenerator.forBlock[type] = function (block) {
+    //TODO Add all types where context connects
+    const parent = block.getParent();
+
+    if (!parent || parent.type != "operation_local_pool_decl") {
+      return "";
+    }
+    return `tout ${domain}`;
+  };
 }
 function createDomainCasesBlock(type, domain, cases) {
   const options = cases.map((case_, i) => {
-    return [case_, `case${i}`];
+    return [case_, case_];
   });
   Blockly.Blocks[type] = {
     init: function () {
@@ -43,6 +53,27 @@ function createDomainCasesBlock(type, domain, cases) {
         helpUrl: "",
       });
     },
+  };
+
+  niagaraGenerator.forBlock[type] = function (block) {
+    //dont generate the code if there is no parent
+    //TODO Add all types
+    const parent = block.getParent();
+    if (!parent || parent.type != "operation_local_pool_decl") {
+      return "";
+    }
+    var current_block = block;
+    var selected_cases = "";
+    while (current_block) {
+      const cas = current_block.getFieldValue("CASES");
+      console.log("cas", cas);
+      selected_cases = cas
+        ? (selected_cases += `${selected_cases ? "," : ""}${cas}`)
+        : selected_cases;
+      current_block = current_block.getNextBlock();
+    }
+
+    return `${domain} (${selected_cases} )`;
   };
 }
 

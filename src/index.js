@@ -6,14 +6,12 @@
 
 import * as Blockly from "blockly";
 import { blocks } from "./blocks/blocks";
-import { forBlock } from "./generators/javascript";
-import { javascriptGenerator } from "blockly/javascript";
+import { niagaraGenerator } from "./generators/niagara";
 import { CustomCategory } from "./custom_category/custom_category_es6";
 import { ToolboxLabel } from "./custom_category/toolbox_label_es6";
 import { LocalPoolDeclInput, pools } from "./custom_blocs/local_pool_decl";
 import { toolbox } from "./toolbox";
 import { create_context_callback } from "./custom_category/custom_context";
-import { createCustomBlock } from "./custom_blocs/utils";
 import "./index.css";
 import { create_entrees_callback } from "./custom_category/custom_entrees";
 import { create_event_callback } from "./custom_category/custom_events";
@@ -34,8 +32,8 @@ Blockly.registry.register(
 // Register the blocks and generator with Blockly
 Blockly.common.defineBlocks(blocks);
 
-Object.assign(javascriptGenerator.forBlock, forBlock);
-
+/* Object.assign(niagaraGenerator.forBlock, forBlock);
+ */
 // Set up UI elements and inject Blockly
 const blocklyDiv = document.getElementById("blocklyDiv");
 
@@ -55,7 +53,6 @@ const ws = Blockly.inject(blocklyDiv, {
 Blockly.fieldRegistry.register("local_pool_decl_input", LocalPoolDeclInput);
 Blockly.fieldRegistry.register("local_event_decl_input", LocalEventDecl);
 
- 
 ws.registerToolboxCategoryCallback("CONTEXTS", function () {
   return create_context_callback(ws);
 });
@@ -64,4 +61,31 @@ ws.registerToolboxCategoryCallback("ENTREES", function () {
 });
 ws.registerToolboxCategoryCallback("EVENTS", function () {
   return create_event_callback(ws);
+});
+
+// Generator stuff
+const codeDiv = document.getElementById("generatedCode").firstChild;
+const outputDiv = document.getElementById("output");
+
+const runCode = () => {
+  const code = niagaraGenerator.workspaceToCode(ws);
+  codeDiv.innerText = code;
+
+  outputDiv.innerHTML = "";
+
+/*   eval(code);
+ */};
+
+ws.addChangeListener((e) => {
+  // Don't run the code when the workspace finishes loading; we're
+  // already running it once when the application starts.
+  // Don't run the code during drags; we might have invalid state.
+  if (
+    e.isUiEvent ||
+    e.type == Blockly.Events.FINISHED_LOADING ||
+    ws.isDragging()
+  ) {
+    return;
+  }
+  runCode();
 });
