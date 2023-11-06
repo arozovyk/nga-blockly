@@ -1,7 +1,5 @@
 import * as Blockly from "blockly";
-import { updatePools } from "../custom_blocs/local_pool_decl";
-
-export const events = [];
+import { updateEvents } from "../custom_blocs/local_event_decl";
 
 var rendered = false;
 
@@ -51,34 +49,7 @@ function createEvent(button, blockList) {
   Blockly.dialog.prompt("Donnez le nom de l'évènement", "Nom", function (text) {
     event_name = text;
   });
-  if (
-    events.find((e) => {
-      return e[0] == event_name;
-    })
-  ) {
-    Blockly.dialog.alert(` Événement ${event_name} existe déjà `);
-    return;
-  }
-  events.push([event_name, event_name]);
-  updateEventBlock();
-  // FIXME breaks when category is added
-  let cat = ws.toolbox_.contents_[1];
-  const items = cat.toolboxItemDef_.contents
-    ? rendered
-      ? cat.toolboxItemDef_.contents
-      : blockList.concat(cat.toolboxItemDef_.contents)
-    : blockList;
-
-  // Create partner
-  if (events.length == 1) {
-    updateWsBlocs(ws, [event_name, event_name]);
-    cat.updateFlyoutContents(items);
-
-    ws.refreshToolboxSelection();
-  } else {
-    // Update partners
-    updateWsBlocs(ws, [event_name, event_name]);
-  }
+  updateEvents(ws, event_name, false, blockList, rendered);
 }
 
 export function create_event_callback(ws) {
@@ -118,6 +89,24 @@ export function create_event_callback(ws) {
         COND: {
           block: {
             type: "logic_compare",
+          },
+        },
+      },
+    },
+    {
+      kind: "block",
+      type: "evenement_atteint",
+      inputs: {
+        COND: {
+          block: {
+            type: "logic_compare",
+          },
+        },
+      },
+      values: {
+        evenement_atteint: {
+          block: {
+            type: "quand",
           },
         },
       },

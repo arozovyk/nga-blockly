@@ -37,24 +37,6 @@ export const toolbox = {
         },
         {
           kind: "block",
-          type: "evenement_atteint",
-          inputs: {
-            COND: {
-              block: {
-                type: "logic_compare",
-              },
-            },
-          },
-          values: {
-            evenement_atteint: {
-              block: {
-                type: "quand",
-              },
-            },
-          },
-        },
-        {
-          kind: "block",
           type: "defaut_sur",
         },
         {

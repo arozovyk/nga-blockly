@@ -31,17 +31,12 @@ function updateConstantBlock() {
     init: function () {
       this.jsonInit({
         type: "constant",
-        message0: "Constante %1 %2",
+        message0: "Constante %1  ",
         args0: [
           {
             type: "field_dropdown",
             name: "NAME",
             options: constants,
-          },
-          {
-            type: "input_value",
-            name: "VALUE",
-            check: ["number", "monetary"],
           },
         ],
         output: ["constant", "compare"],
@@ -146,6 +141,14 @@ function createPartner(button, blockList) {
   Blockly.dialog.prompt("Donnez le nom du partenaire", "Nom", function (text) {
     partenaire_name = text;
   });
+  if (
+    partenaires.find((e) => {
+      return e[0] == partenaire_name;
+    })
+  ) {
+    Blockly.dialog.alert(`Partenaire ${partenaire_name} existe déjà `);
+    return;
+  }
   partenaires.push([partenaire_name, partenaire_name]);
   updatePartenaireBlock();
   updatePartenaireLabelBlock();
@@ -228,18 +231,27 @@ function createEntree(button, blockList) {
 function createConstant(button, blockList) {
   const ws = button.getTargetWorkspace();
   let const_name;
+  let value;
   Blockly.dialog.prompt("Donnez le nom la constante", "Nom", function (text) {
     const_name = text;
+    Blockly.dialog.prompt(
+      "Donnez une valeur (entière ou en €)",
+      "Valeur",
+      function (text) {
+        value = text;
+      }
+    );
   });
+
   if (
     constants.find((e) => {
       return e[0] == const_name;
     })
   ) {
-    Blockly.dialog.alert(` Entrée ${const_name} existe déjà `);
+    Blockly.dialog.alert(` Constante ${const_name} existe déjà `);
     return;
   }
-  constants.push([const_name, const_name]);
+  constants.push([`${const_name} : ${value}`, `${const_name} - ${value}`]);
   updateConstantBlock();
   // FIXME breaks when category is added
   let cat = ws.toolbox_.contents_[5];

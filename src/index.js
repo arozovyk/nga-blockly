@@ -17,6 +17,7 @@ import { createCustomBlock } from "./custom_blocs/utils";
 import "./index.css";
 import { create_entrees_callback } from "./custom_category/custom_entrees";
 import { create_event_callback } from "./custom_category/custom_events";
+import { LocalEventDecl } from "./custom_blocs/local_event_decl";
 
 Blockly.registry.register(
   Blockly.registry.Type.TOOLBOX_ITEM,
@@ -52,6 +53,7 @@ const ws = Blockly.inject(blocklyDiv, {
 });
 
 Blockly.fieldRegistry.register("local_pool_decl_input", LocalPoolDeclInput);
+Blockly.fieldRegistry.register("local_event_decl_input", LocalEventDecl);
 
 createCustomBlock("dest_pool_local_decl", "or_message");
 

@@ -38,7 +38,7 @@ const evenement_atteint = {
   message0: "evenement %1 %2 atteint quand %3",
   args0: [
     {
-      type: "field_input",
+      type: "local_event_decl_input",
       name: "NAME",
       text: "nom_evenement",
     },
