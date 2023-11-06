@@ -3,46 +3,6 @@ import { updateEvents } from "../custom_blocs/local_event_decl";
 
 var rendered = false;
 
-function updateEventBlock() {
-  Blockly.Blocks["event"] = {
-    init: function () {
-      this.jsonInit({
-        type: "event",
-        message0: " évènement %1",
-        args0: [
-          {
-            type: "field_dropdown",
-            name: "EVENT_NAME",
-            options: events,
-          },
-        ],
-        output: "event",
-        colour: 210,
-        tooltip: "",
-        helpUrl: "",
-      });
-    },
-  };
-}
-
-function updateWsBlocs(ws, new_value) {
-  ws.getAllBlocks().forEach(function (block) {
-    switch (block.type) {
-      case "event":
-        var sur_field = block.inputList[0].fieldRow[1].menuGenerator_;
-        if (sur_field[0][0] == "- à définir -") {
-          sur_field[0] = new_value;
-          block.inputList[0].fieldRow[1].selectedOption = new_value;
-          block.inputList[0].fieldRow[1].value_ = new_value[0];
-        } else {
-          sur_field.push(new_value);
-        }
-        break;
-    }
-    ws.refreshTheme();
-  });
-}
-
 function createEvent(button, blockList) {
   const ws = button.getTargetWorkspace();
   let event_name;
@@ -61,8 +21,8 @@ export function create_event_callback(ws) {
   };
 
   var blockList = [
-    event_button,
-
+/*     event_button,
+ */
     {
       kind: "block",
       type: "avant",

@@ -38,7 +38,7 @@ function updateOperationBlock() {
             check: ["corps"],
           },
         ],
-        colour: 123,
+        colour: 120,
         tooltip: "Define an operation",
         helpUrl: "",
       });

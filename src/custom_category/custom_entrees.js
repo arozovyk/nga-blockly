@@ -324,6 +324,10 @@ export function create_entrees_callback(ws) {
     kind: "block",
     type: "dest_pool_local_decl_context",
   };
+  const dest_pool_local_declBlock = {
+    kind: "block",
+    type: "dest_pool_local_decl",
+  };
 
   // Create the blockList array with the button and blocks
   var blockList = [
@@ -333,6 +337,7 @@ export function create_entrees_callback(ws) {
     constant_button,
     monetaryBlock,
     numberBlock,
+    dest_pool_local_declBlock,
     dest_pool_local_decl_contextBlock,
   ];
 

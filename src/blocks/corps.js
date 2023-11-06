@@ -37,7 +37,7 @@ const apres = {
   ],
   previousStatement: ["corps", "operation_par"],
   nextStatement: ["corps", "operation_par"],
-  colour: 330,
+  colour: 120,
   tooltip: "",
   helpUrl: "",
 };
@@ -66,7 +66,7 @@ const quotepart = {
   ],
   previousStatement: "corps",
   nextStatement: "corps",
-  colour: 65,
+  colour: 70,
   tooltip: "",
   helpUrl: "",
 };
@@ -78,7 +78,7 @@ const bonus = {
     {
       type: "field_number",
       name: "BONUS_VALUE",
-      value: 1000,
+      value: 1200,
     },
     {
       type: "input_value",
@@ -95,7 +95,7 @@ const bonus = {
   ],
   previousStatement: null,
   nextStatement: null,
-  colour: 195,
+  colour: 70,
   tooltip: "",
   helpUrl: "",
 };
@@ -123,17 +123,19 @@ const retrocession = {
         "dest_pool",
         "dest_pool_local_decl_context",
       ],
+      align: "RIGHT",
     },
     {
       type: "input_value",
       name: "par",
       check: ["partenaire", "partenaire_label"],
+      align: "RIGHT",
     },
   ],
   inputsInline: false,
   previousStatement: "operation_par",
   nextStatement: "operation_par",
-  colour: 230,
+  colour: 70,
   tooltip: "",
   helpUrl: "",
 };

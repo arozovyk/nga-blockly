@@ -51,6 +51,7 @@ const operation_par = {
       type: "input_value",
       name: "par",
       check: ["partenaire", "partenaire_label"],
+      align: "RIGHT",
     },
     {
       type: "input_dummy",
@@ -61,7 +62,7 @@ const operation_par = {
       check: ["corps", "operation_par"],
     },
   ],
-  colour: 210,
+  colour: 120,
   inputsInline: false,
   tooltip: "Define an operation",
   helpUrl: "",
@@ -98,7 +99,7 @@ const operation_local_pool_decl = {
       check: "corps",
     },
   ],
-  colour: 210,
+  colour: 120,
   tooltip: "Define an operation",
   helpUrl: "",
 };

@@ -8,7 +8,7 @@ const quand = {
     },
   ],
   output: "quand",
-  colour: 230,
+  colour: 120,
   tooltip: "",
   helpUrl: "",
 };
@@ -30,7 +30,7 @@ const quand_statement = {
   ],
   previousStatement: ["corps", "operation_par"],
   nextStatement: ["corps", "operation_par"],
-  colour: 60,
+  colour: 120,
   tooltip: "",
   helpUrl: "",
 };

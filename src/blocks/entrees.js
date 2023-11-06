@@ -195,7 +195,7 @@ const dest_pool_local_decl = {
   message0: "Assiette %1",
   args0: [
     {
-      type: "field_input",
+      type: "local_pool_decl_input",
       name: "NAME",
       text: "nom assiette",
     },

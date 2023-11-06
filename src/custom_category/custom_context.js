@@ -38,7 +38,7 @@ function createDomainCasesBlock(type, domain, cases) {
         ],
         previousStatement: "context",
         nextStatement: "context",
-        colour: 260,
+        colour: 20,
         tooltip: "",
         helpUrl: "",
       });

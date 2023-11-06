@@ -1,6 +1,6 @@
 const avance = {
   type: "avance",
-  message0: "avance %1 %2 sur %3 par %4  %5",
+  message0: "avance %1 %2 sur %3 par %4 montant %5",
   args0: [
     {
       type: "field_input",
@@ -20,15 +20,17 @@ const avance = {
       type: "input_value",
       name: "par",
       check: ["partenaire", "partenaire_label"],
+      align: "RIGHT",
     },
     {
       type: "input_value",
       name: "MONTANT",
       check: "monetary",
+      align: "RIGHT",
     },
   ],
   inputsInline: false,
-  colour: 230,
+  colour: 120,
   tooltip: "",
   helpUrl: "",
 };
@@ -49,10 +51,12 @@ const evenement_atteint = {
       type: "input_value",
       name: "COND",
       check: "Boolean",
+      align: "RIGHT",
+
     },
   ],
   inputsInline: false,
-  colour: 230,
+  colour: 210,
   tooltip: "",
   helpUrl: "",
 };
@@ -70,6 +74,7 @@ const defaut_sur = {
         "dest_pool_context",
         "dest_pool",
       ],
+      align: "RIGHT",
     },
     {
       type: "input_value",
@@ -82,9 +87,10 @@ const defaut_sur = {
         "dest_pool",
         "dest_pool_local_decl_context",
       ],
+      align: "RIGHT",
     },
   ],
-  colour: 45,
+  colour: 120,
   tooltip: "",
   helpUrl: "",
 };
@@ -102,15 +108,17 @@ const deficit = {
         "dest_pool_context",
         "dest_pool",
       ],
+      align: "RIGHT",
     },
     {
       type: "input_value",
       name: "par",
       check: ["partenaire", "partenaire_label"],
+      align: "RIGHT",
     },
   ],
   inputsInline: false,
-  colour: 230,
+  colour: 120,
   tooltip: "",
   helpUrl: "",
 };
