@@ -1,6 +1,6 @@
 import * as Blockly from "blockly";
 import { Order, niagaraGenerator } from "../generators/niagara";
-
+import { contexts } from "../model/model";
 function createAllDomainBlock(type, domain) {
   Blockly.Blocks[type] = {
     init: function () {
@@ -28,6 +28,7 @@ function createAllDomainBlock(type, domain) {
       !parent ||
       !(
         parent.type == "operation_local_pool_decl" ||
+        parent.type == "operation" ||
         parent.type == "dest_pool_local_decl_context"
       )
     ) {
@@ -69,6 +70,7 @@ function createDomainCasesBlock(type, domain, cases) {
       !parent ||
       !(
         parent.type == "operation_local_pool_decl" ||
+        parent.type == "operation" ||
         parent.type == "dest_pool_local_decl_context"
       )
     ) {
@@ -102,7 +104,11 @@ function createContext(button) {
       cases = text.split(",");
     }
   );
-
+  if (contexts.has(domain)) {
+    Blockly.dialog.alert(`Contexte ${domain} existe déjà `);
+    return;
+  }
+  contexts.set(domain, new Set(cases));
   const blockTypeDomain = "tout_" + domain.toLowerCase();
   const blockTypeCases = `${domain.toLowerCase()}_cases`;
 

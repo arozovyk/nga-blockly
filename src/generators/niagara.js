@@ -1,11 +1,29 @@
 import * as Blockly from "blockly";
-
+import * as Model from "../model/model";
 export const niagaraGenerator = new Blockly.Generator("NIAGARA");
 
 export const Order = {
   ATOMIC: 0,
 };
 
+function modelToCode() {
+  let ctx_code = "";
+
+  for (const entry of Model.contexts.entries()) {
+    let values = entry[1].values();
+    let cases = "";
+    for (const value of values) {
+      cases += `- ${value}\n`;
+    }
+    console.log("dog");
+    ctx_code += `\ncontexte ${entry[0]}:\n${cases}`;
+  }
+  console.log("c cod", ctx_code, Model.contexts);
+  return ctx_code;
+}
+niagaraGenerator.finish = function (code) {
+  return modelToCode() + code;
+};
 niagaraGenerator.scrub_ = function (block, code, thisOnly) {
   const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
   if (nextBlock && !thisOnly) {

@@ -1,9 +1,7 @@
 import * as Blockly from "blockly";
 import { updatePools } from "../custom_blocs/local_pool_decl";
+import { partners as partenaires, entrees, constants } from "../model/model";
 
-export const partenaires = [];
-export const entrees = [];
-export const constants = [];
 var rendered = false;
 function updatePartenaireBlock() {
   Blockly.Blocks["partenaire"] = {
@@ -27,6 +25,10 @@ function updatePartenaireBlock() {
   };
 }
 function updateConstantBlock() {
+  let options = [];
+  for (const key of constants.keys()) {
+    options.push([key, key]);
+  }
   Blockly.Blocks["constant"] = {
     init: function () {
       this.jsonInit({
@@ -36,7 +38,7 @@ function updateConstantBlock() {
           {
             type: "field_dropdown",
             name: "NAME",
-            options: constants,
+            options,
           },
         ],
         output: ["constant", "compare"],
@@ -49,6 +51,10 @@ function updateConstantBlock() {
   };
 }
 function updateEntreesBlock() {
+  let options = [];
+  for (const key of entrees.keys()) {
+    options.push([key, key]);
+  }
   Blockly.Blocks["entree"] = {
     init: function () {
       this.jsonInit({
@@ -58,7 +64,7 @@ function updateEntreesBlock() {
           {
             type: "field_dropdown",
             name: "NAME",
-            options: entrees,
+            options,
           },
         ],
         output: ["entree", "compare"],
@@ -191,19 +197,23 @@ function createPartner(button, blockList) {
 }
 function createEntree(button, blockList) {
   const ws = button.getTargetWorkspace();
-  let entree_text;
+  let entree_name;
+  let type;
   Blockly.dialog.prompt("Donnez le nom l'entrée", "Nom", function (text) {
-    entree_text = text;
+    entree_name = text;
+    Blockly.dialog.prompt(
+      "Donnez le type (argent | nombre) ",
+      "argent",
+      function (text) {
+        type = text;
+      }
+    );
   });
-  if (
-    entrees.find((e) => {
-      return e[0] == entree_text;
-    })
-  ) {
-    Blockly.dialog.alert(` Entrée ${entree_text} existe déjà `);
+  if (entrees.has(entree_name)) {
+    Blockly.dialog.alert(` Entrée ${entree_name} existe déjà `);
     return;
   }
-  entrees.push([entree_text, entree_text]);
+  entrees.set(entree_name, type);
   updateEntreesBlock();
   // FIXME breaks when category is added
   let cat = ws.toolbox_.contents_[5];
@@ -214,18 +224,18 @@ function createEntree(button, blockList) {
     : blockList;
 
   // Create entree
-  if (entrees.length == 1) {
+  if (entrees.size == 1) {
     items.push({
       kind: "block",
       type: "entree",
     });
-    updateWsBlocs(ws, [entree_text, entree_text]);
+    updateWsBlocs(ws, [entree_name, entree_name]);
     cat.updateFlyoutContents(items);
 
     ws.refreshToolboxSelection();
   } else {
     // Update entree
-    updateWsBlocs(ws, [entree_text, entree_text]);
+    updateWsBlocs(ws, [entree_name, entree_name]);
   }
 }
 function createConstant(button, blockList) {
@@ -243,16 +253,14 @@ function createConstant(button, blockList) {
     );
   });
 
-  if (
-    constants.find((e) => {
-      return e[0] == const_name;
-    })
-  ) {
+  if (constants.has(const_name)) {
     Blockly.dialog.alert(` Constante ${const_name} existe déjà `);
     return;
   }
-  constants.push([`${const_name} : ${value}`, `${const_name} - ${value}`]);
-  updateConstantBlock();
+
+  constants.set(const_name, value);
+  /*   constants.push([`${const_name} : ${value}`, `${const_name} - ${value}`]);
+   */ updateConstantBlock();
   // FIXME breaks when category is added
   let cat = ws.toolbox_.contents_[5];
   const items = cat.toolboxItemDef_.contents
@@ -262,7 +270,7 @@ function createConstant(button, blockList) {
     : blockList;
 
   // Create constant
-  if (constants.length == 1) {
+  if (constants.size == 1) {
     items.push({
       kind: "block",
       type: "constant",
@@ -295,7 +303,7 @@ export function create_entrees_callback(ws) {
   };
   const assiette_button = {
     kind: "button",
-    text: "Définir une assiette",
+    text: "Définir une assiette d'entrée",
     callbackKey: "CREATE_POOL",
   };
   const entree_button = {

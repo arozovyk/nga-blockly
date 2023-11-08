@@ -1,7 +1,6 @@
 import * as Blockly from "blockly";
 import { create_event_callback } from "../custom_category/custom_events";
-
-export const events = [];
+import { events } from "../model/model";
 
 function updateEventBlock() {
   Blockly.Blocks["event"] = {

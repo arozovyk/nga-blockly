@@ -1,7 +1,6 @@
 import * as Blockly from "blockly";
-
+import { pools, entree_pools } from "../model/model";
 import { create_entrees_callback } from "../custom_category/custom_entrees";
-export const pools = [];
 
 function updateOperationBlock() {
   Blockly.Blocks["operation"] = {
@@ -114,7 +113,7 @@ function updateOperationCategory(ws, new_option) {
   ws.refreshToolboxSelection();
 }
 
-function updateEntreesCategory(ws, new_option) {
+function updateEntreesCategory(ws, new_option, edit) {
   updateDest_pool_contextBlock();
   updateDest_poolBlock();
   let cat = ws.toolbox_.contents_[5];
@@ -127,8 +126,10 @@ function updateEntreesCategory(ws, new_option) {
       (item) => item.type != "dest_pool" && item.type != "dest_pool_context"
     );
   }
-  pools.push(new_option);
+  if (!edit) entree_pools.push(new_option);
 
+  pools.push(new_option);
+  
   items.push(
     {
       kind: "block",
