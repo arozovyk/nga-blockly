@@ -13,7 +13,14 @@ const avance = {
     {
       type: "input_value",
       name: "SUR",
-      check: ["partenaire", "partenaire_label"],
+      check: [
+        "partenaire",
+        "partenaire_label",
+        "dest_pool",
+        "dest_pool_context",
+        "dest_pool_local_decl",
+        "dest_pool_local_decl_context",
+      ],
       align: "RIGHT",
     },
     {
@@ -52,7 +59,6 @@ const evenement_atteint = {
       name: "COND",
       check: "Boolean",
       align: "RIGHT",
-
     },
   ],
   inputsInline: false,

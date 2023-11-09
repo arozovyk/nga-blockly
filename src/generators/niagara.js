@@ -160,7 +160,7 @@ niagaraGenerator.forBlock["avance"] = function (block, generator) {
   const par = generator.valueToCode(block, "par", Order.ATOMIC);
   const montant = generator.valueToCode(block, "MONTANT", Order.ATOMIC);
 
-  const code = `avance ${nom_avance} sur ${sur} par ${par} montant ${montant}`;
+  const code = `avance '${nom_avance}' sur ${sur} par ${par} montant ${montant}`;
 
   return code;
 };
@@ -188,7 +188,7 @@ niagaraGenerator.forBlock["deficit"] = function (block, generator) {
   const sur = generator.valueToCode(block, "SUR", Order.ATOMIC);
   const par = generator.valueToCode(block, "par", Order.ATOMIC);
 
-  const code = `déficit sur ${sur} par ${par}`;
+  const code = `deficit sur ${sur} par ${par}`;
 
   return code;
 };
@@ -233,7 +233,7 @@ niagaraGenerator.forBlock["number"] = function (block, generator) {
 niagaraGenerator.forBlock["monetary"] = function (block, generator) {
   const value = block.getFieldValue("NAME");
 
-  return [`${value} €`, Order.ATOMIC];
+  return [`${value}$`, Order.ATOMIC];
 };
 
 niagaraGenerator.forBlock["constant"] = function (block, generator) {
