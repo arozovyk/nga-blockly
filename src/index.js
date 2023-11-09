@@ -5,7 +5,7 @@
  */
 
 import { save, load } from "./serialization";
- 
+
 import * as Blockly from "blockly";
 import { blocks } from "./blocks/blocks";
 import { niagaraGenerator } from "./generators/niagara";
@@ -77,7 +77,7 @@ const runCode = () => {
 };
 
 /* load(ws);
- */runCode();
+ */ runCode();
 
 ws.addChangeListener((e) => {
   // Don't run the code when the workspace finishes loading; we're
@@ -98,5 +98,18 @@ ws.addChangeListener((e) => {
   // UI events are things like scrolling, zooming, etc.
   // No need to save after one of these.
   if (e.isUiEvent) return;
-/*   save(ws);
- */});
+  /*   save(ws);
+   */
+});
+
+document.getElementById("writeButton").addEventListener("click", () => {
+  const data = niagaraGenerator.workspaceToCode(ws);
+  const blob = new Blob([data], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "myFile.txt";
+  a.style.display = "none";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+});
