@@ -1,6 +1,10 @@
 import * as Blockly from "blockly";
 import { Order, niagaraGenerator } from "../generators/niagara";
 import { contexts } from "../model/model";
+// todo move to utils
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 function createAllDomainBlock(type, domain) {
   Blockly.Blocks[type] = {
     init: function () {
@@ -81,12 +85,16 @@ function createDomainCasesBlock(type, domain, cases) {
     while (current_block) {
       const cas = current_block.getFieldValue("CASES");
       selected_cases = cas
-        ? (selected_cases += `${selected_cases ? ", " : ""}${cas}`)
+        ? (selected_cases += `${
+            selected_cases ? ", " : ""
+          }${capitalizeFirstLetter(cas)}`)
         : selected_cases;
       current_block = current_block.getNextBlock();
     }
 
-    return `${domain} (${selected_cases})`;
+    return `${
+      parent.type == "dest_pool_local_decl_context" ? "" : domain
+    } (${selected_cases})`;
   };
 }
 
@@ -94,8 +102,9 @@ function createContext(button) {
   const ws = button.getTargetWorkspace();
   let domain;
   let cases = [];
+
   Blockly.dialog.prompt("Donnez un nom de domaine", "Nom", function (text) {
-    domain = text;
+    domain = capitalizeFirstLetter(text);
   });
   Blockly.dialog.prompt(
     "Listez les cas (séparés par une virgule)",
@@ -108,7 +117,8 @@ function createContext(button) {
     Blockly.dialog.alert(`Contexte ${domain} existe déjà `);
     return;
   }
-  contexts.set(domain, new Set(cases));
+
+  contexts.set(domain, new Set(cases.map(capitalizeFirstLetter)));
   const blockTypeDomain = "tout_" + domain.toLowerCase();
   const blockTypeCases = `${domain.toLowerCase()}_cases`;
 

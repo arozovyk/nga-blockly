@@ -2,6 +2,10 @@ import * as Blockly from "blockly";
 import { updatePools } from "../custom_blocs/local_pool_decl";
 import { partners as partenaires, entrees, constants } from "../model/model";
 
+// todo move to utils
+export function uncapitalizeFirstLetter(string) {
+  return string.charAt(0).toLowerCase() + string.slice(1);
+}
 var rendered = false;
 function updatePartenaireBlock() {
   Blockly.Blocks["partenaire"] = {
@@ -145,7 +149,7 @@ function createPartner(button, blockList) {
   const ws = button.getTargetWorkspace();
   let partenaire_name;
   Blockly.dialog.prompt("Donnez le nom du partenaire", "Nom", function (text) {
-    partenaire_name = text;
+    partenaire_name = uncapitalizeFirstLetter(text);
   });
   if (
     partenaires.find((e) => {
@@ -200,12 +204,12 @@ function createEntree(button, blockList) {
   let entree_name;
   let type;
   Blockly.dialog.prompt("Donnez le nom l'entrée", "Nom", function (text) {
-    entree_name = text;
+    entree_name = uncapitalizeFirstLetter(text);
     Blockly.dialog.prompt(
-      "Donnez le type (argent | nombre) ",
-      "argent",
+      "Donnez le type (argent | entier) ",
+      "entier",
       function (text) {
-        type = text;
+        type = uncapitalizeFirstLetter(text);
       }
     );
   });
@@ -243,12 +247,12 @@ function createConstant(button, blockList) {
   let const_name;
   let value;
   Blockly.dialog.prompt("Donnez le nom la constante", "Nom", function (text) {
-    const_name = text;
+    const_name = uncapitalizeFirstLetter(text);
     Blockly.dialog.prompt(
       "Donnez une valeur (entière ou en €)",
-      "Valeur",
+      "entier",
       function (text) {
-        value = text;
+        value = uncapitalizeFirstLetter(text);
       }
     );
   });
@@ -289,7 +293,7 @@ function createPool(button) {
   const ws = button.getTargetWorkspace();
   let pool_name;
   Blockly.dialog.prompt("Donnez le nom de l'assiette", "Nom", function (text) {
-    pool_name = text;
+    pool_name = uncapitalizeFirstLetter(text);
   });
   updatePools(ws, pool_name, false);
 }

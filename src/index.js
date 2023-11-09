@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { save, load } from "./serialization";
+
 import * as Blockly from "blockly";
 import { blocks } from "./blocks/blocks";
 import { niagaraGenerator } from "./generators/niagara";
@@ -72,9 +74,10 @@ const runCode = () => {
   codeDiv.innerText = code;
 
   outputDiv.innerHTML = "";
+};
 
-/*   eval(code);
- */};
+/* load(ws);
+ */runCode();
 
 ws.addChangeListener((e) => {
   // Don't run the code when the workspace finishes loading; we're
@@ -89,3 +92,11 @@ ws.addChangeListener((e) => {
   }
   runCode();
 });
+
+// Every time the workspace changes state, save the changes to storage.
+ws.addChangeListener((e) => {
+  // UI events are things like scrolling, zooming, etc.
+  // No need to save after one of these.
+  if (e.isUiEvent) return;
+/*   save(ws);
+ */});

@@ -1,6 +1,9 @@
 import * as Blockly from "blockly";
 import { pools, entree_pools } from "../model/model";
-import { create_entrees_callback } from "../custom_category/custom_entrees";
+import {
+  create_entrees_callback,
+  uncapitalizeFirstLetter,
+} from "../custom_category/custom_entrees";
 
 function updateOperationBlock() {
   Blockly.Blocks["operation"] = {
@@ -129,7 +132,7 @@ function updateEntreesCategory(ws, new_option, edit) {
   if (!edit) entree_pools.push(new_option);
 
   pools.push(new_option);
-  
+
   items.push(
     {
       kind: "block",
@@ -164,10 +167,11 @@ function updateWorkspaceBlocks(ws, new_pool_value) {
   });
 }
 export function updatePools(ws, e, edit) {
+  e = uncapitalizeFirstLetter(e);
   const already_defined = pools.find((pool) => pool[0] == e);
   if (!already_defined && e != "nom assiette") {
     updateOperationCategory(ws); //toolbox
-    updateEntreesCategory(ws, [e, e]); //toolbox
+    updateEntreesCategory(ws, [e, e], edit); //toolbox
     updateWorkspaceBlocks(ws, [e, e]); //workspace
   } else {
     if (!edit) {
