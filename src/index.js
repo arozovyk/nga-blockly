@@ -76,8 +76,8 @@ const runCode = () => {
   outputDiv.innerHTML = "";
 };
 
-/* load(ws);
- */runCode();
+load(ws);
+runCode();
 
 ws.addChangeListener((e) => {
   // Don't run the code when the workspace finishes loading; we're
@@ -98,5 +98,5 @@ ws.addChangeListener((e) => {
   // UI events are things like scrolling, zooming, etc.
   // No need to save after one of these.
   if (e.isUiEvent) return;
-/*   save(ws);
- */});
+  save(ws);
+});
