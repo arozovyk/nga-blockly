@@ -107,7 +107,7 @@ document.getElementById("writeButton").addEventListener("click", () => {
   const blob = new Blob([data], { type: "text/plain" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "myFile.txt";
+  a.download = "test.nga";
   a.style.display = "none";
   document.body.appendChild(a);
   a.click();
